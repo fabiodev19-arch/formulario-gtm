@@ -165,7 +165,7 @@
 
 <div class="content">
   <div class="stats">
-    <div class="stat-card total"><div class="stat-label">Total</div><div class="stat-value" id="stat-total">—</div></div>
+    <div class="stat-card total"><div class="stat-label">Total</div><div class="stat-value" id="stat-total">—</div><div class="stat-sub" id="stat-devolvido-sub"></div></div>
     <div class="stat-card pendente"><div class="stat-label">Pendentes</div><div class="stat-value" id="stat-pendente">—</div></div>
     <div class="stat-card em-compra"><div class="stat-label">Em Compra</div><div class="stat-value" id="stat-emcompra">—</div></div>
     <div class="stat-card concluido"><div class="stat-label">Concluídos</div><div class="stat-value" id="stat-concluido">—</div></div>
@@ -321,7 +321,7 @@
   function updateStats() {
     const devolvidos = allData.filter(d => d.status === 'Devolvido').length;
     document.getElementById('stat-total').textContent = allData.length;
-    document.getElementById('stat-devolvido-sub').textContent = devolvidos > 0 ? '🔴 ' + devolvidos + ' devolvida' + (devolvidos > 1 ? 's' : '') : '';
+    const subEl = document.getElementById('stat-devolvido-sub'); if (subEl) subEl.textContent = devolvidos > 0 ? '🔴 ' + devolvidos + ' devolvida' + (devolvidos > 1 ? 's' : '') : '';
     document.getElementById('stat-pendente').textContent = allData.filter(d => d.status === 'Pendente').length;
     document.getElementById('stat-emcompra').textContent = allData.filter(d => d.status === 'Em compra').length;
     document.getElementById('stat-concluido').textContent = allData.filter(d => d.status === 'Concluído').length;
