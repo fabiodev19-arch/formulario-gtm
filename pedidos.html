@@ -309,13 +309,13 @@
   // ---- LOAD DATA ----
   async function loadData() {
     try {
-      const res = await fetch(SUPABASE_URL + '/rest/v1/solicitacoes?order=numero_pedido.desc', {
+      const res = await fetch(SUPABASE_URL + '/rest/v1/solicitacoes?order=criado_em.desc', {
         headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
       });
       allData = await res.json();
       updateStats();
       renderTable();
-    } catch(e) { showToast('❌ Erro ao carregar dados', 'error'); }
+    } catch(e) { showToast('❌ Erro ao carregar: ' + e.message, 'error'); console.error(e); }
   }
 
   function updateStats() {
