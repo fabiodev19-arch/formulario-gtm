@@ -39,7 +39,8 @@
   .field label .req { color:var(--blue-light); margin-left:2px; }
   .field label .opt { color:var(--muted); font-weight:400; font-size:11px; margin-left:4px; text-transform:none; letter-spacing:0; }
   .field .hint { font-size:11px; color:var(--muted); margin-top:-2px; margin-bottom:2px; }
-  .field input[type="text"], .field textarea { background:var(--card); border:1.5px solid var(--border); border-radius:8px; color:var(--text); font-family:'Barlow',sans-serif; font-size:14px; padding:10px 14px; transition:border-color 0.2s,box-shadow 0.2s; outline:none; width:100%; }
+  .field input[type="text"], .field textarea { background:var(--card); border:1.5px solid var(--border); border-radius:8px; color:var(--text); font-family:'Barlow',sans-serif; font-size:14px; padding:10px 14px; transition:border-color 0.2s,box-shadow 0.2s; outline:none; width:100%; text-transform:uppercase; }
+  .field input::placeholder, .field textarea::placeholder { text-transform:none; }
   .field input:focus, .field textarea:focus { border-color:var(--blue-light); box-shadow:0 0 0 3px rgba(46,155,190,0.15); }
   .field textarea { resize:vertical; min-height:90px; }
   .field input.invalid, .field textarea.invalid { border-color:var(--error) !important; box-shadow:0 0 0 3px rgba(231,76,60,0.15) !important; }
@@ -95,7 +96,7 @@
       <div class="chips"><span class="chip">Setor Administrativo</span><span class="chip">GTM Serviços</span></div>
     </div>
   </div>
-  <a class="btn-admin" href="pedidos.html">⚙️ Admin</a>
+  <a class="btn-admin" href="pedidos.html">📋 Ver Pedidos</a>
 </div>
 <div class="container">
   <div class="info-block">
@@ -189,24 +190,32 @@
   const BUCKET = 'imagens-solicitacoes';
   let imageFile = null;
 
+  // Converte para maiúsculo ao digitar
+  const upperFields = ['titulo','quantidade','solicitante','regiao','frente','aplicacao','detalhes'];
+  upperFields.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', function() {
+      const pos = this.selectionStart;
+      this.value = this.value.toUpperCase();
+      this.setSelectionRange(pos, pos);
+    });
+  });
+
+  function val(id) { return document.getElementById(id).value.trim().toUpperCase(); }
+
   function handleImage(input) {
     const file = input.files[0];
     if (!file) return;
     imageFile = file;
     document.getElementById('file-name').textContent = file.name;
     const reader = new FileReader();
-    reader.onload = e => {
-      const preview = document.getElementById('img-preview');
-      preview.src = e.target.result;
-      preview.style.display = 'block';
-    };
+    reader.onload = e => { const p = document.getElementById('img-preview'); p.src = e.target.result; p.style.display = 'block'; };
     reader.readAsDataURL(file);
   }
 
   function showToast(msg, type='success') {
     const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.className = 'toast ' + type + ' show';
+    t.textContent = msg; t.className = 'toast ' + type + ' show';
     setTimeout(() => t.classList.remove('show'), 5000);
   }
 
@@ -215,21 +224,13 @@
   function validate() {
     let ok = true;
     requiredFields.forEach(id => {
-      const el = document.getElementById(id);
-      const err = document.getElementById('err-' + id);
+      const el = document.getElementById(id), err = document.getElementById('err-' + id);
       if (!el.value.trim()) { el.classList.add('invalid'); err.classList.add('show'); ok = false; }
       else { el.classList.remove('invalid'); err.classList.remove('show'); }
     });
-    const usoImediato = document.getElementById('uso_imediato').checked;
-    const reserva = document.getElementById('reserva').checked;
-    if (!usoImediato && !reserva) {
-      document.getElementById('check-group').classList.add('invalid');
-      document.getElementById('err-destinacao').classList.add('show');
-      ok = false;
-    } else {
-      document.getElementById('check-group').classList.remove('invalid');
-      document.getElementById('err-destinacao').classList.remove('show');
-    }
+    const ui = document.getElementById('uso_imediato').checked, rv = document.getElementById('reserva').checked;
+    if (!ui && !rv) { document.getElementById('check-group').classList.add('invalid'); document.getElementById('err-destinacao').classList.add('show'); ok = false; }
+    else { document.getElementById('check-group').classList.remove('invalid'); document.getElementById('err-destinacao').classList.remove('show'); }
     return ok;
   }
 
@@ -248,11 +249,7 @@
   });
 
   function clearForm() {
-    requiredFields.forEach(id => {
-      const el = document.getElementById(id);
-      el.value = ''; el.classList.remove('invalid');
-      document.getElementById('err-' + id).classList.remove('show');
-    });
+    requiredFields.forEach(id => { const el = document.getElementById(id); el.value = ''; el.classList.remove('invalid'); document.getElementById('err-' + id).classList.remove('show'); });
     document.getElementById('uso_imediato').checked = false;
     document.getElementById('reserva').checked = false;
     document.getElementById('check-group').classList.remove('invalid');
@@ -269,16 +266,14 @@
   async function uploadImage(file, titulo) {
     const ext = file.name.split('.').pop();
     const fileName = Date.now() + '_' + titulo.replace(/[^a-z0-9]/gi,'_') + '.' + ext;
-    const progressBar = document.getElementById('progress-bar');
-    const progressFill = document.getElementById('progress-fill');
-    progressBar.classList.add('show');
-    progressFill.style.width = '30%';
+    const pb = document.getElementById('progress-bar'), pf = document.getElementById('progress-fill');
+    pb.classList.add('show'); pf.style.width = '30%';
     const res = await fetch(SUPABASE_URL + '/storage/v1/object/' + BUCKET + '/' + fileName, {
       method: 'POST',
       headers: { 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': file.type, 'x-upsert': 'true' },
       body: file
     });
-    progressFill.style.width = '100%';
+    pf.style.width = '100%';
     if (!res.ok) throw new Error('Erro no upload da imagem');
     return SUPABASE_URL + '/storage/v1/object/public/' + BUCKET + '/' + fileName;
   }
@@ -288,29 +283,30 @@
     const btn = document.getElementById('btn-send');
     btn.classList.add('loading'); btn.disabled = true;
     showToast('⏳ Enviando solicitação...', 'warning');
-    const usoImediato = document.getElementById('uso_imediato').checked;
-    const reserva = document.getElementById('reserva').checked;
-    const destinacao = [usoImediato?'Uso imediato':'', reserva?'Reserva em campo / frente de serviço':''].filter(Boolean).join(', ');
-    const titulo = document.getElementById('titulo').value.trim();
+    const ui = document.getElementById('uso_imediato').checked, rv = document.getElementById('reserva').checked;
+    const destinacao = [ui?'USO IMEDIATO':'', rv?'RESERVA EM CAMPO / FRENTE DE SERVIÇO':''].filter(Boolean).join(', ');
+    const titulo = val('titulo');
     try {
       let imagemUrl = null;
       if (imageFile) { showToast('⏳ Enviando imagem...','warning'); imagemUrl = await uploadImage(imageFile, titulo); }
       const payload = {
-        titulo, quantidade: document.getElementById('quantidade').value.trim(),
-        solicitante: document.getElementById('solicitante').value.trim(),
-        regiao: document.getElementById('regiao').value.trim(),
-        frente: document.getElementById('frente').value.trim(),
-        aplicacao: document.getElementById('aplicacao').value.trim(),
-        destinacao, detalhes: document.getElementById('detalhes').value.trim(),
-        imagem_url: imagemUrl, criado_em: new Date().toISOString()
+        titulo, quantidade: val('quantidade'),
+        solicitante: val('solicitante'),
+        regiao: val('regiao'),
+        frente: val('frente'),
+        aplicacao: val('aplicacao'),
+        destinacao, detalhes: val('detalhes'),
+        imagem_url: imagemUrl, criado_em: new Date().toISOString(), status: 'Pendente'
       };
       const res = await fetch(SUPABASE_URL + '/rest/v1/solicitacoes', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Prefer': 'return=minimal' },
+        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Prefer': 'return=representation' },
         body: JSON.stringify(payload)
       });
       if (!res.ok) { const err = await res.json(); throw new Error(err.message||'Erro ao salvar'); }
-      showToast('✅ Solicitação enviada com sucesso!', 'success');
+      const saved = await res.json();
+      const num = saved[0].numero_pedido;
+      showToast('✅ Pedido #' + num + ' enviado com sucesso!', 'success');
       clearForm();
     } catch(err) {
       showToast('❌ Erro: ' + err.message, 'error');

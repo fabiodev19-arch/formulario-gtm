@@ -13,20 +13,8 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Barlow', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-  .login-screen { display:flex; align-items:center; justify-content:center; min-height:100vh; padding:20px; }
-  .login-card { background:var(--card); border:1.5px solid var(--border); border-radius:16px; padding:40px; width:100%; max-width:380px; text-align:center; }
-  .login-logo { width:72px; height:72px; border-radius:50%; background:linear-gradient(145deg,#1B5E7A,#0e2d3f); border:3px solid var(--blue-light); display:flex; flex-direction:column; align-items:center; justify-content:center; margin:0 auto 20px; }
-  .login-logo span:first-child { font-family:'Barlow Condensed',sans-serif; font-size:22px; font-weight:700; color:#fff; }
-  .login-logo span:last-child { font-size:5px; color:var(--blue-pale); text-align:center; line-height:1.3; margin-top:1px; }
-  .login-card h2 { font-family:'Barlow Condensed',sans-serif; font-size:22px; color:#fff; margin-bottom:6px; }
-  .login-card p { font-size:13px; color:var(--muted); margin-bottom:28px; }
-  .login-field input { width:100%; background:var(--bg); border:1.5px solid var(--border); border-radius:8px; color:var(--text); font-family:'Barlow',sans-serif; font-size:14px; padding:11px 14px; outline:none; transition:border-color 0.2s; margin-bottom:16px; }
-  .login-field input:focus { border-color:var(--blue-light); }
-  .login-field input.invalid { border-color:var(--error); }
-  .login-error { font-size:12px; color:var(--error); margin-bottom:12px; display:none; }
-  .login-error.show { display:block; }
-  .btn-login { width:100%; background:linear-gradient(135deg,var(--blue-mid),var(--blue-light)); border:none; color:#fff; font-family:'Barlow',sans-serif; font-size:15px; font-weight:700; padding:12px; border-radius:8px; cursor:pointer; transition:all 0.2s; }
-  .btn-login:hover { opacity:0.9; transform:translateY(-1px); }
+
+  /* HEADER */
   .header { background:linear-gradient(135deg,#0e2d3f 0%,#1B5E7A 60%,#1a4f6a 100%); padding:20px 32px; display:flex; align-items:center; justify-content:space-between; border-bottom:3px solid var(--blue-light); position:relative; overflow:hidden; }
   .header::after { content:''; position:absolute; right:-60px; top:-60px; width:250px; height:250px; border-radius:50%; border:35px solid rgba(46,155,190,0.08); }
   .header-left { display:flex; align-items:center; gap:20px; }
@@ -39,9 +27,16 @@
   .header-nav { display:flex; gap:10px; align-items:center; position:relative; z-index:1; }
   .btn-nav { background:rgba(46,155,190,0.15); border:1.5px solid var(--blue-light); color:var(--blue-pale); font-family:'Barlow',sans-serif; font-size:13px; font-weight:600; padding:8px 18px; border-radius:8px; cursor:pointer; transition:all 0.2s; text-decoration:none; }
   .btn-nav:hover { background:rgba(46,155,190,0.3); color:#fff; }
-  .btn-logout { background:rgba(231,76,60,0.1); border:1.5px solid rgba(231,76,60,0.3); color:#e74c3c; font-family:'Barlow',sans-serif; font-size:13px; font-weight:600; padding:8px 16px; border-radius:8px; cursor:pointer; transition:all 0.2s; }
-  .btn-logout:hover { background:rgba(231,76,60,0.2); }
+  .btn-admin-login { background:rgba(46,155,190,0.1); border:1.5px solid rgba(46,155,190,0.2); color:rgba(168,216,234,0.5); font-family:'Barlow',sans-serif; font-size:11px; padding:6px 14px; border-radius:8px; cursor:pointer; transition:all 0.2s; }
+  .btn-admin-login:hover { background:rgba(46,155,190,0.2); color:var(--blue-pale); border-color:var(--blue-light); }
+  .btn-admin-logout { background:rgba(231,76,60,0.1); border:1.5px solid rgba(231,76,60,0.3); color:#e74c3c; font-family:'Barlow',sans-serif; font-size:11px; padding:6px 14px; border-radius:8px; cursor:pointer; transition:all 0.2s; display:none; }
+  .btn-admin-logout:hover { background:rgba(231,76,60,0.2); }
+  .admin-badge { background:rgba(46,204,113,0.15); border:1px solid rgba(46,204,113,0.3); color:#2ecc71; font-size:11px; font-weight:700; padding:4px 10px; border-radius:20px; display:none; }
+
+  /* CONTENT */
   .content { max-width:1200px; margin:28px auto; padding:0 20px; }
+
+  /* STATS */
   .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:28px; }
   .stat-card { background:var(--card); border:1.5px solid var(--border); border-radius:10px; padding:16px 20px; }
   .stat-label { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
@@ -50,118 +45,180 @@
   .stat-card.pendente .stat-value { color:var(--warning); }
   .stat-card.em-compra .stat-value { color:var(--info); }
   .stat-card.concluido .stat-value { color:var(--success); }
+
+  /* FILTERS */
   .filters { display:flex; gap:12px; margin-bottom:20px; flex-wrap:wrap; align-items:center; }
   .filter-input { background:var(--card); border:1.5px solid var(--border); border-radius:8px; color:var(--text); font-family:'Barlow',sans-serif; font-size:13px; padding:9px 14px; outline:none; transition:border-color 0.2s; flex:1; min-width:180px; }
   .filter-input:focus { border-color:var(--blue-light); }
   .filter-select { background:var(--card); border:1.5px solid var(--border); border-radius:8px; color:var(--text); font-family:'Barlow',sans-serif; font-size:13px; padding:9px 14px; outline:none; cursor:pointer; }
   .filter-select option { background:var(--card); }
-  .btn-excel { background:linear-gradient(135deg,#1a7a3a,#27ae60); border:none; color:#fff; font-family:'Barlow',sans-serif; font-size:13px; font-weight:700; padding:9px 20px; border-radius:8px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
-  .btn-excel:hover { opacity:0.9; transform:translateY(-1px); }
+  .btn-excel { background:linear-gradient(135deg,#1a7a3a,#27ae60); border:none; color:#fff; font-family:'Barlow',sans-serif; font-size:13px; font-weight:700; padding:9px 20px; border-radius:8px; cursor:pointer; transition:all 0.2s; white-space:nowrap; opacity:0.3; cursor:not-allowed; }
+  .btn-excel.enabled { opacity:1; cursor:pointer; }
+  .btn-excel.enabled:hover { opacity:0.9; transform:translateY(-1px); }
   .btn-refresh { background:none; border:1.5px solid var(--border); color:var(--muted); font-family:'Barlow',sans-serif; font-size:13px; padding:9px 16px; border-radius:8px; cursor:pointer; transition:all 0.2s; }
   .btn-refresh:hover { border-color:var(--blue-light); color:var(--blue-pale); }
+
+  /* TABLE */
   .table-wrap { background:var(--card); border:1.5px solid var(--border); border-radius:12px; overflow:hidden; }
   .table-scroll { overflow-x:auto; }
-  table { width:100%; border-collapse:collapse; min-width:900px; }
+  table { width:100%; border-collapse:collapse; min-width:960px; }
   thead th { background:#0d1e2e; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); padding:14px 16px; text-align:left; border-bottom:1px solid var(--border); white-space:nowrap; }
   tbody tr { border-bottom:1px solid rgba(30,74,98,0.4); transition:background 0.15s; }
   tbody tr:hover { background:rgba(46,155,190,0.04); }
   tbody tr:last-child { border-bottom:none; }
   td { padding:12px 16px; font-size:13px; vertical-align:middle; }
   td.date { color:var(--muted); font-size:12px; white-space:nowrap; }
-  td.titulo { font-weight:600; color:#fff; max-width:180px; }
+  td.num { font-family:'Barlow Condensed',sans-serif; font-size:15px; font-weight:700; color:var(--blue-light); white-space:nowrap; }
+  td.titulo { font-weight:600; color:#fff; max-width:160px; }
   td.titulo span { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+  /* Status */
   .status-badge { display:inline-flex; align-items:center; padding:4px 10px; border-radius:20px; font-size:11px; font-weight:700; }
-  .status-Pendente { background:rgba(243,156,18,0.15); color:#f39c12; border:1px solid rgba(243,156,18,0.3); }
-  .status-Em-compra { background:rgba(52,152,219,0.15); color:#3498db; border:1px solid rgba(52,152,219,0.3); }
-  .status-Concluido { background:rgba(46,204,113,0.15); color:#2ecc71; border:1px solid rgba(46,204,113,0.3); }
-  .status-Devolvido { background:rgba(231,76,60,0.15); color:#e74c3c; border:1px solid rgba(231,76,60,0.3); }
+  .s-Pendente { background:rgba(243,156,18,0.15); color:#f39c12; border:1px solid rgba(243,156,18,0.3); }
+  .s-Em-compra { background:rgba(52,152,219,0.15); color:#3498db; border:1px solid rgba(52,152,219,0.3); }
+  .s-Concluido { background:rgba(46,204,113,0.15); color:#2ecc71; border:1px solid rgba(46,204,113,0.3); }
+  .s-Devolvido { background:rgba(231,76,60,0.15); color:#e74c3c; border:1px solid rgba(231,76,60,0.3); }
   .status-select { background:transparent; border:none; color:inherit; font-family:'Barlow',sans-serif; font-size:11px; font-weight:700; cursor:pointer; outline:none; padding:0; }
+  .status-select:disabled { cursor:default; opacity:1; -webkit-appearance:none; appearance:none; pointer-events:none; }
   .status-select option { background:#112233; color:var(--text); }
+
+  /* Motivo devolução */
+  .motivo-chip { font-size:11px; color:#e74c3c; background:rgba(231,76,60,0.08); border:1px solid rgba(231,76,60,0.2); border-radius:6px; padding:3px 8px; margin-top:4px; display:block; max-width:160px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; cursor:help; }
+
+  /* Imagem */
   .img-thumb { width:44px; height:44px; object-fit:cover; border-radius:6px; border:1px solid var(--border); cursor:pointer; transition:transform 0.2s; }
   .img-thumb:hover { transform:scale(1.1); }
   .no-img { font-size:11px; color:var(--muted); }
-  .modal-bg { position:fixed; inset:0; background:rgba(0,0,0,0.85); display:none; align-items:center; justify-content:center; z-index:999; padding:20px; }
+
+  /* Modal imagem */
+  .modal-bg { position:fixed; inset:0; background:rgba(0,0,0,0.85); display:none; align-items:center; justify-content:center; z-index:998; padding:20px; }
   .modal-bg.show { display:flex; }
   .modal-img { max-width:90vw; max-height:85vh; border-radius:10px; border:2px solid var(--blue-light); }
   .modal-close { position:fixed; top:20px; right:24px; background:none; border:none; color:#fff; font-size:32px; cursor:pointer; z-index:1000; }
+
+  /* Modal admin login */
+  .modal-login-bg { position:fixed; inset:0; background:rgba(0,0,0,0.7); display:none; align-items:center; justify-content:center; z-index:999; }
+  .modal-login-bg.show { display:flex; }
+  .modal-login-card { background:var(--card); border:1.5px solid var(--border); border-radius:16px; padding:32px; width:100%; max-width:340px; text-align:center; }
+  .modal-login-card h3 { font-family:'Barlow Condensed',sans-serif; font-size:20px; color:#fff; margin-bottom:6px; }
+  .modal-login-card p { font-size:13px; color:var(--muted); margin-bottom:20px; }
+  .modal-login-card input { width:100%; background:var(--bg); border:1.5px solid var(--border); border-radius:8px; color:var(--text); font-family:'Barlow',sans-serif; font-size:14px; padding:11px 14px; outline:none; margin-bottom:12px; transition:border-color 0.2s; }
+  .modal-login-card input:focus { border-color:var(--blue-light); }
+  .modal-login-card input.invalid { border-color:var(--error); }
+  .login-err { font-size:12px; color:var(--error); margin-bottom:10px; display:none; }
+  .login-err.show { display:block; }
+  .modal-login-btns { display:flex; gap:10px; }
+  .btn-modal-cancel { flex:1; background:none; border:1.5px solid var(--border); color:var(--muted); font-family:'Barlow',sans-serif; font-size:13px; font-weight:600; padding:10px; border-radius:8px; cursor:pointer; }
+  .btn-modal-enter { flex:1; background:linear-gradient(135deg,var(--blue-mid),var(--blue-light)); border:none; color:#fff; font-family:'Barlow',sans-serif; font-size:13px; font-weight:700; padding:10px; border-radius:8px; cursor:pointer; }
+
+  /* Modal motivo devolução */
+  .modal-motivo-bg { position:fixed; inset:0; background:rgba(0,0,0,0.7); display:none; align-items:center; justify-content:center; z-index:999; }
+  .modal-motivo-bg.show { display:flex; }
+  .modal-motivo-card { background:var(--card); border:1.5px solid var(--border); border-radius:16px; padding:32px; width:100%; max-width:420px; }
+  .modal-motivo-card h3 { font-family:'Barlow Condensed',sans-serif; font-size:18px; color:#fff; margin-bottom:6px; }
+  .modal-motivo-card p { font-size:13px; color:var(--muted); margin-bottom:16px; }
+  .modal-motivo-card textarea { width:100%; background:var(--bg); border:1.5px solid var(--border); border-radius:8px; color:var(--text); font-family:'Barlow',sans-serif; font-size:13px; padding:10px 14px; outline:none; resize:vertical; min-height:100px; margin-bottom:16px; text-transform:uppercase; }
+  .modal-motivo-card textarea:focus { border-color:var(--error); }
+  .modal-motivo-btns { display:flex; gap:10px; }
+  .btn-motivo-cancel { flex:1; background:none; border:1.5px solid var(--border); color:var(--muted); font-family:'Barlow',sans-serif; font-size:13px; font-weight:600; padding:10px; border-radius:8px; cursor:pointer; }
+  .btn-motivo-save { flex:1; background:linear-gradient(135deg,#8b0000,#e74c3c); border:none; color:#fff; font-family:'Barlow',sans-serif; font-size:13px; font-weight:700; padding:10px; border-radius:8px; cursor:pointer; }
+
   .empty { text-align:center; padding:60px 20px; color:var(--muted); }
   .empty .empty-icon { font-size:48px; margin-bottom:12px; }
   .toast { position:fixed; bottom:30px; right:30px; color:#fff; font-family:'Barlow',sans-serif; font-size:14px; font-weight:600; padding:14px 24px; border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,0.3); transform:translateY(80px); opacity:0; transition:all 0.3s; pointer-events:none; z-index:1001; }
   .toast.show { transform:translateY(0); opacity:1; }
   .toast.success { background:var(--success); }
   .toast.error { background:var(--error); }
-  @media (max-width:700px) { .stats { grid-template-columns:1fr 1fr; } .header { flex-direction:column; gap:14px; align-items:flex-start; } }
+  .toast.warning { background:#e8a020; }
+  @media (max-width:700px) { .stats { grid-template-columns:1fr 1fr; } .header { flex-direction:column; gap:14px; } }
 </style>
 </head>
 <body>
 
-<div class="login-screen" id="login-screen">
-  <div class="login-card">
-    <div class="login-logo"><span>GTM</span><span>PRESTADORA<br>DE SERVIÇOS</span></div>
-    <h2>Painel de Compras</h2>
-    <p>Digite a senha para acessar</p>
-    <div class="login-field">
-      <input type="password" id="senha-input" placeholder="Senha" onkeydown="if(event.key==='Enter') login()"/>
-    </div>
-    <div class="login-error" id="login-error">Senha incorreta. Tente novamente.</div>
-    <button class="btn-login" onclick="login()">Entrar</button>
+<div class="header">
+  <div class="header-left">
+    <div class="logo-sm"><span>GTM</span><span>PRESTADORA<br>DE SERVIÇOS</span></div>
+    <div class="header-divider"></div>
+    <div class="header-title"><h1>Painel de Compras</h1><p>Acompanhamento de solicitações em tempo real</p></div>
+  </div>
+  <div class="header-nav">
+    <a class="btn-nav" href="index.html">📝 Novo Pedido</a>
+    <span class="admin-badge" id="admin-badge">⚙️ Admin</span>
+    <button class="btn-admin-login" id="btn-admin-login" onclick="openLoginModal()">⚙️ Admin</button>
+    <button class="btn-admin-logout" id="btn-admin-logout" onclick="logoutAdmin()">Sair</button>
   </div>
 </div>
 
-<div id="painel" style="display:none">
-  <div class="header">
-    <div class="header-left">
-      <div class="logo-sm"><span>GTM</span><span>PRESTADORA<br>DE SERVIÇOS</span></div>
-      <div class="header-divider"></div>
-      <div class="header-title"><h1>Painel de Compras</h1><p>Gestão de solicitações em tempo real</p></div>
-    </div>
-    <div class="header-nav">
-      <a class="btn-nav" href="index.html">📝 Novo Pedido</a>
-      <button class="btn-logout" onclick="logout()">Sair</button>
-    </div>
+<div class="content">
+  <div class="stats">
+    <div class="stat-card total"><div class="stat-label">Total</div><div class="stat-value" id="stat-total">—</div></div>
+    <div class="stat-card pendente"><div class="stat-label">Pendentes</div><div class="stat-value" id="stat-pendente">—</div></div>
+    <div class="stat-card em-compra"><div class="stat-label">Em Compra</div><div class="stat-value" id="stat-emcompra">—</div></div>
+    <div class="stat-card concluido"><div class="stat-label">Concluídos</div><div class="stat-value" id="stat-concluido">—</div></div>
   </div>
-  <div class="content">
-    <div class="stats">
-      <div class="stat-card total"><div class="stat-label">Total</div><div class="stat-value" id="stat-total">—</div></div>
-      <div class="stat-card pendente"><div class="stat-label">Pendentes</div><div class="stat-value" id="stat-pendente">—</div></div>
-      <div class="stat-card em-compra"><div class="stat-label">Em Compra</div><div class="stat-value" id="stat-emcompra">—</div></div>
-      <div class="stat-card concluido"><div class="stat-label">Concluídos</div><div class="stat-value" id="stat-concluido">—</div></div>
-    </div>
-    <div class="filters">
-      <input class="filter-input" id="f-busca" placeholder="🔍 Buscar por título, solicitante, região..." oninput="renderTable()"/>
-      <select class="filter-select" id="f-status" onchange="renderTable()">
-        <option value="">Todos os status</option>
-        <option value="Pendente">🟡 Pendente</option>
-        <option value="Em compra">🔵 Em compra</option>
-        <option value="Concluído">🟢 Concluído</option>
-        <option value="Devolvido">🔴 Devolvido</option>
-      </select>
-      <button class="btn-refresh" onclick="loadData()">🔄 Atualizar</button>
-      <button class="btn-excel" onclick="exportExcel()">⬇️ Exportar Excel</button>
-    </div>
-    <div class="table-wrap">
-      <div class="table-scroll">
-        <table>
-          <thead>
-            <tr>
-              <th>Data</th><th>Título do Pedido</th><th>Qtd</th><th>Solicitante</th>
-              <th>Região</th><th>Frente</th><th>Aplicação</th><th>Destinação</th>
-              <th>Detalhes</th><th>Imagem</th><th>Status</th>
-            </tr>
-          </thead>
-          <tbody id="table-body">
-            <tr><td colspan="11" style="text-align:center;padding:40px;color:var(--muted)">⏳ Carregando pedidos...</td></tr>
-          </tbody>
-        </table>
-      </div>
+  <div class="filters">
+    <input class="filter-input" id="f-busca" placeholder="🔍 Buscar por título, solicitante, região..." oninput="renderTable()"/>
+    <select class="filter-select" id="f-status" onchange="renderTable()">
+      <option value="">Todos os status</option>
+      <option value="Pendente">🟡 Pendente</option>
+      <option value="Em compra">🔵 Em compra</option>
+      <option value="Concluído">🟢 Concluído</option>
+      <option value="Devolvido">🔴 Devolvido</option>
+    </select>
+    <button class="btn-refresh" onclick="loadData()">🔄 Atualizar</button>
+    <button class="btn-excel" id="btn-excel" onclick="exportExcel()">⬇️ Exportar Excel</button>
+  </div>
+  <div class="table-wrap">
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th><th>Data</th><th>Título do Pedido</th><th>Qtd</th><th>Solicitante</th>
+            <th>Região</th><th>Frente</th><th>Aplicação</th><th>Destinação</th>
+            <th>Detalhes</th><th>Imagem</th><th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          <tr><td colspan="12" style="text-align:center;padding:40px;color:var(--muted)">⏳ Carregando pedidos...</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
 
+<!-- MODAL IMAGEM -->
 <div class="modal-bg" id="modal-bg" onclick="closeModal()">
   <button class="modal-close" onclick="closeModal()">✕</button>
-  <img class="modal-img" id="modal-img" src="" alt="Imagem do item"/>
+  <img class="modal-img" id="modal-img" src="" alt=""/>
 </div>
+
+<!-- MODAL LOGIN ADMIN -->
+<div class="modal-login-bg" id="modal-login-bg">
+  <div class="modal-login-card">
+    <h3>🔐 Acesso Admin</h3>
+    <p>Digite a senha para habilitar as funções administrativas</p>
+    <input type="password" id="admin-senha" placeholder="Senha" onkeydown="if(event.key==='Enter') confirmLogin()"/>
+    <div class="login-err" id="login-err">Senha incorreta.</div>
+    <div class="modal-login-btns">
+      <button class="btn-modal-cancel" onclick="closeLoginModal()">Cancelar</button>
+      <button class="btn-modal-enter" onclick="confirmLogin()">Entrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL MOTIVO DEVOLUÇÃO -->
+<div class="modal-motivo-bg" id="modal-motivo-bg">
+  <div class="modal-motivo-card">
+    <h3>🔴 Motivo da Devolução</h3>
+    <p>Informe o motivo pelo qual esta solicitação está sendo devolvida:</p>
+    <textarea id="motivo-text" placeholder="DESCREVA O MOTIVO DA DEVOLUÇÃO..."></textarea>
+    <div class="modal-motivo-btns">
+      <button class="btn-motivo-cancel" onclick="cancelMotivo()">Cancelar</button>
+      <button class="btn-motivo-save" onclick="saveMotivo()">Confirmar Devolução</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -169,47 +226,66 @@
   const SUPABASE_URL = 'https://ogmovdwcoxfoemutqugk.supabase.co';
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9nbW92ZHdjb3hmb2VtdXRxdWdrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAzMjMyNzYsImV4cCI6MjA5NTg5OTI3Nn0.LTYEXPla_doUdqU8orfBsGUAE_m9pHfKBFBtMblZt5Y';
   const SENHA = '@fGare4d&8s_';
+
   let allData = [];
+  let isAdmin = false;
+  let pendingStatusId = null;
+  let pendingStatusVal = null;
+  let pendingSelectEl = null;
 
-  function login() {
-    const val = document.getElementById('senha-input').value;
-    const err = document.getElementById('login-error');
-    const inp = document.getElementById('senha-input');
-    if (val === SENHA) {
-      document.getElementById('login-screen').style.display = 'none';
-      document.getElementById('painel').style.display = 'block';
-      loadData();
-    } else {
-      inp.classList.add('invalid');
-      err.classList.add('show');
-      setTimeout(() => { inp.classList.remove('invalid'); err.classList.remove('show'); }, 3000);
-    }
-  }
-
-  function logout() {
-    document.getElementById('painel').style.display = 'none';
-    document.getElementById('login-screen').style.display = 'flex';
-    document.getElementById('senha-input').value = '';
-  }
-
+  // ---- TOAST ----
   function showToast(msg, type='success') {
     const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.className = 'toast ' + type + ' show';
-    setTimeout(() => t.classList.remove('show'), 3500);
+    t.textContent = msg; t.className = 'toast ' + type + ' show';
+    setTimeout(() => t.classList.remove('show'), 4000);
   }
 
+  // ---- ADMIN LOGIN ----
+  function openLoginModal() {
+    document.getElementById('admin-senha').value = '';
+    document.getElementById('login-err').classList.remove('show');
+    document.getElementById('admin-senha').classList.remove('invalid');
+    document.getElementById('modal-login-bg').classList.add('show');
+    setTimeout(() => document.getElementById('admin-senha').focus(), 100);
+  }
+  function closeLoginModal() { document.getElementById('modal-login-bg').classList.remove('show'); }
+  function confirmLogin() {
+    const val = document.getElementById('admin-senha').value;
+    if (val === SENHA) {
+      isAdmin = true;
+      closeLoginModal();
+      document.getElementById('btn-admin-login').style.display = 'none';
+      document.getElementById('btn-admin-logout').style.display = 'block';
+      document.getElementById('admin-badge').style.display = 'inline-flex';
+      document.getElementById('btn-excel').classList.add('enabled');
+      renderTable();
+      showToast('✅ Modo admin ativado!', 'success');
+    } else {
+      document.getElementById('admin-senha').classList.add('invalid');
+      document.getElementById('login-err').classList.add('show');
+      setTimeout(() => { document.getElementById('admin-senha').classList.remove('invalid'); document.getElementById('login-err').classList.remove('show'); }, 2500);
+    }
+  }
+  function logoutAdmin() {
+    isAdmin = false;
+    document.getElementById('btn-admin-login').style.display = 'block';
+    document.getElementById('btn-admin-logout').style.display = 'none';
+    document.getElementById('admin-badge').style.display = 'none';
+    document.getElementById('btn-excel').classList.remove('enabled');
+    renderTable();
+    showToast('Modo admin desativado', 'warning');
+  }
+
+  // ---- LOAD DATA ----
   async function loadData() {
     try {
-      const res = await fetch(SUPABASE_URL + '/rest/v1/solicitacoes?order=criado_em.desc', {
+      const res = await fetch(SUPABASE_URL + '/rest/v1/solicitacoes?order=numero_pedido.desc', {
         headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
       });
       allData = await res.json();
       updateStats();
       renderTable();
-    } catch(e) {
-      showToast('❌ Erro ao carregar dados', 'error');
-    }
+    } catch(e) { showToast('❌ Erro ao carregar dados', 'error'); }
   }
 
   function updateStats() {
@@ -219,73 +295,117 @@
     document.getElementById('stat-concluido').textContent = allData.filter(d => d.status === 'Concluído').length;
   }
 
-  function getStatusClass(status) {
-    const map = { 'Pendente':'Pendente', 'Em compra':'Em-compra', 'Concluído':'Concluido', 'Devolvido':'Devolvido' };
-    return map[status] || 'Pendente';
+  function scClass(s) {
+    const m = {'Pendente':'Pendente','Em compra':'Em-compra','Concluído':'Concluido','Devolvido':'Devolvido'};
+    return m[s] || 'Pendente';
   }
 
   function renderTable() {
     const busca = document.getElementById('f-busca').value.toLowerCase();
     const status = document.getElementById('f-status').value;
     let filtered = allData.filter(d => {
-      const matchBusca = !busca || (d.titulo||'').toLowerCase().includes(busca) || (d.solicitante||'').toLowerCase().includes(busca) || (d.regiao||'').toLowerCase().includes(busca) || (d.frente||'').toLowerCase().includes(busca);
-      const matchStatus = !status || d.status === status;
-      return matchBusca && matchStatus;
+      const mb = !busca || (d.titulo||'').toLowerCase().includes(busca) || (d.solicitante||'').toLowerCase().includes(busca) || (d.regiao||'').toLowerCase().includes(busca) || (d.frente||'').toLowerCase().includes(busca);
+      return mb && (!status || d.status === status);
     });
     const tbody = document.getElementById('table-body');
-    if (filtered.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="11"><div class="empty"><div class="empty-icon">📭</div><p>Nenhum pedido encontrado</p></div></td></tr>';
+    if (!filtered.length) {
+      tbody.innerHTML = '<tr><td colspan="12"><div class="empty"><div class="empty-icon">📭</div><p>Nenhum pedido encontrado</p></div></td></tr>';
       return;
     }
     tbody.innerHTML = filtered.map(d => {
       const data = d.criado_em ? new Date(d.criado_em).toLocaleString('pt-BR') : '—';
-      const imgHtml = d.imagem_url ? '<img class="img-thumb" src="' + d.imagem_url + '" onclick="openModal(\'' + d.imagem_url + '\')" alt="imagem"/>' : '<span class="no-img">—</span>';
-      const sc = getStatusClass(d.status || 'Pendente');
-      return '<tr><td class="date">' + data + '</td><td class="titulo"><span title="' + (d.titulo||'') + '">' + (d.titulo||'—') + '</span></td><td>' + (d.quantidade||'—') + '</td><td>' + (d.solicitante||'—') + '</td><td>' + (d.regiao||'—') + '</td><td>' + (d.frente||'—') + '</td><td>' + (d.aplicacao||'—') + '</td><td>' + (d.destinacao||'—') + '</td><td>' + (d.detalhes||'—') + '</td><td>' + imgHtml + '</td><td><span class="status-badge status-' + sc + '"><select class="status-select" onchange="updateStatus(\'' + d.id + '\', this.value)"><option ' + (d.status==='Pendente'?'selected':'') + '>Pendente</option><option ' + (d.status==='Em compra'?'selected':'') + '>Em compra</option><option ' + (d.status==='Concluído'?'selected':'') + '>Concluído</option><option ' + (d.status==='Devolvido'?'selected':'') + '>Devolvido</option></select></span></td></tr>';
+      const imgHtml = d.imagem_url ? '<img class="img-thumb" src="' + d.imagem_url + '" onclick="openModal(\'' + d.imagem_url + '\')" alt="img"/>' : '<span class="no-img">—</span>';
+      const sc = scClass(d.status || 'Pendente');
+      const motivoHtml = d.status === 'Devolvido' && d.motivo_devolucao ? '<span class="motivo-chip" title="' + d.motivo_devolucao + '">' + d.motivo_devolucao + '</span>' : '';
+      const statusHtml = isAdmin
+        ? '<span class="status-badge s-' + sc + '"><select class="status-select" onchange="handleStatusChange(\'' + d.id + '\', this.value, this)"><option ' + (d.status==='Pendente'?'selected':'') + '>Pendente</option><option ' + (d.status==='Em compra'?'selected':'') + '>Em compra</option><option ' + (d.status==='Concluído'?'selected':'') + '>Concluído</option><option ' + (d.status==='Devolvido'?'selected':'') + '>Devolvido</option></select></span>' + motivoHtml
+        : '<span class="status-badge s-' + sc + '">' + (d.status||'Pendente') + '</span>' + motivoHtml;
+      return '<tr><td class="num">#' + (d.numero_pedido||'—') + '</td><td class="date">' + data + '</td><td class="titulo"><span title="' + (d.titulo||'') + '">' + (d.titulo||'—') + '</span></td><td>' + (d.quantidade||'—') + '</td><td>' + (d.solicitante||'—') + '</td><td>' + (d.regiao||'—') + '</td><td>' + (d.frente||'—') + '</td><td>' + (d.aplicacao||'—') + '</td><td>' + (d.destinacao||'—') + '</td><td>' + (d.detalhes||'—') + '</td><td>' + imgHtml + '</td><td>' + statusHtml + '</td></tr>';
     }).join('');
   }
 
-  async function updateStatus(id, novoStatus) {
+  // ---- STATUS ----
+  function handleStatusChange(id, novoStatus, el) {
+    if (novoStatus === 'Devolvido') {
+      pendingStatusId = id;
+      pendingStatusVal = novoStatus;
+      pendingSelectEl = el;
+      document.getElementById('motivo-text').value = '';
+      document.getElementById('modal-motivo-bg').classList.add('show');
+      setTimeout(() => document.getElementById('motivo-text').focus(), 100);
+    } else {
+      updateStatus(id, novoStatus, null);
+    }
+  }
+
+  function cancelMotivo() {
+    document.getElementById('modal-motivo-bg').classList.remove('show');
+    if (pendingSelectEl) {
+      const item = allData.find(d => d.id === pendingStatusId);
+      if (item) pendingSelectEl.value = item.status;
+    }
+    pendingStatusId = pendingStatusVal = pendingSelectEl = null;
+  }
+
+  function saveMotivo() {
+    const motivo = document.getElementById('motivo-text').value.trim().toUpperCase();
+    if (!motivo) { showToast('⚠️ Informe o motivo da devolução!', 'warning'); return; }
+    document.getElementById('modal-motivo-bg').classList.remove('show');
+    updateStatus(pendingStatusId, 'Devolvido', motivo);
+    pendingStatusId = pendingStatusVal = pendingSelectEl = null;
+  }
+
+  async function updateStatus(id, novoStatus, motivo) {
     try {
+      const body = { status: novoStatus };
+      if (motivo) body.motivo_devolucao = motivo;
       const res = await fetch(SUPABASE_URL + '/rest/v1/solicitacoes?id=eq.' + id, {
         method: 'PATCH',
         headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
-        body: JSON.stringify({ status: novoStatus })
+        body: JSON.stringify(body)
       });
       if (res.ok) {
         const item = allData.find(d => d.id === id);
-        if (item) item.status = novoStatus;
-        updateStats();
-        renderTable();
+        if (item) { item.status = novoStatus; if (motivo) item.motivo_devolucao = motivo; }
+        updateStats(); renderTable();
         showToast('✅ Status atualizado: ' + novoStatus);
       } else { showToast('❌ Erro ao atualizar status', 'error'); }
     } catch(e) { showToast('❌ Erro ao atualizar status', 'error'); }
   }
 
-  function openModal(url) {
-    document.getElementById('modal-img').src = url;
-    document.getElementById('modal-bg').classList.add('show');
-  }
+  // ---- MODAL IMAGEM ----
+  function openModal(url) { document.getElementById('modal-img').src = url; document.getElementById('modal-bg').classList.add('show'); }
   function closeModal() { document.getElementById('modal-bg').classList.remove('show'); }
 
+  // ---- EXPORT EXCEL (só admin) ----
   function exportExcel() {
+    if (!isAdmin) { showToast('⚠️ Acesso restrito ao admin!', 'warning'); return; }
     const busca = document.getElementById('f-busca').value.toLowerCase();
     const status = document.getElementById('f-status').value;
     let filtered = allData.filter(d => {
-      const matchBusca = !busca || (d.titulo||'').toLowerCase().includes(busca) || (d.solicitante||'').toLowerCase().includes(busca) || (d.regiao||'').toLowerCase().includes(busca);
-      return matchBusca && (!status || d.status === status);
+      const mb = !busca || (d.titulo||'').toLowerCase().includes(busca) || (d.solicitante||'').toLowerCase().includes(busca) || (d.regiao||'').toLowerCase().includes(busca);
+      return mb && (!status || d.status === status);
     });
     const wsData = [
-      ['Data Envio','Título do Pedido','Quantidade','Solicitante','Região','Frente de Serviço','Aplicação','Destinação','Detalhes','Imagem (Link)','Status'],
-      ...filtered.map(d => [d.criado_em ? new Date(d.criado_em).toLocaleString('pt-BR') : '', d.titulo, d.quantidade, d.solicitante, d.regiao, d.frente, d.aplicacao, d.destinacao, d.detalhes, d.imagem_url||'', d.status])
+      ['#','Data Envio','Título do Pedido','Quantidade','Solicitante','Região','Frente de Serviço','Aplicação','Destinação','Detalhes','Imagem (Link)','Status','Motivo Devolução'],
+      ...filtered.map(d => [
+        d.numero_pedido, d.criado_em ? new Date(d.criado_em).toLocaleString('pt-BR') : '',
+        d.titulo, d.quantidade, d.solicitante, d.regiao, d.frente,
+        d.aplicacao, d.destinacao, d.detalhes, d.imagem_url||'', d.status, d.motivo_devolucao||''
+      ])
     ];
     const ws = XLSX.utils.aoa_to_sheet(wsData);
-    ws['!cols'] = [{wch:20},{wch:35},{wch:12},{wch:25},{wch:15},{wch:25},{wch:20},{wch:25},{wch:35},{wch:40},{wch:15}];
+    ws['!cols'] = [{wch:6},{wch:20},{wch:35},{wch:12},{wch:25},{wch:15},{wch:25},{wch:20},{wch:25},{wch:35},{wch:40},{wch:15},{wch:40}];
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Solicitações');
     XLSX.writeFile(wb, 'Solicitacoes_GTM_' + new Date().toISOString().split('T')[0] + '.xlsx');
     showToast('✅ Excel exportado!');
   }
+
+  // Tecla Enter no modal de login
+  document.getElementById('admin-senha').addEventListener('keydown', e => { if(e.key==='Enter') confirmLogin(); });
+
+  loadData();
 </script>
 </body>
 </html>
