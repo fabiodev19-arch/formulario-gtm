@@ -45,6 +45,7 @@
   .stat-card.pendente .stat-value { color:var(--warning); }
   .stat-card.em-compra .stat-value { color:var(--info); }
   .stat-card.concluido .stat-value { color:var(--success); }
+  .stat-sub { font-size:12px; color:#e74c3c; margin-top:4px; font-weight:600; }
 
   /* FILTERS */
   .filters { display:flex; gap:12px; margin-bottom:20px; flex-wrap:wrap; align-items:center; }
@@ -83,7 +84,20 @@
   .status-select option { background:#112233; color:var(--text); }
 
   /* Motivo devolução */
-  .motivo-chip { font-size:11px; color:#e74c3c; background:rgba(231,76,60,0.08); border:1px solid rgba(231,76,60,0.2); border-radius:6px; padding:3px 8px; margin-top:4px; display:block; max-width:160px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; cursor:help; }
+  .btn-ver-motivo { font-size:11px; color:#e74c3c; background:rgba(231,76,60,0.1); border:1px solid rgba(231,76,60,0.3); border-radius:6px; padding:4px 10px; margin-top:6px; display:inline-flex; align-items:center; gap:4px; cursor:pointer; font-family:'Barlow',sans-serif; font-weight:600; transition:all 0.2s; white-space:nowrap; }
+  .btn-ver-motivo:hover { background:rgba(231,76,60,0.2); }
+
+  /* Modal ver motivo */
+  .modal-ver-motivo-bg { position:fixed; inset:0; background:rgba(0,0,0,0.75); display:none; align-items:center; justify-content:center; z-index:999; padding:20px; }
+  .modal-ver-motivo-bg.show { display:flex; }
+  .modal-ver-motivo-card { background:var(--card); border:1.5px solid rgba(231,76,60,0.4); border-radius:16px; padding:32px; width:100%; max-width:460px; }
+  .modal-ver-motivo-header { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+  .modal-ver-motivo-icon { width:44px; height:44px; border-radius:50%; background:rgba(231,76,60,0.15); border:2px solid rgba(231,76,60,0.4); display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
+  .modal-ver-motivo-header h3 { font-family:'Barlow Condensed',sans-serif; font-size:20px; color:#fff; }
+  .modal-ver-motivo-header p { font-size:12px; color:var(--muted); margin-top:2px; }
+  .motivo-content { background:rgba(231,76,60,0.06); border:1px solid rgba(231,76,60,0.2); border-radius:10px; padding:16px 18px; font-size:14px; color:#f0a0a0; line-height:1.7; word-break:break-word; margin-bottom:20px; }
+  .btn-fechar-motivo { width:100%; background:rgba(231,76,60,0.15); border:1.5px solid rgba(231,76,60,0.3); color:#e74c3c; font-family:'Barlow',sans-serif; font-size:14px; font-weight:700; padding:11px; border-radius:8px; cursor:pointer; transition:all 0.2s; }
+  .btn-fechar-motivo:hover { background:rgba(231,76,60,0.25); }
 
   /* Imagem */
   .img-thumb { width:44px; height:44px; object-fit:cover; border-radius:6px; border:1px solid var(--border); cursor:pointer; transition:transform 0.2s; }
@@ -219,6 +233,22 @@
   </div>
 </div>
 
+
+<!-- MODAL VER MOTIVO -->
+<div class="modal-ver-motivo-bg" id="modal-ver-motivo-bg">
+  <div class="modal-ver-motivo-card">
+    <div class="modal-ver-motivo-header">
+      <div class="modal-ver-motivo-icon">🔴</div>
+      <div>
+        <h3>Motivo da Devolução</h3>
+        <p id="motivo-pedido-info">Pedido #—</p>
+      </div>
+    </div>
+    <div class="motivo-content" id="motivo-content-text"></div>
+    <button class="btn-fechar-motivo" onclick="document.getElementById('modal-ver-motivo-bg').classList.remove('show')">Fechar</button>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -289,7 +319,9 @@
   }
 
   function updateStats() {
+    const devolvidos = allData.filter(d => d.status === 'Devolvido').length;
     document.getElementById('stat-total').textContent = allData.length;
+    document.getElementById('stat-devolvido-sub').textContent = devolvidos > 0 ? '🔴 ' + devolvidos + ' devolvida' + (devolvidos > 1 ? 's' : '') : '';
     document.getElementById('stat-pendente').textContent = allData.filter(d => d.status === 'Pendente').length;
     document.getElementById('stat-emcompra').textContent = allData.filter(d => d.status === 'Em compra').length;
     document.getElementById('stat-concluido').textContent = allData.filter(d => d.status === 'Concluído').length;
@@ -316,7 +348,9 @@
       const data = d.criado_em ? new Date(d.criado_em).toLocaleString('pt-BR') : '—';
       const imgHtml = d.imagem_url ? '<img class="img-thumb" src="' + d.imagem_url + '" onclick="openModal(\'' + d.imagem_url + '\')" alt="img"/>' : '<span class="no-img">—</span>';
       const sc = scClass(d.status || 'Pendente');
-      const motivoHtml = d.status === 'Devolvido' && d.motivo_devolucao ? '<span class="motivo-chip" title="' + d.motivo_devolucao + '">' + d.motivo_devolucao + '</span>' : '';
+      const motivoHtml = d.status === 'Devolvido' && d.motivo_devolucao
+        ? '<button class="btn-ver-motivo" onclick="verMotivo(this.dataset.motivo, this.dataset.titulo, this.dataset.num)" data-motivo="' + (d.motivo_devolucao||'').replace(/"/g,"&quot;") + '" data-titulo="' + (d.titulo||'').replace(/"/g,"&quot;") + '" data-num="' + (d.numero_pedido||'') + '">🔴 Ver motivo</button>'
+        : '';
       const statusHtml = isAdmin
         ? '<span class="status-badge s-' + sc + '"><select class="status-select" onchange="handleStatusChange(\'' + d.id + '\', this.value, this)"><option ' + (d.status==='Pendente'?'selected':'') + '>Pendente</option><option ' + (d.status==='Em compra'?'selected':'') + '>Em compra</option><option ' + (d.status==='Concluído'?'selected':'') + '>Concluído</option><option ' + (d.status==='Devolvido'?'selected':'') + '>Devolvido</option></select></span>' + motivoHtml
         : '<span class="status-badge s-' + sc + '">' + (d.status||'Pendente') + '</span>' + motivoHtml;
@@ -405,7 +439,14 @@
   // Tecla Enter no modal de login
   document.getElementById('admin-senha').addEventListener('keydown', e => { if(e.key==='Enter') confirmLogin(); });
 
-  loadData();
+
+  function verMotivo(motivo, titulo, num) {
+    document.getElementById('motivo-pedido-info').textContent = 'Pedido #' + num + ' — ' + titulo;
+    document.getElementById('motivo-content-text').textContent = motivo;
+    document.getElementById('modal-ver-motivo-bg').classList.add('show');
+  }
+
+    loadData();
 </script>
 </body>
 </html>
