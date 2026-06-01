@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@700&display=swap');
+  :root {
+    --blue-dark: #0e2d3f; --blue-mid: #1B5E7A; --blue-light: #2E9BBE;
+    --blue-pale: #A8D8EA; --bg: #0a1e2b; --card: #112233;
+    --border: #1e4a62; --text: #e8f4f8; --muted: #6a9ab0;
+    --success: #2ecc71; --error: #e74c3c;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Barlow', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 0 0 60px; }
+
+  .header {
+    background: linear-gradient(135deg, #0e2d3f 0%, #1B5E7A 60%, #1a4f6a 100%);
+    padding: 28px 40px 24px; display: flex; align-items: center; gap: 28px;
+    border-bottom: 3px solid var(--blue-light); position: relative; overflow: hidden;
+  }
+  .header::after { content:''; position:absolute; right:-60px; top:-60px; width:300px; height:300px; border-radius:50%; border:40px solid rgba(46,155,190,0.08); }
+  .header::before { content:''; position:absolute; right:80px; top:-30px; width:200px; height:200px; border-radius:50%; border:25px solid rgba(46,155,190,0.06); }
+  .logo-circle { width:72px; height:72px; border-radius:50%; background:linear-gradient(145deg,#1B5E7A,#0e2d3f); border:3px solid var(--blue-light); display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; }
+  .logo-circle span:first-child { font-family:'Barlow Condensed',sans-serif; font-size:22px; font-weight:700; color:#fff; letter-spacing:1px; }
+  .logo-circle span:last-child { font-size:5px; color:var(--blue-pale); letter-spacing:0.5px; text-align:center; line-height:1.3; margin-top:1px; }
+  .header-divider { width:2px; height:52px; background:var(--blue-light); opacity:0.6; }
+  .header-text h1 { font-family:'Barlow Condensed',sans-serif; font-size:26px; font-weight:700; color:#fff; letter-spacing:0.5px; }
+  .header-text p { font-size:13px; color:var(--blue-pale); margin-top:4px; }
+  .chips { display:flex; gap:8px; margin-top:8px; }
+  .chip { font-size:11px; color:var(--blue-pale); border:1px solid var(--blue-light); border-radius:20px; padding:2px 10px; }
+
+  .container { max-width:760px; margin:36px auto; padding:0 20px; }
+
+  .info-block { background:rgba(46,155,190,0.07); border:1px solid rgba(46,155,190,0.25); border-radius:8px; padding:14px 18px; font-size:13px; color:var(--muted); margin-bottom:28px; line-height:1.7; }
+  .info-block strong { color:var(--blue-pale); }
+  .info-block .atencao { color:#e8c26a; margin-top:6px; display:block; }
+
+  .section-label { font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--blue-light); margin-bottom:16px; padding-bottom:8px; border-bottom:1px solid var(--border); }
+
+  .form-grid { display:grid; gap:16px; margin-bottom:32px; }
+  .col-2 { grid-template-columns:1fr 1fr; }
+
+  .field { display:flex; flex-direction:column; gap:6px; }
+  .field label { font-size:12px; font-weight:600; color:var(--blue-pale); letter-spacing:0.5px; text-transform:uppercase; }
+  .field label .req { color:var(--blue-light); margin-left:2px; }
+  .field label .opt { color:var(--muted); font-weight:400; font-size:11px; margin-left:4px; text-transform:none; letter-spacing:0; }
+  .field .hint { font-size:11px; color:var(--muted); margin-top:-2px; margin-bottom:2px; }
+
+  .field input[type="text"], .field textarea {
+    background:var(--card); border:1.5px solid var(--border); border-radius:8px;
+    color:var(--text); font-family:'Barlow',sans-serif; font-size:14px;
+    padding:10px 14px; transition:border-color 0.2s,box-shadow 0.2s; outline:none; width:100%;
+  }
+  .field input:focus, .field textarea:focus { border-color:var(--blue-light); box-shadow:0 0 0 3px rgba(46,155,190,0.15); }
+  .field textarea { resize:vertical; min-height:90px; }
+  .field input.invalid, .field textarea.invalid { border-color:var(--error) !important; box-shadow:0 0 0 3px rgba(231,76,60,0.15) !important; }
+  .field-error { font-size:11px; color:var(--error); margin-top:2px; display:none; }
+  .field-error.show { display:block; }
+
+  .check-group { display:flex; flex-direction:column; gap:10px; margin-top:4px; }
+  .check-opt { display:flex; align-items:center; gap:10px; cursor:pointer; }
+  .check-opt input[type="checkbox"] { display:none; }
+  .check-box { width:20px; height:20px; border:2px solid var(--border); border-radius:5px; background:var(--card); display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all 0.2s; }
+  .check-opt input:checked + .check-box { background:var(--blue-light); border-color:var(--blue-light); }
+  .check-opt input:checked + .check-box::after { content:'✓'; color:#fff; font-size:13px; font-weight:700; }
+  .check-opt span { font-size:14px; color:var(--text); }
+  .check-group.invalid .check-box { border-color:var(--error); }
+
+  .upload-area { background:var(--card); border:2px dashed var(--border); border-radius:8px; padding:20px; text-align:center; cursor:pointer; transition:all 0.2s; position:relative; }
+  .upload-area:hover { border-color:var(--blue-light); background:rgba(46,155,190,0.05); }
+  .upload-area input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
+  .upload-area .upload-icon { font-size:24px; margin-bottom:6px; }
+  .upload-area .upload-text { font-size:13px; color:var(--muted); }
+  .upload-area .upload-name { font-size:12px; color:var(--blue-pale); margin-top:4px; }
+
+  .actions { display:flex; gap:12px; justify-content:flex-end; margin-top:36px; padding-top:24px; border-top:1px solid var(--border); }
+  .btn-clear { background:none; border:1.5px solid var(--border); color:var(--muted); font-family:'Barlow',sans-serif; font-size:14px; font-weight:600; padding:11px 28px; border-radius:8px; cursor:pointer; transition:all 0.2s; }
+  .btn-clear:hover { border-color:var(--muted); color:var(--text); }
+  .btn-send { background:linear-gradient(135deg,var(--blue-mid),var(--blue-light)); border:none; color:#fff; font-family:'Barlow',sans-serif; font-size:14px; font-weight:700; padding:11px 32px; border-radius:8px; cursor:pointer; transition:all 0.2s; letter-spacing:0.5px; display:flex; align-items:center; gap:8px; }
+  .btn-send:hover { opacity:0.9; transform:translateY(-1px); box-shadow:0 6px 20px rgba(46,155,190,0.3); }
+  .btn-send:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
+
+  .toast { position:fixed; bottom:30px; right:30px; color:#fff; font-family:'Barlow',sans-serif; font-size:14px; font-weight:600; padding:14px 24px; border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,0.3); transform:translateY(80px); opacity:0; transition:all 0.3s; pointer-events:none; z-index:999; max-width:320px; }
+  .toast.show { transform:translateY(0); opacity:1; }
+  .toast.success { background:var(--success); }
+  .toast.error { background:var(--error); }
+
+  .spinner { width:16px; height:16px; border:2px solid rgba(255,255,255,0.3); border-top-color:#fff; border-radius:50%; animation:spin 0.7s linear infinite; display:none; }
+  .btn-send.loading .spinner { display:block; }
+  .btn-send.loading .btn-label { display:none; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+
+  /* Badge conectado */
+  .connected-badge { display:flex; align-items:center; gap:8px; background:rgba(46,204,113,0.1); border:1px solid rgba(46,204,113,0.3); border-radius:8px; padding:10px 16px; margin-bottom:24px; font-size:13px; color:#2ecc71; }
+  .connected-badge::before { content:'●'; font-size:10px; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  @media (max-width:600px) { .col-2 { grid-template-columns:1fr; } .header { padding:20px; gap:16px; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo-circle">
+    <span>GTM</span>
+    <span>PRESTADORA<br>DE SERVIÇOS</span>
+  </div>
+  <div class="header-divider"></div>
+  <div class="header-text">
+    <h1>Solicitação de Compra</h1>
+    <p>Preencha este formulário para registrar uma nova solicitação de compra de materiais ou serviços.</p>
+    <div class="chips">
+      <span class="chip">Setor Administrativo</span>
+      <span class="chip">GTM Serviços</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="info-block">
+    Utilize este formulário para registrar formalmente sua solicitação de compra de materiais, equipamentos ou serviços. Preencha todos os campos obrigatórios com atenção para garantir a agilidade no processo de aprovação.<br/>
+    🗓️ <strong>Prazos:</strong> Pedidos feitos até <strong>segunda-feira</strong> serão entregues até o final da <strong>quarta-feira</strong>. Pedidos feitos até <strong>quarta-feira</strong> serão entregues até o final da <strong>sexta-feira</strong>.
+    <span class="atencao">⚠️ <strong>Atenção:</strong> Solicitações incompletas poderão ser devolvidas para revisão.</span>
+  </div>
+
+  <div class="connected-badge">
+    Conectado à planilha central — GTM Prestadora de Serviços
+  </div>
+
+  <!-- SEÇÃO 1 -->
+  <div class="section-label">01 — Dados do Pedido</div>
+  <div class="form-grid col-2">
+    <div class="field">
+      <label>Título do pedido <span class="req">*</span></label>
+      <div class="hint">Ex: Grampo trava tipo "R" 2,0X50mm</div>
+      <input type="text" id="titulo" placeholder="Descreva o item solicitado"/>
+      <span class="field-error" id="err-titulo">Campo obrigatório</span>
+    </div>
+    <div class="field">
+      <label>Quantidade <span class="req">*</span></label>
+      <input type="text" id="quantidade" placeholder="Ex: 10, 2 caixas, 5 unidades..."/>
+      <span class="field-error" id="err-quantidade">Campo obrigatório</span>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 2 -->
+  <div class="section-label">02 — Identificação</div>
+  <div class="form-grid col-2">
+    <div class="field">
+      <label>Solicitante <span class="req">*</span></label>
+      <div class="hint">Ex: João da Silva, José Saramago...</div>
+      <input type="text" id="solicitante" placeholder="Nome completo"/>
+      <span class="field-error" id="err-solicitante">Campo obrigatório</span>
+    </div>
+    <div class="field">
+      <label>Região <span class="req">*</span></label>
+      <div class="hint">Ex: Rbas, Inocência...</div>
+      <input type="text" id="regiao" placeholder="Informe a região"/>
+      <span class="field-error" id="err-regiao">Campo obrigatório</span>
+    </div>
+    <div class="field" style="grid-column:1/-1">
+      <label>Frente de Serviço <span class="req">*</span></label>
+      <div class="hint">Ex: Brioso, Bar do Patos...</div>
+      <textarea id="frente" placeholder="Informe a frente de serviço"></textarea>
+      <span class="field-error" id="err-frente">Campo obrigatório</span>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 3 -->
+  <div class="section-label">03 — Destinação</div>
+  <div class="form-grid col-2">
+    <div class="field">
+      <label>Aplicação <span class="req">*</span></label>
+      <div class="hint">Ex: CCL62, Campo, Área de vivência...</div>
+      <input type="text" id="aplicacao" placeholder="Onde / como será utilizado"/>
+      <span class="field-error" id="err-aplicacao">Campo obrigatório</span>
+    </div>
+    <div class="field">
+      <label>Para reserva / Uso imediato? <span class="req">*</span></label>
+      <div class="check-group" id="check-group">
+        <label class="check-opt">
+          <input type="checkbox" id="uso_imediato"/>
+          <span class="check-box"></span>
+          <span>Uso imediato</span>
+        </label>
+        <label class="check-opt">
+          <input type="checkbox" id="reserva"/>
+          <span class="check-box"></span>
+          <span>Reserva em campo / frente de serviço</span>
+        </label>
+      </div>
+      <span class="field-error" id="err-destinacao">Selecione ao menos uma opção</span>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 4 -->
+  <div class="section-label">04 — Detalhes Complementares</div>
+  <div class="form-grid col-2">
+    <div class="field">
+      <label>Imagem do item <span class="opt">(opcional)</span></label>
+      <div class="upload-area">
+        <input type="file" id="imagem" accept="image/*" onchange="updateFileName(this)"/>
+        <div class="upload-icon">📎</div>
+        <div class="upload-text">Clique para selecionar uma imagem</div>
+        <div class="upload-name" id="file-name"></div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Detalhes sobre o item <span class="opt">(opcional)</span></label>
+      <textarea id="detalhes" placeholder="Especificações técnicas, marca de preferência, observações..."></textarea>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn-clear" onclick="clearForm()">Limpar</button>
+    <button class="btn-send" id="btn-send" onclick="submitForm()">
+      <span class="btn-label">📤 Enviar Solicitação</span>
+      <div class="spinner"></div>
+    </button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyBwhBKyt6YPkyZbABgLpb9u_n9oeG_3TRrh-DGn0Cy8aHOwIMnnjWF9uR8ZTMroEI_/exec';
+
+  const requiredFields = ['titulo','quantidade','solicitante','regiao','frente','aplicacao'];
+
+  function updateFileName(input) {
+    document.getElementById('file-name').textContent = input.files[0] ? input.files[0].name : '';
+  }
+
+  function showToast(msg, type='success') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = `toast ${type} show`;
+    setTimeout(() => t.classList.remove('show'), 4500);
+  }
+
+  function validate() {
+    let ok = true;
+    requiredFields.forEach(id => {
+      const el = document.getElementById(id);
+      const err = document.getElementById('err-' + id);
+      if (!el.value.trim()) {
+        el.classList.add('invalid');
+        err.classList.add('show');
+        ok = false;
+      } else {
+        el.classList.remove('invalid');
+        err.classList.remove('show');
+      }
+    });
+    const usoImediato = document.getElementById('uso_imediato').checked;
+    const reserva = document.getElementById('reserva').checked;
+    const errDest = document.getElementById('err-destinacao');
+    const checkGroup = document.getElementById('check-group');
+    if (!usoImediato && !reserva) {
+      checkGroup.classList.add('invalid');
+      errDest.classList.add('show');
+      ok = false;
+    } else {
+      checkGroup.classList.remove('invalid');
+      errDest.classList.remove('show');
+    }
+    return ok;
+  }
+
+  requiredFields.forEach(id => {
+    document.getElementById(id).addEventListener('input', function() {
+      if (this.value.trim()) {
+        this.classList.remove('invalid');
+        document.getElementById('err-' + id).classList.remove('show');
+      }
+    });
+  });
+
+  ['uso_imediato','reserva'].forEach(id => {
+    document.getElementById(id).addEventListener('change', () => {
+      if (document.getElementById('uso_imediato').checked || document.getElementById('reserva').checked) {
+        document.getElementById('check-group').classList.remove('invalid');
+        document.getElementById('err-destinacao').classList.remove('show');
+      }
+    });
+  });
+
+  function clearForm() {
+    requiredFields.forEach(id => {
+      const el = document.getElementById(id);
+      el.value = '';
+      el.classList.remove('invalid');
+      document.getElementById('err-' + id).classList.remove('show');
+    });
+    document.getElementById('uso_imediato').checked = false;
+    document.getElementById('reserva').checked = false;
+    document.getElementById('check-group').classList.remove('invalid');
+    document.getElementById('err-destinacao').classList.remove('show');
+    document.getElementById('detalhes').value = '';
+    document.getElementById('imagem').value = '';
+    document.getElementById('file-name').textContent = '';
+  }
+
+  async function submitForm() {
+    if (!validate()) {
+      showToast('⚠️ Preencha todos os campos obrigatórios!', 'error');
+      return;
+    }
+
+    const usoImediato = document.getElementById('uso_imediato').checked;
+    const reserva = document.getElementById('reserva').checked;
+    const destinacao = [
+      usoImediato ? 'Uso imediato' : '',
+      reserva ? 'Reserva em campo / frente de serviço' : ''
+    ].filter(Boolean).join(', ');
+
+    const payload = {
+      titulo:      document.getElementById('titulo').value.trim(),
+      quantidade:  document.getElementById('quantidade').value.trim(),
+      solicitante: document.getElementById('solicitante').value.trim(),
+      regiao:      document.getElementById('regiao').value.trim(),
+      frente:      document.getElementById('frente').value.trim(),
+      aplicacao:   document.getElementById('aplicacao').value.trim(),
+      destinacao,
+      detalhes:    document.getElementById('detalhes').value.trim(),
+      dataEnvio:   new Date().toLocaleString('pt-BR')
+    };
+
+    const btn = document.getElementById('btn-send');
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    try {
+      await fetch(SHEETS_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      showToast('✅ Solicitação enviada com sucesso!', 'success');
+      clearForm();
+    } catch(err) {
+      showToast('❌ Erro ao enviar. Tente novamente.', 'error');
+    } finally {
+      btn.classList.remove('loading');
+      btn.disabled = false;
+    }
+  }
+</script>
+</body>
+</html>
