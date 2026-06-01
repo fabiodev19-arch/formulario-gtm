@@ -54,13 +54,19 @@
   .check-opt span { font-size:14px; color:var(--text); }
   .check-group.invalid .check-box { border-color:var(--error); }
 
-  .upload-area { background:var(--card); border:2px dashed var(--border); border-radius:8px; padding:20px; text-align:center; cursor:pointer; transition:all 0.2s; position:relative; }
-  .upload-area:hover { border-color:var(--blue-light); background:rgba(46,155,190,0.05); }
-  .upload-area input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
-  .upload-area .upload-icon { font-size:24px; margin-bottom:6px; }
-  .upload-area .upload-text { font-size:13px; color:var(--muted); }
-  .upload-area .upload-name { font-size:12px; color:var(--blue-pale); margin-top:4px; }
-  .img-preview { width:100%; max-height:140px; object-fit:cover; border-radius:6px; margin-top:10px; display:none; border:1px solid var(--border); }
+  /* Checkbox imagem */
+  .img-check-field { display:flex; flex-direction:column; gap:10px; }
+  .img-check-label { display:flex; align-items:center; gap:10px; cursor:pointer; background:var(--card); border:1.5px solid var(--border); border-radius:8px; padding:12px 16px; transition:all 0.2s; }
+  .img-check-label:hover { border-color:var(--blue-light); }
+  .img-check-label input[type="checkbox"] { display:none; }
+  .img-check-box { width:20px; height:20px; border:2px solid var(--border); border-radius:5px; background:var(--bg); display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all 0.2s; }
+  .img-check-label input:checked + .img-check-box { background:var(--blue-light); border-color:var(--blue-light); }
+  .img-check-label input:checked + .img-check-box::after { content:'✓'; color:#fff; font-size:13px; font-weight:700; }
+  .img-check-label input:checked ~ .img-check-text { color:var(--blue-pale); }
+  .img-check-text { font-size:13px; color:var(--muted); line-height:1.4; }
+  .img-check-text strong { display:block; color:var(--text); font-size:14px; margin-bottom:2px; }
+  .img-drive-hint { font-size:11px; color:var(--muted); padding:8px 12px; background:rgba(46,155,190,0.05); border-radius:6px; border:1px solid rgba(46,155,190,0.15); line-height:1.5; }
+  .img-drive-hint strong { color:var(--blue-pale); }
 
   .actions { display:flex; gap:12px; justify-content:flex-end; margin-top:36px; padding-top:24px; border-top:1px solid var(--border); }
   .btn-clear { background:none; border:1.5px solid var(--border); color:var(--muted); font-family:'Barlow',sans-serif; font-size:14px; font-weight:600; padding:11px 28px; border-radius:8px; cursor:pointer; transition:all 0.2s; }
@@ -69,7 +75,7 @@
   .btn-send:hover { opacity:0.9; transform:translateY(-1px); box-shadow:0 6px 20px rgba(46,155,190,0.3); }
   .btn-send:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
 
-  .toast { position:fixed; bottom:30px; right:30px; color:#fff; font-family:'Barlow',sans-serif; font-size:14px; font-weight:600; padding:14px 24px; border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,0.3); transform:translateY(80px); opacity:0; transition:all 0.3s; pointer-events:none; z-index:999; max-width:320px; }
+  .toast { position:fixed; bottom:30px; right:30px; color:#fff; font-family:'Barlow',sans-serif; font-size:14px; font-weight:600; padding:14px 24px; border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,0.3); transform:translateY(80px); opacity:0; transition:all 0.3s; pointer-events:none; z-index:999; max-width:340px; line-height:1.5; }
   .toast.show { transform:translateY(0); opacity:1; }
   .toast.success { background:var(--success); }
   .toast.error { background:var(--error); }
@@ -181,12 +187,18 @@
   <div class="form-grid col-2">
     <div class="field">
       <label>Imagem do item <span class="opt">(opcional)</span></label>
-      <div class="upload-area">
-        <input type="file" id="imagem" accept="image/*" onchange="handleImage(this)"/>
-        <div class="upload-icon">📎</div>
-        <div class="upload-text">Clique para selecionar uma imagem</div>
-        <div class="upload-name" id="file-name"></div>
-        <img id="img-preview" class="img-preview" alt="Preview"/>
+      <div class="img-check-field">
+        <label class="img-check-label">
+          <input type="checkbox" id="tem-imagem"/>
+          <span class="img-check-box"></span>
+          <span class="img-check-text">
+            <strong>📎 Tenho uma imagem para enviar</strong>
+            Ao enviar o formulário, a pasta do Drive abrirá automaticamente
+          </span>
+        </label>
+        <div class="img-drive-hint">
+          💡 A pasta do Google Drive abrirá numa nova aba após o envio. Faça o upload da imagem lá e nomeie com o <strong>título do pedido</strong> para facilitar a identificação.
+        </div>
       </div>
     </div>
     <div class="field">
@@ -208,28 +220,13 @@
 
 <script>
   const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyBwhBKyt6YPkyZbABgLpb9u_n9oeG_3TRrh-DGn0Cy8aHOwIMnnjWF9uR8ZTMroEI_/exec';
-  const FOLDER_ID = '1UUUJcGCMwKJRbu4ONRYZCVxHwi_I1ouE';
-  let imageFile = null;
-
-  function handleImage(input) {
-    const file = input.files[0];
-    if (!file) return;
-    imageFile = file;
-    document.getElementById('file-name').textContent = file.name;
-    const reader = new FileReader();
-    reader.onload = e => {
-      const preview = document.getElementById('img-preview');
-      preview.src = e.target.result;
-      preview.style.display = 'block';
-    };
-    reader.readAsDataURL(file);
-  }
+  const DRIVE_FOLDER_URL = 'https://drive.google.com/drive/folders/1UUUJcGCMwKJRbu4ONRYZCVxHwi_I1ouE';
 
   function showToast(msg, type='success') {
     const t = document.getElementById('toast');
     t.textContent = msg;
     t.className = `toast ${type} show`;
-    setTimeout(() => t.classList.remove('show'), 4500);
+    setTimeout(() => t.classList.remove('show'), 5000);
   }
 
   const requiredFields = ['titulo','quantidade','solicitante','regiao','frente','aplicacao'];
@@ -280,59 +277,7 @@
     document.getElementById('check-group').classList.remove('invalid');
     document.getElementById('err-destinacao').classList.remove('show');
     document.getElementById('detalhes').value = '';
-    document.getElementById('imagem').value = '';
-    document.getElementById('file-name').textContent = '';
-    document.getElementById('img-preview').style.display = 'none';
-    imageFile = null;
-  }
-
-  // Upload imagem direto para o Apps Script que salva no Drive
-  async function uploadImageToScript(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = async function(e) {
-        try {
-          const base64 = e.target.result.split(',')[1];
-          // Comprime via canvas
-          const img = new Image();
-          img.onload = async function() {
-            const canvas = document.createElement('canvas');
-            const MAX_DIM = 1200;
-            let w = img.width, h = img.height;
-            if (w > MAX_DIM || h > MAX_DIM) {
-              if (w > h) { h = Math.round(h * MAX_DIM / w); w = MAX_DIM; }
-              else { w = Math.round(w * MAX_DIM / h); h = MAX_DIM; }
-            }
-            canvas.width = w; canvas.height = h;
-            canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-            const compressed = canvas.toDataURL('image/jpeg', 0.7).split(',')[1];
-
-            try {
-              const resp = await fetch(SHEETS_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  action: 'uploadImage',
-                  imagemBase64: compressed,
-                  imagemNome: file.name,
-                  imagemTipo: 'image/jpeg',
-                  folderId: FOLDER_ID
-                })
-              });
-              // no-cors não retorna body, então assumimos sucesso
-              resolve('enviada');
-            } catch(err) {
-              resolve('');
-            }
-          };
-          img.src = e.target.result;
-        } catch(err) {
-          resolve('');
-        }
-      };
-      reader.readAsDataURL(file);
-    });
+    document.getElementById('tem-imagem').checked = false;
   }
 
   async function submitForm() {
@@ -341,54 +286,26 @@
     const btn = document.getElementById('btn-send');
     btn.classList.add('loading');
     btn.disabled = true;
-    showToast('⏳ Enviando solicitação...', 'warning');
 
     const usoImediato = document.getElementById('uso_imediato').checked;
     const reserva = document.getElementById('reserva').checked;
-    const destinacao = [usoImediato ? 'Uso imediato' : '', reserva ? 'Reserva em campo / frente de serviço' : ''].filter(Boolean).join(', ');
+    const destinacao = [
+      usoImediato ? 'Uso imediato' : '',
+      reserva ? 'Reserva em campo / frente de serviço' : ''
+    ].filter(Boolean).join(', ');
 
-    // Prepara imagem se houver
-    let imagemBase64 = '', imagemNome = '';
-    if (imageFile) {
-      showToast('⏳ Processando imagem...', 'warning');
-      await new Promise(resolve => {
-        const reader = new FileReader();
-        reader.onload = e => {
-          const img = new Image();
-          img.onload = () => {
-            const canvas = document.createElement('canvas');
-            const MAX_DIM = 1200;
-            let w = img.width, h = img.height;
-            if (w > MAX_DIM || h > MAX_DIM) {
-              if (w > h) { h = Math.round(h * MAX_DIM / w); w = MAX_DIM; }
-              else { w = Math.round(w * MAX_DIM / h); h = MAX_DIM; }
-            }
-            canvas.width = w; canvas.height = h;
-            canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-            imagemBase64 = canvas.toDataURL('image/jpeg', 0.7).split(',')[1];
-            imagemNome = imageFile.name;
-            resolve();
-          };
-          img.src = e.target.result;
-        };
-        reader.readAsDataURL(imageFile);
-      });
-    }
+    const temImagem = document.getElementById('tem-imagem').checked;
 
     const payload = {
-      titulo:       document.getElementById('titulo').value.trim(),
-      quantidade:   document.getElementById('quantidade').value.trim(),
-      solicitante:  document.getElementById('solicitante').value.trim(),
-      regiao:       document.getElementById('regiao').value.trim(),
-      frente:       document.getElementById('frente').value.trim(),
-      aplicacao:    document.getElementById('aplicacao').value.trim(),
+      titulo:      document.getElementById('titulo').value.trim(),
+      quantidade:  document.getElementById('quantidade').value.trim(),
+      solicitante: document.getElementById('solicitante').value.trim(),
+      regiao:      document.getElementById('regiao').value.trim(),
+      frente:      document.getElementById('frente').value.trim(),
+      aplicacao:   document.getElementById('aplicacao').value.trim(),
       destinacao,
-      detalhes:     document.getElementById('detalhes').value.trim(),
-      dataEnvio:    new Date().toLocaleString('pt-BR'),
-      imagemBase64,
-      imagemNome,
-      imagemTipo:   imagemBase64 ? 'image/jpeg' : '',
-      folderId:     FOLDER_ID
+      detalhes:    document.getElementById('detalhes').value.trim() + (temImagem ? ' [Imagem enviada no Drive]' : ''),
+      dataEnvio:   new Date().toLocaleString('pt-BR')
     };
 
     try {
@@ -398,8 +315,18 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
+
       showToast('✅ Solicitação enviada com sucesso!', 'success');
       clearForm();
+
+      // Abre pasta do Drive se marcou imagem
+      if (temImagem) {
+        setTimeout(() => {
+          window.open(DRIVE_FOLDER_URL, '_blank');
+          showToast('📂 Pasta do Drive aberta! Faça o upload da imagem lá.', 'warning');
+        }, 1500);
+      }
+
     } catch(err) {
       showToast('❌ Erro ao enviar. Tente novamente.', 'error');
     } finally {
