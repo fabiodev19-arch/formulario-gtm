@@ -13,7 +13,6 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Barlow', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 0 0 60px; }
-
   .header { background: linear-gradient(135deg, #0e2d3f 0%, #1B5E7A 60%, #1a4f6a 100%); padding: 28px 40px 24px; display: flex; align-items: center; justify-content: space-between; gap: 28px; border-bottom: 3px solid var(--blue-light); position: relative; overflow: hidden; }
   .header::after { content:''; position:absolute; right:-60px; top:-60px; width:300px; height:300px; border-radius:50%; border:40px solid rgba(46,155,190,0.08); }
   .header::before { content:''; position:absolute; right:80px; top:-30px; width:200px; height:200px; border-radius:50%; border:25px solid rgba(46,155,190,0.06); }
@@ -28,7 +27,6 @@
   .chip { font-size:11px; color:var(--blue-pale); border:1px solid var(--blue-light); border-radius:20px; padding:2px 10px; }
   .btn-admin { background:rgba(46,155,190,0.1); border:1.5px solid rgba(46,155,190,0.2); color:rgba(168,216,234,0.5); font-family:'Barlow',sans-serif; font-size:11px; padding:6px 14px; border-radius:8px; cursor:pointer; transition:all 0.2s; text-decoration:none; white-space:nowrap; position:relative; z-index:1; }
   .btn-admin:hover { background:rgba(46,155,190,0.2); color:var(--blue-pale); border-color:var(--blue-light); }
-
   .container { max-width:760px; margin:36px auto; padding:0 20px; }
   .info-block { background:rgba(46,155,190,0.07); border:1px solid rgba(46,155,190,0.25); border-radius:8px; padding:14px 18px; font-size:13px; color:var(--muted); margin-bottom:28px; line-height:1.7; }
   .info-block strong { color:var(--blue-pale); }
@@ -47,7 +45,6 @@
   .field input.invalid, .field textarea.invalid { border-color:var(--error) !important; box-shadow:0 0 0 3px rgba(231,76,60,0.15) !important; }
   .field-error { font-size:11px; color:var(--error); margin-top:2px; display:none; }
   .field-error.show { display:block; }
-
   .check-group { display:flex; flex-direction:column; gap:10px; margin-top:4px; }
   .check-opt { display:flex; align-items:center; gap:10px; cursor:pointer; }
   .check-opt input[type="checkbox"] { display:none; }
@@ -56,7 +53,6 @@
   .check-opt input:checked + .check-box::after { content:'✓'; color:#fff; font-size:13px; font-weight:700; }
   .check-opt span { font-size:14px; color:var(--text); }
   .check-group.invalid .check-box { border-color:var(--error); }
-
   .upload-area { background:var(--card); border:2px dashed var(--border); border-radius:8px; padding:20px; text-align:center; cursor:pointer; transition:all 0.2s; position:relative; }
   .upload-area:hover { border-color:var(--blue-light); background:rgba(46,155,190,0.05); }
   .upload-area input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
@@ -67,62 +63,47 @@
   .progress-bar { height:4px; background:var(--border); border-radius:4px; margin-top:8px; display:none; overflow:hidden; }
   .progress-bar.show { display:block; }
   .progress-fill { height:100%; background:var(--blue-light); border-radius:4px; width:0%; transition:width 0.3s; }
-
   .actions { display:flex; gap:12px; justify-content:flex-end; margin-top:36px; padding-top:24px; border-top:1px solid var(--border); }
   .btn-clear { background:none; border:1.5px solid var(--border); color:var(--muted); font-family:'Barlow',sans-serif; font-size:14px; font-weight:600; padding:11px 28px; border-radius:8px; cursor:pointer; transition:all 0.2s; }
   .btn-clear:hover { border-color:var(--muted); color:var(--text); }
   .btn-send { background:linear-gradient(135deg,var(--blue-mid),var(--blue-light)); border:none; color:#fff; font-family:'Barlow',sans-serif; font-size:14px; font-weight:700; padding:11px 32px; border-radius:8px; cursor:pointer; transition:all 0.2s; letter-spacing:0.5px; display:flex; align-items:center; gap:8px; }
   .btn-send:hover { opacity:0.9; transform:translateY(-1px); box-shadow:0 6px 20px rgba(46,155,190,0.3); }
   .btn-send:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
-
   .toast { position:fixed; bottom:30px; right:30px; color:#fff; font-family:'Barlow',sans-serif; font-size:14px; font-weight:600; padding:14px 24px; border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,0.3); transform:translateY(80px); opacity:0; transition:all 0.3s; pointer-events:none; z-index:999; max-width:340px; }
   .toast.show { transform:translateY(0); opacity:1; }
   .toast.success { background:var(--success); }
   .toast.error { background:var(--error); }
   .toast.warning { background:#e8a020; }
-
   .spinner { width:16px; height:16px; border:2px solid rgba(255,255,255,0.3); border-top-color:#fff; border-radius:50%; animation:spin 0.7s linear infinite; display:none; }
   .btn-send.loading .spinner { display:block; }
   .btn-send.loading .btn-label { display:none; }
   @keyframes spin { to { transform:rotate(360deg); } }
-
   .connected-badge { display:flex; align-items:center; gap:8px; background:rgba(46,204,113,0.1); border:1px solid rgba(46,204,113,0.3); border-radius:8px; padding:10px 16px; margin-bottom:24px; font-size:13px; color:#2ecc71; }
   .connected-badge::before { content:'●'; font-size:10px; animation:pulse 1.5s infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-
   @media (max-width:600px) { .col-2 { grid-template-columns:1fr; } .header { padding:20px; } .header-left { gap:16px; } }
 </style>
 </head>
 <body>
-
 <div class="header">
   <div class="header-left">
-    <div class="logo-circle">
-      <span>GTM</span>
-      <span>PRESTADORA<br>DE SERVIÇOS</span>
-    </div>
+    <div class="logo-circle"><span>GTM</span><span>PRESTADORA<br>DE SERVIÇOS</span></div>
     <div class="header-divider"></div>
     <div class="header-text">
       <h1>Solicitação de Compra</h1>
       <p>Preencha este formulário para registrar uma nova solicitação de compra de materiais ou serviços.</p>
-      <div class="chips">
-        <span class="chip">Setor Administrativo</span>
-        <span class="chip">GTM Serviços</span>
-      </div>
+      <div class="chips"><span class="chip">Setor Administrativo</span><span class="chip">GTM Serviços</span></div>
     </div>
   </div>
   <a class="btn-admin" href="pedidos.html">⚙️ Admin</a>
 </div>
-
 <div class="container">
   <div class="info-block">
     Utilize este formulário para registrar formalmente sua solicitação de compra de materiais, equipamentos ou serviços. Preencha todos os campos obrigatórios com atenção para garantir a agilidade no processo de aprovação.<br/>
     🗓️ <strong>Prazos:</strong> Pedidos feitos até <strong>segunda-feira</strong> serão entregues até o final da <strong>quarta-feira</strong>. Pedidos feitos até <strong>quarta-feira</strong> serão entregues até o final da <strong>sexta-feira</strong>.
     <span class="atencao">⚠️ <strong>Atenção:</strong> Solicitações incompletas poderão ser devolvidas para revisão.</span>
   </div>
-
   <div class="connected-badge">Conectado ao banco de dados — GTM Prestadora de Serviços</div>
-
   <div class="section-label">01 — Dados do Pedido</div>
   <div class="form-grid col-2">
     <div class="field">
@@ -137,7 +118,6 @@
       <span class="field-error" id="err-quantidade">Campo obrigatório</span>
     </div>
   </div>
-
   <div class="section-label">02 — Identificação</div>
   <div class="form-grid col-2">
     <div class="field">
@@ -159,7 +139,6 @@
       <span class="field-error" id="err-frente">Campo obrigatório</span>
     </div>
   </div>
-
   <div class="section-label">03 — Destinação</div>
   <div class="form-grid col-2">
     <div class="field">
@@ -171,21 +150,12 @@
     <div class="field">
       <label>Para reserva / Uso imediato? <span class="req">*</span></label>
       <div class="check-group" id="check-group">
-        <label class="check-opt">
-          <input type="checkbox" id="uso_imediato"/>
-          <span class="check-box"></span>
-          <span>Uso imediato</span>
-        </label>
-        <label class="check-opt">
-          <input type="checkbox" id="reserva"/>
-          <span class="check-box"></span>
-          <span>Reserva em campo / frente de serviço</span>
-        </label>
+        <label class="check-opt"><input type="checkbox" id="uso_imediato"/><span class="check-box"></span><span>Uso imediato</span></label>
+        <label class="check-opt"><input type="checkbox" id="reserva"/><span class="check-box"></span><span>Reserva em campo / frente de serviço</span></label>
       </div>
       <span class="field-error" id="err-destinacao">Selecione ao menos uma opção</span>
     </div>
   </div>
-
   <div class="section-label">04 — Detalhes Complementares</div>
   <div class="form-grid col-2">
     <div class="field">
@@ -197,16 +167,13 @@
         <div class="upload-name" id="file-name"></div>
         <img id="img-preview" class="img-preview" alt="Preview"/>
       </div>
-      <div class="progress-bar" id="progress-bar">
-        <div class="progress-fill" id="progress-fill"></div>
-      </div>
+      <div class="progress-bar" id="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
     </div>
     <div class="field">
       <label>Detalhes sobre o item <span class="opt">(opcional)</span></label>
       <textarea id="detalhes" placeholder="Especificações técnicas, marca de preferência, observações..."></textarea>
     </div>
   </div>
-
   <div class="actions">
     <button class="btn-clear" onclick="clearForm()">Limpar</button>
     <button class="btn-send" id="btn-send" onclick="submitForm()">
@@ -215,12 +182,10 @@
     </button>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
-
 <script>
   const SUPABASE_URL = 'https://ogmovdwcoxfoemutqugk.supabase.co';
-  const SUPABASE_KEY = 'sb_publishable_TNN3hOofPJ9YHKTS3vzg0Q_e567QIMV';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9nbW92ZHdjb3hmb2VtdXRxdWdrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAzMjMyNzYsImV4cCI6MjA5NTg5OTI3Nn0.LTYEXPla_doUdqU8orfBsGUAE_m9pHfKBFBtMblZt5Y';
   const BUCKET = 'imagens-solicitacoes';
   let imageFile = null;
 
@@ -241,7 +206,7 @@
   function showToast(msg, type='success') {
     const t = document.getElementById('toast');
     t.textContent = msg;
-    t.className = `toast ${type} show`;
+    t.className = 'toast ' + type + ' show';
     setTimeout(() => t.classList.remove('show'), 5000);
   }
 
@@ -303,19 +268,19 @@
 
   async function uploadImage(file, titulo) {
     const ext = file.name.split('.').pop();
-    const fileName = `${Date.now()}_${titulo.replace(/[^a-z0-9]/gi,'_')}.${ext}`;
+    const fileName = Date.now() + '_' + titulo.replace(/[^a-z0-9]/gi,'_') + '.' + ext;
     const progressBar = document.getElementById('progress-bar');
     const progressFill = document.getElementById('progress-fill');
     progressBar.classList.add('show');
     progressFill.style.width = '30%';
-    const res = await fetch(`${SUPABASE_URL}/storage/v1/object/${BUCKET}/${fileName}`, {
+    const res = await fetch(SUPABASE_URL + '/storage/v1/object/' + BUCKET + '/' + fileName, {
       method: 'POST',
-      headers: { 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Content-Type': file.type, 'x-upsert': 'true' },
+      headers: { 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': file.type, 'x-upsert': 'true' },
       body: file
     });
     progressFill.style.width = '100%';
     if (!res.ok) throw new Error('Erro no upload da imagem');
-    return `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${fileName}`;
+    return SUPABASE_URL + '/storage/v1/object/public/' + BUCKET + '/' + fileName;
   }
 
   async function submitForm() {
@@ -339,16 +304,16 @@
         destinacao, detalhes: document.getElementById('detalhes').value.trim(),
         imagem_url: imagemUrl, criado_em: new Date().toISOString()
       };
-      const res = await fetch(`${SUPABASE_URL}/rest/v1/solicitacoes`, {
+      const res = await fetch(SUPABASE_URL + '/rest/v1/solicitacoes', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Prefer': 'return=minimal' },
+        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Prefer': 'return=minimal' },
         body: JSON.stringify(payload)
       });
       if (!res.ok) { const err = await res.json(); throw new Error(err.message||'Erro ao salvar'); }
       showToast('✅ Solicitação enviada com sucesso!', 'success');
       clearForm();
     } catch(err) {
-      showToast(`❌ Erro: ${err.message}`, 'error');
+      showToast('❌ Erro: ' + err.message, 'error');
     } finally {
       btn.classList.remove('loading'); btn.disabled = false;
     }
