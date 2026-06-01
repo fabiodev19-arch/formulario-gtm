@@ -14,11 +14,7 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Barlow', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 0 0 60px; }
 
-  .header {
-    background: linear-gradient(135deg, #0e2d3f 0%, #1B5E7A 60%, #1a4f6a 100%);
-    padding: 28px 40px 24px; display: flex; align-items: center; gap: 28px;
-    border-bottom: 3px solid var(--blue-light); position: relative; overflow: hidden;
-  }
+  .header { background: linear-gradient(135deg, #0e2d3f 0%, #1B5E7A 60%, #1a4f6a 100%); padding: 28px 40px 24px; display: flex; align-items: center; gap: 28px; border-bottom: 3px solid var(--blue-light); position: relative; overflow: hidden; }
   .header::after { content:''; position:absolute; right:-60px; top:-60px; width:300px; height:300px; border-radius:50%; border:40px solid rgba(46,155,190,0.08); }
   .header::before { content:''; position:absolute; right:80px; top:-30px; width:200px; height:200px; border-radius:50%; border:25px solid rgba(46,155,190,0.06); }
   .logo-circle { width:72px; height:72px; border-radius:50%; background:linear-gradient(145deg,#1B5E7A,#0e2d3f); border:3px solid var(--blue-light); display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; }
@@ -31,27 +27,18 @@
   .chip { font-size:11px; color:var(--blue-pale); border:1px solid var(--blue-light); border-radius:20px; padding:2px 10px; }
 
   .container { max-width:760px; margin:36px auto; padding:0 20px; }
-
   .info-block { background:rgba(46,155,190,0.07); border:1px solid rgba(46,155,190,0.25); border-radius:8px; padding:14px 18px; font-size:13px; color:var(--muted); margin-bottom:28px; line-height:1.7; }
   .info-block strong { color:var(--blue-pale); }
   .info-block .atencao { color:#e8c26a; margin-top:6px; display:block; }
-
   .section-label { font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--blue-light); margin-bottom:16px; padding-bottom:8px; border-bottom:1px solid var(--border); }
-
   .form-grid { display:grid; gap:16px; margin-bottom:32px; }
   .col-2 { grid-template-columns:1fr 1fr; }
-
   .field { display:flex; flex-direction:column; gap:6px; }
   .field label { font-size:12px; font-weight:600; color:var(--blue-pale); letter-spacing:0.5px; text-transform:uppercase; }
   .field label .req { color:var(--blue-light); margin-left:2px; }
   .field label .opt { color:var(--muted); font-weight:400; font-size:11px; margin-left:4px; text-transform:none; letter-spacing:0; }
   .field .hint { font-size:11px; color:var(--muted); margin-top:-2px; margin-bottom:2px; }
-
-  .field input[type="text"], .field textarea {
-    background:var(--card); border:1.5px solid var(--border); border-radius:8px;
-    color:var(--text); font-family:'Barlow',sans-serif; font-size:14px;
-    padding:10px 14px; transition:border-color 0.2s,box-shadow 0.2s; outline:none; width:100%;
-  }
+  .field input[type="text"], .field textarea { background:var(--card); border:1.5px solid var(--border); border-radius:8px; color:var(--text); font-family:'Barlow',sans-serif; font-size:14px; padding:10px 14px; transition:border-color 0.2s,box-shadow 0.2s; outline:none; width:100%; }
   .field input:focus, .field textarea:focus { border-color:var(--blue-light); box-shadow:0 0 0 3px rgba(46,155,190,0.15); }
   .field textarea { resize:vertical; min-height:90px; }
   .field input.invalid, .field textarea.invalid { border-color:var(--error) !important; box-shadow:0 0 0 3px rgba(231,76,60,0.15) !important; }
@@ -67,12 +54,15 @@
   .check-opt span { font-size:14px; color:var(--text); }
   .check-group.invalid .check-box { border-color:var(--error); }
 
+  /* Upload melhorado */
   .upload-area { background:var(--card); border:2px dashed var(--border); border-radius:8px; padding:20px; text-align:center; cursor:pointer; transition:all 0.2s; position:relative; }
   .upload-area:hover { border-color:var(--blue-light); background:rgba(46,155,190,0.05); }
   .upload-area input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
   .upload-area .upload-icon { font-size:24px; margin-bottom:6px; }
   .upload-area .upload-text { font-size:13px; color:var(--muted); }
   .upload-area .upload-name { font-size:12px; color:var(--blue-pale); margin-top:4px; }
+  .upload-area .upload-limit { font-size:10px; color:var(--muted); margin-top:4px; }
+  .img-preview { width:100%; max-height:140px; object-fit:cover; border-radius:6px; margin-top:10px; display:none; border:1px solid var(--border); }
 
   .actions { display:flex; gap:12px; justify-content:flex-end; margin-top:36px; padding-top:24px; border-top:1px solid var(--border); }
   .btn-clear { background:none; border:1.5px solid var(--border); color:var(--muted); font-family:'Barlow',sans-serif; font-size:14px; font-weight:600; padding:11px 28px; border-radius:8px; cursor:pointer; transition:all 0.2s; }
@@ -85,15 +75,15 @@
   .toast.show { transform:translateY(0); opacity:1; }
   .toast.success { background:var(--success); }
   .toast.error { background:var(--error); }
+  .toast.warning { background:#e8a020; }
 
   .spinner { width:16px; height:16px; border:2px solid rgba(255,255,255,0.3); border-top-color:#fff; border-radius:50%; animation:spin 0.7s linear infinite; display:none; }
   .btn-send.loading .spinner { display:block; }
   .btn-send.loading .btn-label { display:none; }
   @keyframes spin { to { transform:rotate(360deg); } }
 
-  /* Badge conectado */
   .connected-badge { display:flex; align-items:center; gap:8px; background:rgba(46,204,113,0.1); border:1px solid rgba(46,204,113,0.3); border-radius:8px; padding:10px 16px; margin-bottom:24px; font-size:13px; color:#2ecc71; }
-  .connected-badge::before { content:'●'; font-size:10px; animation: pulse 1.5s infinite; }
+  .connected-badge::before { content:'●'; font-size:10px; animation:pulse 1.5s infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
 
   @media (max-width:600px) { .col-2 { grid-template-columns:1fr; } .header { padding:20px; gap:16px; } }
@@ -118,18 +108,14 @@
 </div>
 
 <div class="container">
-
   <div class="info-block">
     Utilize este formulário para registrar formalmente sua solicitação de compra de materiais, equipamentos ou serviços. Preencha todos os campos obrigatórios com atenção para garantir a agilidade no processo de aprovação.<br/>
-    🗓️ <strong>Prazos:</strong> Pedidos feitos até <strong>segunda-feira</strong> serão entregues até o final da <strong>quarta-feira</strong>. Pedidos feitos até <strong>quarta-feira</strong> serão entregues até o final da <strong>sexta-feira</strong>.
+    🗓️ <strong>Prazos:</strong> Pedidos feitos até <strong>segunda-feira</strong> serão entregues até o final da <strong>quarta-feira</strong>. Pedidos feitos na <strong>quarta-feira</strong> serão entregues até o final da <strong>sexta-feira</strong>.
     <span class="atencao">⚠️ <strong>Atenção:</strong> Solicitações incompletas poderão ser devolvidas para revisão.</span>
   </div>
 
-  <div class="connected-badge">
-    Conectado à planilha central — GTM Prestadora de Serviços
-  </div>
+  <div class="connected-badge">Conectado à planilha central — GTM Prestadora de Serviços</div>
 
-  <!-- SEÇÃO 1 -->
   <div class="section-label">01 — Dados do Pedido</div>
   <div class="form-grid col-2">
     <div class="field">
@@ -145,7 +131,6 @@
     </div>
   </div>
 
-  <!-- SEÇÃO 2 -->
   <div class="section-label">02 — Identificação</div>
   <div class="form-grid col-2">
     <div class="field">
@@ -168,7 +153,6 @@
     </div>
   </div>
 
-  <!-- SEÇÃO 3 -->
   <div class="section-label">03 — Destinação</div>
   <div class="form-grid col-2">
     <div class="field">
@@ -195,16 +179,17 @@
     </div>
   </div>
 
-  <!-- SEÇÃO 4 -->
   <div class="section-label">04 — Detalhes Complementares</div>
   <div class="form-grid col-2">
     <div class="field">
-      <label>Imagem do item <span class="opt">(opcional)</span></label>
-      <div class="upload-area">
-        <input type="file" id="imagem" accept="image/*" onchange="updateFileName(this)"/>
+      <label>Imagem do item <span class="opt">(opcional — máx. 4MB)</span></label>
+      <div class="upload-area" id="upload-area">
+        <input type="file" id="imagem" accept="image/*" onchange="handleImage(this)"/>
         <div class="upload-icon">📎</div>
         <div class="upload-text">Clique para selecionar uma imagem</div>
         <div class="upload-name" id="file-name"></div>
+        <div class="upload-limit">JPG, PNG ou WEBP • máx. 4MB</div>
+        <img id="img-preview" class="img-preview" alt="Preview"/>
       </div>
     </div>
     <div class="field">
@@ -226,11 +211,48 @@
 
 <script>
   const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyBwhBKyt6YPkyZbABgLpb9u_n9oeG_3TRrh-DGn0Cy8aHOwIMnnjWF9uR8ZTMroEI_/exec';
+  const MAX_SIZE = 4 * 1024 * 1024; // 4MB
+  let imageData = null;
 
-  const requiredFields = ['titulo','quantidade','solicitante','regiao','frente','aplicacao'];
+  // Converte e comprime imagem para base64
+  function handleImage(input) {
+    const file = input.files[0];
+    if (!file) return;
 
-  function updateFileName(input) {
-    document.getElementById('file-name').textContent = input.files[0] ? input.files[0].name : '';
+    if (file.size > MAX_SIZE) {
+      showToast('⚠️ Imagem muito grande! Máximo 4MB.', 'warning');
+      input.value = '';
+      return;
+    }
+
+    document.getElementById('file-name').textContent = file.name;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      // Comprime via canvas
+      const img = new Image();
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        const MAX_DIM = 1200;
+        let w = img.width, h = img.height;
+        if (w > MAX_DIM || h > MAX_DIM) {
+          if (w > h) { h = Math.round(h * MAX_DIM / w); w = MAX_DIM; }
+          else { w = Math.round(w * MAX_DIM / h); h = MAX_DIM; }
+        }
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        const compressed = canvas.toDataURL('image/jpeg', 0.75);
+        const base64 = compressed.split(',')[1];
+        imageData = { base64, nome: file.name, tipo: 'image/jpeg' };
+
+        // Preview
+        const preview = document.getElementById('img-preview');
+        preview.src = compressed;
+        preview.style.display = 'block';
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
   }
 
   function showToast(msg, type='success') {
@@ -240,44 +262,30 @@
     setTimeout(() => t.classList.remove('show'), 4500);
   }
 
+  const requiredFields = ['titulo','quantidade','solicitante','regiao','frente','aplicacao'];
+
   function validate() {
     let ok = true;
     requiredFields.forEach(id => {
       const el = document.getElementById(id);
       const err = document.getElementById('err-' + id);
-      if (!el.value.trim()) {
-        el.classList.add('invalid');
-        err.classList.add('show');
-        ok = false;
-      } else {
-        el.classList.remove('invalid');
-        err.classList.remove('show');
-      }
+      if (!el.value.trim()) { el.classList.add('invalid'); err.classList.add('show'); ok = false; }
+      else { el.classList.remove('invalid'); err.classList.remove('show'); }
     });
     const usoImediato = document.getElementById('uso_imediato').checked;
     const reserva = document.getElementById('reserva').checked;
     const errDest = document.getElementById('err-destinacao');
     const checkGroup = document.getElementById('check-group');
-    if (!usoImediato && !reserva) {
-      checkGroup.classList.add('invalid');
-      errDest.classList.add('show');
-      ok = false;
-    } else {
-      checkGroup.classList.remove('invalid');
-      errDest.classList.remove('show');
-    }
+    if (!usoImediato && !reserva) { checkGroup.classList.add('invalid'); errDest.classList.add('show'); ok = false; }
+    else { checkGroup.classList.remove('invalid'); errDest.classList.remove('show'); }
     return ok;
   }
 
   requiredFields.forEach(id => {
     document.getElementById(id).addEventListener('input', function() {
-      if (this.value.trim()) {
-        this.classList.remove('invalid');
-        document.getElementById('err-' + id).classList.remove('show');
-      }
+      if (this.value.trim()) { this.classList.remove('invalid'); document.getElementById('err-' + id).classList.remove('show'); }
     });
   });
-
   ['uso_imediato','reserva'].forEach(id => {
     document.getElementById(id).addEventListener('change', () => {
       if (document.getElementById('uso_imediato').checked || document.getElementById('reserva').checked) {
@@ -290,8 +298,7 @@
   function clearForm() {
     requiredFields.forEach(id => {
       const el = document.getElementById(id);
-      el.value = '';
-      el.classList.remove('invalid');
+      el.value = ''; el.classList.remove('invalid');
       document.getElementById('err-' + id).classList.remove('show');
     });
     document.getElementById('uso_imediato').checked = false;
@@ -301,20 +308,16 @@
     document.getElementById('detalhes').value = '';
     document.getElementById('imagem').value = '';
     document.getElementById('file-name').textContent = '';
+    document.getElementById('img-preview').style.display = 'none';
+    imageData = null;
   }
 
   async function submitForm() {
-    if (!validate()) {
-      showToast('⚠️ Preencha todos os campos obrigatórios!', 'error');
-      return;
-    }
+    if (!validate()) { showToast('⚠️ Preencha todos os campos obrigatórios!', 'error'); return; }
 
     const usoImediato = document.getElementById('uso_imediato').checked;
     const reserva = document.getElementById('reserva').checked;
-    const destinacao = [
-      usoImediato ? 'Uso imediato' : '',
-      reserva ? 'Reserva em campo / frente de serviço' : ''
-    ].filter(Boolean).join(', ');
+    const destinacao = [usoImediato ? 'Uso imediato' : '', reserva ? 'Reserva em campo / frente de serviço' : ''].filter(Boolean).join(', ');
 
     const payload = {
       titulo:      document.getElementById('titulo').value.trim(),
@@ -325,12 +328,16 @@
       aplicacao:   document.getElementById('aplicacao').value.trim(),
       destinacao,
       detalhes:    document.getElementById('detalhes').value.trim(),
-      dataEnvio:   new Date().toLocaleString('pt-BR')
+      dataEnvio:   new Date().toLocaleString('pt-BR'),
+      imagemBase64: imageData ? imageData.base64 : '',
+      imagemNome:   imageData ? imageData.nome : '',
+      imagemTipo:   imageData ? imageData.tipo : ''
     };
 
     const btn = document.getElementById('btn-send');
     btn.classList.add('loading');
     btn.disabled = true;
+    showToast('⏳ Enviando solicitação...', 'warning');
 
     try {
       await fetch(SHEETS_URL, {
