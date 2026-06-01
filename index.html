@@ -14,9 +14,10 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Barlow', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 0 0 60px; }
 
-  .header { background: linear-gradient(135deg, #0e2d3f 0%, #1B5E7A 60%, #1a4f6a 100%); padding: 28px 40px 24px; display: flex; align-items: center; gap: 28px; border-bottom: 3px solid var(--blue-light); position: relative; overflow: hidden; }
+  .header { background: linear-gradient(135deg, #0e2d3f 0%, #1B5E7A 60%, #1a4f6a 100%); padding: 28px 40px 24px; display: flex; align-items: center; justify-content: space-between; gap: 28px; border-bottom: 3px solid var(--blue-light); position: relative; overflow: hidden; }
   .header::after { content:''; position:absolute; right:-60px; top:-60px; width:300px; height:300px; border-radius:50%; border:40px solid rgba(46,155,190,0.08); }
   .header::before { content:''; position:absolute; right:80px; top:-30px; width:200px; height:200px; border-radius:50%; border:25px solid rgba(46,155,190,0.06); }
+  .header-left { display:flex; align-items:center; gap:28px; }
   .logo-circle { width:72px; height:72px; border-radius:50%; background:linear-gradient(145deg,#1B5E7A,#0e2d3f); border:3px solid var(--blue-light); display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; }
   .logo-circle span:first-child { font-family:'Barlow Condensed',sans-serif; font-size:22px; font-weight:700; color:#fff; letter-spacing:1px; }
   .logo-circle span:last-child { font-size:5px; color:var(--blue-pale); letter-spacing:0.5px; text-align:center; line-height:1.3; margin-top:1px; }
@@ -25,6 +26,8 @@
   .header-text p { font-size:13px; color:var(--blue-pale); margin-top:4px; }
   .chips { display:flex; gap:8px; margin-top:8px; }
   .chip { font-size:11px; color:var(--blue-pale); border:1px solid var(--blue-light); border-radius:20px; padding:2px 10px; }
+  .btn-admin { background:rgba(46,155,190,0.1); border:1.5px solid rgba(46,155,190,0.2); color:rgba(168,216,234,0.5); font-family:'Barlow',sans-serif; font-size:11px; padding:6px 14px; border-radius:8px; cursor:pointer; transition:all 0.2s; text-decoration:none; white-space:nowrap; position:relative; z-index:1; }
+  .btn-admin:hover { background:rgba(46,155,190,0.2); color:var(--blue-pale); border-color:var(--blue-light); }
 
   .container { max-width:760px; margin:36px auto; padding:0 20px; }
   .info-block { background:rgba(46,155,190,0.07); border:1px solid rgba(46,155,190,0.25); border-radius:8px; padding:14px 18px; font-size:13px; color:var(--muted); margin-bottom:28px; line-height:1.7; }
@@ -54,19 +57,16 @@
   .check-opt span { font-size:14px; color:var(--text); }
   .check-group.invalid .check-box { border-color:var(--error); }
 
-  /* Checkbox imagem */
-  .img-check-field { display:flex; flex-direction:column; gap:10px; }
-  .img-check-label { display:flex; align-items:center; gap:10px; cursor:pointer; background:var(--card); border:1.5px solid var(--border); border-radius:8px; padding:12px 16px; transition:all 0.2s; }
-  .img-check-label:hover { border-color:var(--blue-light); }
-  .img-check-label input[type="checkbox"] { display:none; }
-  .img-check-box { width:20px; height:20px; border:2px solid var(--border); border-radius:5px; background:var(--bg); display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all 0.2s; }
-  .img-check-label input:checked + .img-check-box { background:var(--blue-light); border-color:var(--blue-light); }
-  .img-check-label input:checked + .img-check-box::after { content:'✓'; color:#fff; font-size:13px; font-weight:700; }
-  .img-check-label input:checked ~ .img-check-text { color:var(--blue-pale); }
-  .img-check-text { font-size:13px; color:var(--muted); line-height:1.4; }
-  .img-check-text strong { display:block; color:var(--text); font-size:14px; margin-bottom:2px; }
-  .img-drive-hint { font-size:11px; color:var(--muted); padding:8px 12px; background:rgba(46,155,190,0.05); border-radius:6px; border:1px solid rgba(46,155,190,0.15); line-height:1.5; }
-  .img-drive-hint strong { color:var(--blue-pale); }
+  .upload-area { background:var(--card); border:2px dashed var(--border); border-radius:8px; padding:20px; text-align:center; cursor:pointer; transition:all 0.2s; position:relative; }
+  .upload-area:hover { border-color:var(--blue-light); background:rgba(46,155,190,0.05); }
+  .upload-area input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
+  .upload-area .upload-icon { font-size:24px; margin-bottom:6px; }
+  .upload-area .upload-text { font-size:13px; color:var(--muted); }
+  .upload-area .upload-name { font-size:12px; color:var(--blue-pale); margin-top:4px; }
+  .img-preview { width:100%; max-height:140px; object-fit:cover; border-radius:6px; margin-top:10px; display:none; border:1px solid var(--border); }
+  .progress-bar { height:4px; background:var(--border); border-radius:4px; margin-top:8px; display:none; overflow:hidden; }
+  .progress-bar.show { display:block; }
+  .progress-fill { height:100%; background:var(--blue-light); border-radius:4px; width:0%; transition:width 0.3s; }
 
   .actions { display:flex; gap:12px; justify-content:flex-end; margin-top:36px; padding-top:24px; border-top:1px solid var(--border); }
   .btn-clear { background:none; border:1.5px solid var(--border); color:var(--muted); font-family:'Barlow',sans-serif; font-size:14px; font-weight:600; padding:11px 28px; border-radius:8px; cursor:pointer; transition:all 0.2s; }
@@ -75,7 +75,7 @@
   .btn-send:hover { opacity:0.9; transform:translateY(-1px); box-shadow:0 6px 20px rgba(46,155,190,0.3); }
   .btn-send:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
 
-  .toast { position:fixed; bottom:30px; right:30px; color:#fff; font-family:'Barlow',sans-serif; font-size:14px; font-weight:600; padding:14px 24px; border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,0.3); transform:translateY(80px); opacity:0; transition:all 0.3s; pointer-events:none; z-index:999; max-width:340px; line-height:1.5; }
+  .toast { position:fixed; bottom:30px; right:30px; color:#fff; font-family:'Barlow',sans-serif; font-size:14px; font-weight:600; padding:14px 24px; border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,0.3); transform:translateY(80px); opacity:0; transition:all 0.3s; pointer-events:none; z-index:999; max-width:340px; }
   .toast.show { transform:translateY(0); opacity:1; }
   .toast.success { background:var(--success); }
   .toast.error { background:var(--error); }
@@ -90,25 +90,28 @@
   .connected-badge::before { content:'●'; font-size:10px; animation:pulse 1.5s infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
 
-  @media (max-width:600px) { .col-2 { grid-template-columns:1fr; } .header { padding:20px; gap:16px; } }
+  @media (max-width:600px) { .col-2 { grid-template-columns:1fr; } .header { padding:20px; } .header-left { gap:16px; } }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="logo-circle">
-    <span>GTM</span>
-    <span>PRESTADORA<br>DE SERVIÇOS</span>
-  </div>
-  <div class="header-divider"></div>
-  <div class="header-text">
-    <h1>Solicitação de Compra</h1>
-    <p>Preencha este formulário para registrar uma nova solicitação de compra de materiais ou serviços.</p>
-    <div class="chips">
-      <span class="chip">Setor Administrativo</span>
-      <span class="chip">GTM Serviços</span>
+  <div class="header-left">
+    <div class="logo-circle">
+      <span>GTM</span>
+      <span>PRESTADORA<br>DE SERVIÇOS</span>
+    </div>
+    <div class="header-divider"></div>
+    <div class="header-text">
+      <h1>Solicitação de Compra</h1>
+      <p>Preencha este formulário para registrar uma nova solicitação de compra de materiais ou serviços.</p>
+      <div class="chips">
+        <span class="chip">Setor Administrativo</span>
+        <span class="chip">GTM Serviços</span>
+      </div>
     </div>
   </div>
+  <a class="btn-admin" href="pedidos.html">⚙️ Admin</a>
 </div>
 
 <div class="container">
@@ -118,7 +121,7 @@
     <span class="atencao">⚠️ <strong>Atenção:</strong> Solicitações incompletas poderão ser devolvidas para revisão.</span>
   </div>
 
-  <div class="connected-badge">Conectado à planilha central — GTM Prestadora de Serviços</div>
+  <div class="connected-badge">Conectado ao banco de dados — GTM Prestadora de Serviços</div>
 
   <div class="section-label">01 — Dados do Pedido</div>
   <div class="form-grid col-2">
@@ -187,18 +190,15 @@
   <div class="form-grid col-2">
     <div class="field">
       <label>Imagem do item <span class="opt">(opcional)</span></label>
-      <div class="img-check-field">
-        <label class="img-check-label">
-          <input type="checkbox" id="tem-imagem"/>
-          <span class="img-check-box"></span>
-          <span class="img-check-text">
-            <strong>📎 Tenho uma imagem para enviar</strong>
-            Ao enviar o formulário, a pasta do Drive abrirá automaticamente
-          </span>
-        </label>
-        <div class="img-drive-hint">
-          💡 A pasta do Google Drive abrirá numa nova aba após o envio. Faça o upload da imagem lá e nomeie com o <strong>título do pedido</strong> para facilitar a identificação.
-        </div>
+      <div class="upload-area">
+        <input type="file" id="imagem" accept="image/*" onchange="handleImage(this)"/>
+        <div class="upload-icon">📎</div>
+        <div class="upload-text">Clique para selecionar uma imagem</div>
+        <div class="upload-name" id="file-name"></div>
+        <img id="img-preview" class="img-preview" alt="Preview"/>
+      </div>
+      <div class="progress-bar" id="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
       </div>
     </div>
     <div class="field">
@@ -219,8 +219,24 @@
 <div class="toast" id="toast"></div>
 
 <script>
-  const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyBwhBKyt6YPkyZbABgLpb9u_n9oeG_3TRrh-DGn0Cy8aHOwIMnnjWF9uR8ZTMroEI_/exec';
-  const DRIVE_FOLDER_URL = 'https://drive.google.com/drive/folders/1UUUJcGCMwKJRbu4ONRYZCVxHwi_I1ouE';
+  const SUPABASE_URL = 'https://ogmovdwcoxfoemutqugk.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_TNN3hOofPJ9YHKTS3vzg0Q_e567QIMV';
+  const BUCKET = 'imagens-solicitacoes';
+  let imageFile = null;
+
+  function handleImage(input) {
+    const file = input.files[0];
+    if (!file) return;
+    imageFile = file;
+    document.getElementById('file-name').textContent = file.name;
+    const reader = new FileReader();
+    reader.onload = e => {
+      const preview = document.getElementById('img-preview');
+      preview.src = e.target.result;
+      preview.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  }
 
   function showToast(msg, type='success') {
     const t = document.getElementById('toast');
@@ -277,61 +293,64 @@
     document.getElementById('check-group').classList.remove('invalid');
     document.getElementById('err-destinacao').classList.remove('show');
     document.getElementById('detalhes').value = '';
-    document.getElementById('tem-imagem').checked = false;
+    document.getElementById('imagem').value = '';
+    document.getElementById('file-name').textContent = '';
+    document.getElementById('img-preview').style.display = 'none';
+    document.getElementById('progress-bar').classList.remove('show');
+    document.getElementById('progress-fill').style.width = '0%';
+    imageFile = null;
+  }
+
+  async function uploadImage(file, titulo) {
+    const ext = file.name.split('.').pop();
+    const fileName = `${Date.now()}_${titulo.replace(/[^a-z0-9]/gi,'_')}.${ext}`;
+    const progressBar = document.getElementById('progress-bar');
+    const progressFill = document.getElementById('progress-fill');
+    progressBar.classList.add('show');
+    progressFill.style.width = '30%';
+    const res = await fetch(`${SUPABASE_URL}/storage/v1/object/${BUCKET}/${fileName}`, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Content-Type': file.type, 'x-upsert': 'true' },
+      body: file
+    });
+    progressFill.style.width = '100%';
+    if (!res.ok) throw new Error('Erro no upload da imagem');
+    return `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${fileName}`;
   }
 
   async function submitForm() {
     if (!validate()) { showToast('⚠️ Preencha todos os campos obrigatórios!', 'error'); return; }
-
     const btn = document.getElementById('btn-send');
-    btn.classList.add('loading');
-    btn.disabled = true;
-
+    btn.classList.add('loading'); btn.disabled = true;
+    showToast('⏳ Enviando solicitação...', 'warning');
     const usoImediato = document.getElementById('uso_imediato').checked;
     const reserva = document.getElementById('reserva').checked;
-    const destinacao = [
-      usoImediato ? 'Uso imediato' : '',
-      reserva ? 'Reserva em campo / frente de serviço' : ''
-    ].filter(Boolean).join(', ');
-
-    const temImagem = document.getElementById('tem-imagem').checked;
-
-    const payload = {
-      titulo:      document.getElementById('titulo').value.trim(),
-      quantidade:  document.getElementById('quantidade').value.trim(),
-      solicitante: document.getElementById('solicitante').value.trim(),
-      regiao:      document.getElementById('regiao').value.trim(),
-      frente:      document.getElementById('frente').value.trim(),
-      aplicacao:   document.getElementById('aplicacao').value.trim(),
-      destinacao,
-      detalhes:    document.getElementById('detalhes').value.trim() + (temImagem ? ' [Imagem enviada no Drive]' : ''),
-      dataEnvio:   new Date().toLocaleString('pt-BR')
-    };
-
+    const destinacao = [usoImediato?'Uso imediato':'', reserva?'Reserva em campo / frente de serviço':''].filter(Boolean).join(', ');
+    const titulo = document.getElementById('titulo').value.trim();
     try {
-      await fetch(SHEETS_URL, {
+      let imagemUrl = null;
+      if (imageFile) { showToast('⏳ Enviando imagem...','warning'); imagemUrl = await uploadImage(imageFile, titulo); }
+      const payload = {
+        titulo, quantidade: document.getElementById('quantidade').value.trim(),
+        solicitante: document.getElementById('solicitante').value.trim(),
+        regiao: document.getElementById('regiao').value.trim(),
+        frente: document.getElementById('frente').value.trim(),
+        aplicacao: document.getElementById('aplicacao').value.trim(),
+        destinacao, detalhes: document.getElementById('detalhes').value.trim(),
+        imagem_url: imagemUrl, criado_em: new Date().toISOString()
+      };
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/solicitacoes`, {
         method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Prefer': 'return=minimal' },
         body: JSON.stringify(payload)
       });
-
+      if (!res.ok) { const err = await res.json(); throw new Error(err.message||'Erro ao salvar'); }
       showToast('✅ Solicitação enviada com sucesso!', 'success');
       clearForm();
-
-      // Abre pasta do Drive se marcou imagem
-      if (temImagem) {
-        setTimeout(() => {
-          window.open(DRIVE_FOLDER_URL, '_blank');
-          showToast('📂 Pasta do Drive aberta! Faça o upload da imagem lá.', 'warning');
-        }, 1500);
-      }
-
     } catch(err) {
-      showToast('❌ Erro ao enviar. Tente novamente.', 'error');
+      showToast(`❌ Erro: ${err.message}`, 'error');
     } finally {
-      btn.classList.remove('loading');
-      btn.disabled = false;
+      btn.classList.remove('loading'); btn.disabled = false;
     }
   }
 </script>
