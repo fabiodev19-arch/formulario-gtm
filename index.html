@@ -82,7 +82,7 @@
   .connected-badge { display:flex; align-items:center; gap:8px; background:rgba(46,204,113,0.1); border:1px solid rgba(46,204,113,0.3); border-radius:8px; padding:10px 16px; margin-bottom:24px; font-size:13px; color:#2ecc71; }
   .connected-badge::before { content:'●'; font-size:10px; animation:pulse 1.5s infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-  @media (max-width:600px) { .col-2 { grid-template-columns:1fr; } .header { padding:20px; } .header-left { gap:16px; } }
+  @media (max-width:600px) { .col-2 { grid-template-columns:1fr; } .header { padding:16px; flex-wrap:wrap; gap:12px; } .header-left { gap:14px; width:100%; } .btn-admin { font-size:12px; padding:8px 14px; align-self:flex-end; margin-left:auto; } }
 </style>
 </head>
 <body>
