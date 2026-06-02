@@ -14,7 +14,6 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Barlow', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-  /* HEADER */
   .header { background:linear-gradient(135deg,#0e2d3f 0%,#1B5E7A 60%,#1a4f6a 100%); padding:20px 32px; display:flex; align-items:center; justify-content:space-between; border-bottom:3px solid var(--blue-light); position:relative; overflow:hidden; }
   .header::after { content:''; position:absolute; right:-60px; top:-60px; width:250px; height:250px; border-radius:50%; border:35px solid rgba(46,155,190,0.08); }
   .header-left { display:flex; align-items:center; gap:20px; }
@@ -33,10 +32,7 @@
   .btn-admin-logout:hover { background:rgba(231,76,60,0.2); }
   .admin-badge { background:rgba(46,204,113,0.15); border:1px solid rgba(46,204,113,0.3); color:#2ecc71; font-size:11px; font-weight:700; padding:4px 10px; border-radius:20px; display:none; }
 
-  /* CONTENT */
   .content { max-width:100%; margin:28px 0; padding:0 28px; }
-
-  /* STATS */
   .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:28px; width:100%; }
   .stat-card { background:var(--card); border:1.5px solid var(--border); border-radius:10px; padding:16px 20px; }
   .stat-label { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
@@ -47,7 +43,6 @@
   .stat-card.concluido .stat-value { color:var(--success); }
   .stat-sub { font-size:12px; color:#e74c3c; margin-top:4px; font-weight:600; }
 
-  /* FILTERS */
   .filters { display:flex; gap:12px; margin-bottom:20px; flex-wrap:wrap; align-items:center; width:100%; }
   .filter-input { background:var(--card); border:1.5px solid var(--border); border-radius:8px; color:var(--text); font-family:'Barlow',sans-serif; font-size:13px; padding:9px 14px; outline:none; transition:border-color 0.2s; flex:1; min-width:180px; }
   .filter-input:focus { border-color:var(--blue-light); }
@@ -59,191 +54,162 @@
   .btn-refresh { background:none; border:1.5px solid var(--border); color:var(--muted); font-family:'Barlow',sans-serif; font-size:13px; padding:9px 16px; border-radius:8px; cursor:pointer; transition:all 0.2s; }
   .btn-refresh:hover { border-color:var(--blue-light); color:var(--blue-pale); }
 
-  /* TABLE */
   .table-wrap { background:var(--card); border:1.5px solid var(--border); border-radius:12px; overflow:hidden; }
   .table-scroll { overflow-x:auto; }
   table { width:100%; border-collapse:collapse; table-layout:fixed; }
   thead th { background:#0d1e2e; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); padding:14px 12px; text-align:left; border-bottom:1px solid var(--border); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-  thead th:nth-child(1)  { width:4%; }   /* # */
-  thead th:nth-child(2)  { width:9%; }   /* Data */
-  thead th:nth-child(3)  { width:12%; }  /* Título */
-  thead th:nth-child(4)  { width:6%; }   /* Qtd */
-  thead th:nth-child(5)  { width:8%; }   /* Solicitante */
-  thead th:nth-child(6)  { width:6%; }   /* Região */
-  thead th:nth-child(7)  { width:8%; }   /* Frente */
-  thead th:nth-child(8)  { width:8%; }   /* Aplicação */
-  thead th:nth-child(9)  { width:9%; }   /* Destinação */
-  thead th:nth-child(10) { width:10%; }  /* Detalhes */
-  thead th:nth-child(11) { width:6%; }   /* Imagem */
-  thead th:nth-child(12) { width:14%; }  /* Status */
+  thead th:nth-child(1)  { width:4%; }
+  thead th:nth-child(2)  { width:9%; }
+  thead th:nth-child(3)  { width:12%; }
+  thead th:nth-child(4)  { width:5%; }
+  thead th:nth-child(5)  { width:8%; }
+  thead th:nth-child(6)  { width:6%; }
+  thead th:nth-child(7)  { width:7%; }
+  thead th:nth-child(8)  { width:7%; }
+  thead th:nth-child(9)  { width:8%; }
+  thead th:nth-child(10) { width:9%; }
+  thead th:nth-child(11) { width:5%; }
+  thead th:nth-child(12) { width:8%; }
+  thead th:nth-child(13) { width:6%; }
+  thead th:nth-child(14) { width:8%; }
   tbody tr { border-bottom:1px solid rgba(30,74,98,0.4); transition:background 0.15s; }
   tbody tr:hover { background:rgba(46,155,190,0.04); }
   tbody tr:last-child { border-bottom:none; }
   td { padding:12px 12px; font-size:13px; vertical-align:middle; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:0; }
-  td.date { color:var(--muted); font-size:12px; white-space:nowrap; }
-  td.num { font-family:'Barlow Condensed',sans-serif; font-size:15px; font-weight:700; color:var(--blue-light); white-space:nowrap; }
+  td.num { font-family:'Barlow Condensed',sans-serif; font-size:15px; font-weight:700; color:var(--blue-light); }
+  td.date { color:var(--muted); font-size:12px; }
   td.titulo { font-weight:600; color:#fff; }
-  td.titulo span { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 
-  /* Status */
   .status-badge { display:inline-flex; align-items:center; padding:4px 10px; border-radius:20px; font-size:11px; font-weight:700; }
   .s-Pendente { background:rgba(243,156,18,0.15); color:#f39c12; border:1px solid rgba(243,156,18,0.3); }
   .s-Em-compra { background:rgba(52,152,219,0.15); color:#3498db; border:1px solid rgba(52,152,219,0.3); }
   .s-Concluido { background:rgba(46,204,113,0.15); color:#2ecc71; border:1px solid rgba(46,204,113,0.3); }
   .s-Devolvido { background:rgba(231,76,60,0.15); color:#e74c3c; border:1px solid rgba(231,76,60,0.3); }
   .status-select { background:transparent; border:none; color:inherit; font-family:'Barlow',sans-serif; font-size:11px; font-weight:700; cursor:pointer; outline:none; padding:0; }
-  .status-select:disabled { cursor:default; opacity:1; -webkit-appearance:none; appearance:none; pointer-events:none; }
+  .status-select:disabled { -webkit-appearance:none; appearance:none; pointer-events:none; }
   .status-select option { background:#112233; color:var(--text); }
 
-  /* Motivo devolução */
-  .btn-ver-motivo { font-size:11px; color:#e74c3c; background:rgba(231,76,60,0.1); border:1px solid rgba(231,76,60,0.3); border-radius:6px; padding:4px 10px; margin-top:6px; display:inline-flex; align-items:center; gap:4px; cursor:pointer; font-family:'Barlow',sans-serif; font-weight:600; transition:all 0.2s; white-space:nowrap; }
-  .btn-ver-motivo:hover { background:rgba(231,76,60,0.2); }
-
-  /* Modal ver motivo */
-  .modal-ver-motivo-bg { position:fixed; inset:0; background:rgba(0,0,0,0.75); display:none; align-items:center; justify-content:center; z-index:999; padding:20px; }
-  .modal-ver-motivo-bg.show { display:flex; }
-  .modal-ver-motivo-card { background:var(--card); border:1.5px solid rgba(231,76,60,0.4); border-radius:16px; padding:32px; width:100%; max-width:460px; }
-  .modal-ver-motivo-header { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
-  .modal-ver-motivo-icon { width:44px; height:44px; border-radius:50%; background:rgba(231,76,60,0.15); border:2px solid rgba(231,76,60,0.4); display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
-  .modal-ver-motivo-header h3 { font-family:'Barlow Condensed',sans-serif; font-size:20px; color:#fff; }
-  .modal-ver-motivo-header p { font-size:12px; color:var(--muted); margin-top:2px; }
-  .motivo-content { background:rgba(231,76,60,0.06); border:1px solid rgba(231,76,60,0.2); border-radius:10px; padding:16px 18px; font-size:14px; color:#f0a0a0; line-height:1.7; word-break:break-word; margin-bottom:20px; }
-  .btn-fechar-motivo { width:100%; background:rgba(231,76,60,0.15); border:1.5px solid rgba(231,76,60,0.3); color:#e74c3c; font-family:'Barlow',sans-serif; font-size:14px; font-weight:700; padding:11px; border-radius:8px; cursor:pointer; transition:all 0.2s; }
-  .btn-fechar-motivo:hover { background:rgba(231,76,60,0.25); }
-  .btn-bloquear { background:rgba(243,156,18,0.1); border:1.5px solid rgba(243,156,18,0.3); color:#f39c12; font-family:'Barlow',sans-serif; font-size:11px; font-weight:600; padding:5px 10px; border-radius:6px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
-  .btn-bloquear:hover { background:rgba(243,156,18,0.2); }
-  .btn-desbloquear { background:rgba(46,204,113,0.1); border:1.5px solid rgba(46,204,113,0.3); color:#2ecc71; font-family:'Barlow',sans-serif; font-size:11px; font-weight:600; padding:5px 10px; border-radius:6px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
-  .btn-desbloquear:hover { background:rgba(46,204,113,0.2); }
-  .btn-excluir { background:rgba(231,76,60,0.1); border:1.5px solid rgba(231,76,60,0.3); color:#e74c3c; font-family:'Barlow',sans-serif; font-size:11px; font-weight:600; padding:5px 10px; border-radius:6px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
-  .btn-excluir:hover { background:rgba(231,76,60,0.2); }
-  .acoes-wrap { display:flex; flex-direction:column; gap:5px; }
-
-  /* Modal confirmação exclusão */
-  .modal-confirm-bg { position:fixed; inset:0; background:rgba(0,0,0,0.8); display:none; align-items:center; justify-content:center; z-index:999; padding:20px; }
-  .modal-confirm-bg.show { display:flex; }
-  .modal-confirm-card { background:var(--card); border:1.5px solid rgba(231,76,60,0.4); border-radius:16px; padding:32px; width:100%; max-width:420px; text-align:center; }
-  .modal-confirm-icon { font-size:48px; margin-bottom:16px; }
-  .modal-confirm-card h3 { font-family:'Barlow Condensed',sans-serif; font-size:22px; color:#fff; margin-bottom:8px; }
-  .modal-confirm-card p { font-size:13px; color:var(--muted); margin-bottom:8px; line-height:1.6; }
-  .modal-confirm-card .pedido-info { background:rgba(231,76,60,0.08); border:1px solid rgba(231,76,60,0.2); border-radius:8px; padding:10px 14px; font-size:13px; color:#f0a0a0; margin-bottom:24px; }
-  .modal-confirm-btns { display:flex; gap:12px; }
-  .btn-confirm-cancel { flex:1; background:none; border:1.5px solid var(--border); color:var(--muted); font-family:'Barlow',sans-serif; font-size:14px; font-weight:600; padding:12px; border-radius:8px; cursor:pointer; }
-  .btn-confirm-cancel:hover { border-color:var(--muted); color:var(--text); }
-  .btn-confirm-delete { flex:1; background:linear-gradient(135deg,#8b0000,#e74c3c); border:none; color:#fff; font-family:'Barlow',sans-serif; font-size:14px; font-weight:700; padding:12px; border-radius:8px; cursor:pointer; transition:all 0.2s; }
-  .btn-confirm-delete:hover { opacity:0.9; }
-
-  .btn-editar-admin { background:rgba(46,155,190,0.15); border:1.5px solid rgba(46,155,190,0.3); color:var(--blue-pale); font-family:'Barlow',sans-serif; font-size:11px; font-weight:600; padding:5px 12px; border-radius:6px; cursor:pointer; transition:all 0.2s; white-space:nowrap; display:none; }
-  .btn-editar-admin:hover { background:rgba(46,155,190,0.3); color:#fff; }
-  .admin-only { display:none; }
-  .is-admin .admin-only { display:inline-flex; }
-  .is-admin .btn-editar-admin { display:inline-flex; }
-
-  .btn-copiar-msg { width:100%; background:linear-gradient(135deg,#1a6a2a,#27ae60); border:none; color:#fff; font-family:'Barlow',sans-serif; font-size:14px; font-weight:700; padding:12px; border-radius:8px; cursor:pointer; transition:all 0.2s; margin-top:10px; display:flex; align-items:center; justify-content:center; gap:8px; }
-  .btn-copiar-msg:hover { opacity:0.9; transform:translateY(-1px); }
-  .msg-preview { background:rgba(39,174,96,0.08); border:1px solid rgba(39,174,96,0.2); border-radius:8px; padding:12px 14px; font-size:12px; color:#a8d8b0; line-height:1.7; margin-top:10px; white-space:pre-wrap; word-break:break-word; }
-
-
-  /* Imagem */
   .img-thumb { width:44px; height:44px; object-fit:cover; border-radius:6px; border:1px solid var(--border); cursor:pointer; transition:transform 0.2s; }
   .img-thumb:hover { transform:scale(1.1); }
   .no-img { font-size:11px; color:var(--muted); }
 
-  /* Modal imagem */
+  /* Ação buttons */
+  .acoes-wrap { display:flex; flex-direction:column; gap:4px; }
+  .btn-acao { font-family:'Barlow',sans-serif; font-size:11px; font-weight:600; padding:4px 8px; border-radius:6px; cursor:pointer; transition:all 0.2s; border:1.5px solid; white-space:nowrap; }
+  .btn-editar { background:rgba(46,155,190,0.1); border-color:rgba(46,155,190,0.3); color:var(--blue-pale); }
+  .btn-editar:hover { background:rgba(46,155,190,0.25); }
+  .btn-editar.bloqueado { opacity:0.35; cursor:not-allowed; }
+  .btn-bloquear { background:rgba(243,156,18,0.1); border-color:rgba(243,156,18,0.3); color:#f39c12; }
+  .btn-bloquear:hover { background:rgba(243,156,18,0.2); }
+  .btn-desbloquear { background:rgba(46,204,113,0.1); border-color:rgba(46,204,113,0.3); color:#2ecc71; }
+  .btn-desbloquear:hover { background:rgba(46,204,113,0.2); }
+  .btn-excluir { background:rgba(231,76,60,0.1); border-color:rgba(231,76,60,0.3); color:#e74c3c; }
+  .btn-excluir:hover { background:rgba(231,76,60,0.2); }
+  .btn-ver-motivo { font-size:11px; color:#e74c3c; background:rgba(231,76,60,0.1); border:1px solid rgba(231,76,60,0.3); border-radius:6px; padding:4px 10px; cursor:pointer; font-family:'Barlow',sans-serif; font-weight:600; white-space:nowrap; }
+
+  /* Modals base */
   .modal-bg { position:fixed; inset:0; background:rgba(0,0,0,0.85); display:none; align-items:center; justify-content:center; z-index:998; padding:20px; }
   .modal-bg.show { display:flex; }
   .modal-img { max-width:90vw; max-height:85vh; border-radius:10px; border:2px solid var(--blue-light); }
   .modal-close { position:fixed; top:20px; right:24px; background:none; border:none; color:#fff; font-size:32px; cursor:pointer; z-index:1000; }
 
-  /* Modal admin login */
-  .modal-login-bg { position:fixed; inset:0; background:rgba(0,0,0,0.7); display:none; align-items:center; justify-content:center; z-index:999; }
-  .modal-login-bg.show { display:flex; }
-  .modal-login-card { background:var(--card); border:1.5px solid var(--border); border-radius:16px; padding:32px; width:100%; max-width:340px; text-align:center; }
-  .modal-login-card h3 { font-family:'Barlow Condensed',sans-serif; font-size:20px; color:#fff; margin-bottom:6px; }
-  .modal-login-card p { font-size:13px; color:var(--muted); margin-bottom:20px; }
-  .modal-login-card input { width:100%; background:var(--bg); border:1.5px solid var(--border); border-radius:8px; color:var(--text); font-family:'Barlow',sans-serif; font-size:14px; padding:11px 14px; outline:none; margin-bottom:12px; transition:border-color 0.2s; }
-  .modal-login-card input:focus { border-color:var(--blue-light); }
-  .modal-login-card input.invalid { border-color:var(--error); }
+  .modal-base-bg { position:fixed; inset:0; background:rgba(0,0,0,0.75); display:none; align-items:center; justify-content:center; z-index:999; padding:20px; }
+  .modal-base-bg.show { display:flex; }
+  .modal-card { background:var(--card); border-radius:16px; padding:32px; width:100%; max-width:440px; }
+
+  /* Login modal */
+  .modal-login .modal-card { border:1.5px solid var(--border); text-align:center; }
+  .modal-login h3 { font-family:'Barlow Condensed',sans-serif; font-size:20px; color:#fff; margin-bottom:6px; }
+  .modal-login p { font-size:13px; color:var(--muted); margin-bottom:20px; }
+  .modal-login input { width:100%; background:var(--bg); border:1.5px solid var(--border); border-radius:8px; color:var(--text); font-family:'Barlow',sans-serif; font-size:14px; padding:11px 14px; outline:none; margin-bottom:12px; transition:border-color 0.2s; }
+  .modal-login input:focus { border-color:var(--blue-light); }
+  .modal-login input.invalid { border-color:var(--error); }
   .login-err { font-size:12px; color:var(--error); margin-bottom:10px; display:none; }
   .login-err.show { display:block; }
-  .modal-login-btns { display:flex; gap:10px; }
+  .modal-btns { display:flex; gap:10px; }
   .btn-modal-cancel { flex:1; background:none; border:1.5px solid var(--border); color:var(--muted); font-family:'Barlow',sans-serif; font-size:13px; font-weight:600; padding:10px; border-radius:8px; cursor:pointer; }
-  .btn-modal-enter { flex:1; background:linear-gradient(135deg,var(--blue-mid),var(--blue-light)); border:none; color:#fff; font-family:'Barlow',sans-serif; font-size:13px; font-weight:700; padding:10px; border-radius:8px; cursor:pointer; }
+  .btn-modal-ok { flex:1; background:linear-gradient(135deg,var(--blue-mid),var(--blue-light)); border:none; color:#fff; font-family:'Barlow',sans-serif; font-size:13px; font-weight:700; padding:10px; border-radius:8px; cursor:pointer; }
 
-  /* Modal motivo devolução */
-  .modal-motivo-bg { position:fixed; inset:0; background:rgba(0,0,0,0.7); display:none; align-items:center; justify-content:center; z-index:999; }
-  .modal-motivo-bg.show { display:flex; }
-  .modal-motivo-card { background:var(--card); border:1.5px solid var(--border); border-radius:16px; padding:32px; width:100%; max-width:420px; }
-  .modal-motivo-card h3 { font-family:'Barlow Condensed',sans-serif; font-size:18px; color:#fff; margin-bottom:6px; }
-  .modal-motivo-card p { font-size:13px; color:var(--muted); margin-bottom:16px; }
-  .modal-motivo-card textarea { width:100%; background:var(--bg); border:1.5px solid var(--border); border-radius:8px; color:var(--text); font-family:'Barlow',sans-serif; font-size:13px; padding:10px 14px; outline:none; resize:vertical; min-height:100px; margin-bottom:16px; text-transform:uppercase; }
-  .modal-motivo-card textarea:focus { border-color:var(--error); }
-  .modal-motivo-btns { display:flex; gap:10px; }
-  .btn-motivo-cancel { flex:1; background:none; border:1.5px solid var(--border); color:var(--muted); font-family:'Barlow',sans-serif; font-size:13px; font-weight:600; padding:10px; border-radius:8px; cursor:pointer; }
-  .btn-motivo-save { flex:1; background:linear-gradient(135deg,#8b0000,#e74c3c); border:none; color:#fff; font-family:'Barlow',sans-serif; font-size:13px; font-weight:700; padding:10px; border-radius:8px; cursor:pointer; }
+  /* Motivo devolução modal */
+  .modal-motivo .modal-card { border:1.5px solid rgba(231,76,60,0.4); }
+  .modal-motivo h3 { font-family:'Barlow Condensed',sans-serif; font-size:18px; color:#fff; margin-bottom:6px; }
+  .modal-motivo p { font-size:13px; color:var(--muted); margin-bottom:16px; }
+  .modal-motivo textarea { width:100%; background:var(--bg); border:1.5px solid var(--border); border-radius:8px; color:var(--text); font-family:'Barlow',sans-serif; font-size:13px; padding:10px 14px; outline:none; resize:vertical; min-height:100px; margin-bottom:16px; text-transform:uppercase; }
+  .modal-motivo textarea:focus { border-color:var(--error); }
+  .btn-modal-devolver { flex:1; background:linear-gradient(135deg,#8b0000,#e74c3c); border:none; color:#fff; font-family:'Barlow',sans-serif; font-size:13px; font-weight:700; padding:10px; border-radius:8px; cursor:pointer; }
 
-  .empty { text-align:center; padding:60px 20px; color:var(--muted); }
-  .empty .empty-icon { font-size:48px; margin-bottom:12px; }
-  .toast { position:fixed; bottom:30px; right:30px; color:#fff; font-family:'Barlow',sans-serif; font-size:14px; font-weight:600; padding:14px 24px; border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,0.3); transform:translateY(80px); opacity:0; transition:all 0.3s; pointer-events:none; z-index:1001; }
-  .toast.show { transform:translateY(0); opacity:1; }
-  .toast.success { background:var(--success); }
-  .toast.error { background:var(--error); }
-  .toast.warning { background:#e8a020; }
-  
-  /* ===== MOBILE CARDS ===== */
+  /* Ver motivo modal */
+  .modal-ver-motivo .modal-card { border:1.5px solid rgba(231,76,60,0.4); }
+  .modal-ver-header { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+  .modal-ver-icon { width:44px; height:44px; border-radius:50%; background:rgba(231,76,60,0.15); border:2px solid rgba(231,76,60,0.4); display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
+  .modal-ver-header h3 { font-family:'Barlow Condensed',sans-serif; font-size:20px; color:#fff; }
+  .modal-ver-header p { font-size:12px; color:var(--muted); margin-top:2px; }
+  .motivo-content { background:rgba(231,76,60,0.06); border:1px solid rgba(231,76,60,0.2); border-radius:10px; padding:16px 18px; font-size:14px; color:#f0a0a0; line-height:1.7; word-break:break-word; margin-bottom:20px; }
+  .btn-fechar { width:100%; background:rgba(231,76,60,0.15); border:1.5px solid rgba(231,76,60,0.3); color:#e74c3c; font-family:'Barlow',sans-serif; font-size:14px; font-weight:700; padding:11px; border-radius:8px; cursor:pointer; }
+
+  /* WhatsApp modal */
+  .modal-wpp .modal-card { border:1.5px solid rgba(39,174,96,0.4); }
+  .modal-wpp-header { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+  .modal-wpp-icon { width:44px; height:44px; border-radius:50%; background:rgba(39,174,96,0.15); border:2px solid rgba(39,174,96,0.4); display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
+  .modal-wpp-header h3 { font-family:'Barlow Condensed',sans-serif; font-size:20px; color:#fff; }
+  .modal-wpp-header p { font-size:12px; color:var(--muted); margin-top:2px; }
+  .msg-preview { background:rgba(39,174,96,0.08); border:1px solid rgba(39,174,96,0.2); border-radius:8px; padding:12px 14px; font-size:12px; color:#a8d8b0; line-height:1.7; margin-bottom:12px; white-space:pre-wrap; word-break:break-word; }
+  .btn-copiar { width:100%; background:linear-gradient(135deg,#1a7a3a,#27ae60); border:none; color:#fff; font-family:'Barlow',sans-serif; font-size:14px; font-weight:700; padding:12px; border-radius:8px; cursor:pointer; margin-bottom:10px; }
+  .btn-fechar-wpp { width:100%; background:none; border:1.5px solid var(--border); color:var(--muted); font-family:'Barlow',sans-serif; font-size:13px; padding:10px; border-radius:8px; cursor:pointer; }
+
+  /* Confirm delete modal */
+  .modal-confirm .modal-card { border:1.5px solid rgba(231,76,60,0.4); text-align:center; }
+  .modal-confirm .confirm-icon { font-size:48px; margin-bottom:16px; }
+  .modal-confirm h3 { font-family:'Barlow Condensed',sans-serif; font-size:22px; color:#fff; margin-bottom:8px; }
+  .modal-confirm p { font-size:13px; color:var(--muted); margin-bottom:8px; line-height:1.6; }
+  .modal-confirm .pedido-info { background:rgba(231,76,60,0.08); border:1px solid rgba(231,76,60,0.2); border-radius:8px; padding:10px 14px; font-size:13px; color:#f0a0a0; margin-bottom:24px; }
+  .btn-modal-delete { flex:1; background:linear-gradient(135deg,#8b0000,#e74c3c); border:none; color:#fff; font-family:'Barlow',sans-serif; font-size:14px; font-weight:700; padding:12px; border-radius:8px; cursor:pointer; }
+
+  /* Mobile */
   .cards-view { display:none; }
-
-  @media (max-width: 768px) {
+  @media (max-width:768px) {
     .content { padding:0 14px; margin:16px 0; }
-
-    /* Hide table, show cards */
     .table-wrap { display:none; }
     .cards-view { display:block; }
-
-    /* Stats 2x2 grid */
     .stats { grid-template-columns:1fr 1fr; gap:10px; }
     .stat-card { padding:12px 14px; }
     .stat-value { font-size:26px; }
-
-    /* Filters stack */
     .filters { flex-direction:column; gap:8px; }
-    .filter-input { min-width:unset; width:100%; }
-    .filter-select { width:100%; }
-    .btn-refresh, .btn-excel { width:100%; justify-content:center; }
-
-    /* Header mobile */
+    .filter-input, .filter-select, .btn-refresh, .btn-excel { width:100%; }
     .header { padding:14px 16px; flex-wrap:wrap; gap:10px; }
     .header-left { gap:12px; }
-    .header-title h1 { font-size:18px; }
-    .header-title p { font-size:11px; }
     .header-nav { width:100%; justify-content:flex-end; gap:8px; }
-    .btn-nav { font-size:12px; padding:7px 14px; }
-    .btn-admin-login, .btn-admin-logout { font-size:11px; padding:6px 12px; }
   }
-
-  /* Card individual */
-  .pedido-card { background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:16px; margin-bottom:12px; transition:border-color 0.2s; }
-  .pedido-card:hover { border-color:var(--blue-light); }
+  .pedido-card { background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:16px; margin-bottom:12px; }
   .pedido-card-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
   .pedido-card-num { font-family:'Barlow Condensed',sans-serif; font-size:18px; font-weight:700; color:var(--blue-light); }
   .pedido-card-date { font-size:11px; color:var(--muted); }
-  .pedido-card-titulo { font-size:15px; font-weight:700; color:#fff; margin-bottom:10px; line-height:1.3; }
+  .pedido-card-titulo { font-size:15px; font-weight:700; color:#fff; margin-bottom:10px; line-height:1.3; white-space:normal; }
   .pedido-card-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:12px; }
   .pedido-card-field { display:flex; flex-direction:column; gap:2px; }
   .pedido-card-label { font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--muted); }
-  .pedido-card-value { font-size:13px; color:var(--text); }
-  .pedido-card-footer { display:flex; align-items:center; justify-content:space-between; gap:10px; padding-top:10px; border-top:1px solid var(--border); flex-wrap:wrap; }
-  .pedido-card-img { width:48px; height:48px; object-fit:cover; border-radius:8px; border:1px solid var(--border); cursor:pointer; flex-shrink:0; }
-  .pedido-card-status-wrap { display:flex; flex-direction:column; gap:6px; flex:1; }
-  .pedido-card-motivo-btn { font-size:11px; color:#e74c3c; background:rgba(231,76,60,0.1); border:1px solid rgba(231,76,60,0.3); border-radius:6px; padding:4px 10px; cursor:pointer; font-family:'Barlow',sans-serif; font-weight:600; align-self:flex-start; }
+  .pedido-card-value { font-size:13px; color:var(--text); white-space:normal; }
+  .pedido-card-detalhes { font-size:12px; color:var(--muted); grid-column:1/-1; background:rgba(255,255,255,0.03); border-radius:6px; padding:6px 10px; line-height:1.5; white-space:normal; }
+  .pedido-card-footer { display:flex; flex-direction:column; gap:8px; padding-top:10px; border-top:1px solid var(--border); }
+  .pedido-card-img { width:60px; height:60px; object-fit:cover; border-radius:8px; border:1px solid var(--border); cursor:pointer; }
   .card-status-select { background:var(--card); border:1.5px solid var(--border); border-radius:8px; color:var(--text); font-family:'Barlow',sans-serif; font-size:13px; font-weight:600; padding:8px 12px; outline:none; cursor:pointer; width:100%; }
-  .card-status-select:disabled { opacity:1; -webkit-appearance:none; appearance:none; pointer-events:none; }
+  .card-status-select:disabled { -webkit-appearance:none; appearance:none; pointer-events:none; }
   .card-status-select option { background:#112233; }
   .card-status-select.s-Pendente { border-color:rgba(243,156,18,0.5); color:#f39c12; }
   .card-status-select.s-Em-compra { border-color:rgba(52,152,219,0.5); color:#3498db; }
   .card-status-select.s-Concluido { border-color:rgba(46,204,113,0.5); color:#2ecc71; }
   .card-status-select.s-Devolvido { border-color:rgba(231,76,60,0.5); color:#e74c3c; }
-  .pedido-card-detalhes { font-size:12px; color:var(--muted); grid-column:1/-1; background:rgba(255,255,255,0.03); border-radius:6px; padding:6px 10px; line-height:1.5; }
+  .card-acoes { display:flex; gap:8px; flex-wrap:wrap; }
+  .card-acoes .btn-acao { flex:1; text-align:center; padding:8px; }
 
+  .empty { text-align:center; padding:60px 20px; color:var(--muted); }
+  .empty .empty-icon { font-size:48px; margin-bottom:12px; }
+
+  .toast { position:fixed; bottom:30px; right:30px; color:#fff; font-family:'Barlow',sans-serif; font-size:14px; font-weight:600; padding:14px 24px; border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,0.3); transform:translateY(80px); opacity:0; transition:all 0.3s; pointer-events:none; z-index:1001; max-width:340px; }
+  .toast.show { transform:translateY(0); opacity:1; }
+  .toast.success { background:var(--success); }
+  .toast.error { background:var(--error); }
+  .toast.warning { background:#e8a020; }
 </style>
 </head>
 <body>
@@ -270,8 +236,8 @@
     <div class="stat-card concluido"><div class="stat-label">Concluídos</div><div class="stat-value" id="stat-concluido">—</div></div>
   </div>
   <div class="filters">
-    <input class="filter-input" id="f-busca" placeholder="🔍 Buscar por título, solicitante, região..." oninput="renderTable()"/>
-    <select class="filter-select" id="f-status" onchange="renderTable()">
+    <input class="filter-input" id="f-busca" placeholder="🔍 Buscar por título, solicitante, região..." oninput="renderAll()"/>
+    <select class="filter-select" id="f-status" onchange="renderAll()">
       <option value="">Todos os status</option>
       <option value="Pendente">🟡 Pendente</option>
       <option value="Em compra">🔵 Em compra</option>
@@ -286,100 +252,88 @@
       <table>
         <thead>
           <tr>
-            <th>#</th><th>Data</th><th>Título do Pedido</th><th>Qtd</th><th>Solicitante</th>
+            <th>#</th><th>Data</th><th>Título</th><th>Qtd</th><th>Solicitante</th>
             <th>Região</th><th>Frente</th><th>Aplicação</th><th>Destinação</th>
-            <th>Detalhes</th><th>Imagem</th><th>Status</th>
+            <th>Detalhes</th><th>Img</th><th>Status</th><th>Editar</th><th id="th-admin" style="display:none">Admin</th>
           </tr>
         </thead>
         <tbody id="table-body">
-          <tr><td colspan="12" style="text-align:center;padding:40px;color:var(--muted)">⏳ Carregando pedidos...</td></tr>
+          <tr><td colspan="14" style="text-align:center;padding:40px;color:var(--muted)">⏳ Carregando...</td></tr>
         </tbody>
       </table>
     </div>
   </div>
-
-  <!-- MOBILE CARDS VIEW -->
   <div class="cards-view" id="cards-view"></div>
-
 </div>
 
 <!-- MODAL IMAGEM -->
-<div class="modal-bg" id="modal-bg" onclick="closeModal()">
-  <button class="modal-close" onclick="closeModal()">✕</button>
+<div class="modal-bg" id="modal-img-bg" onclick="closeImgModal()">
+  <button class="modal-close" onclick="closeImgModal()">✕</button>
   <img class="modal-img" id="modal-img" src="" alt=""/>
 </div>
 
-<!-- MODAL LOGIN ADMIN -->
-<div class="modal-login-bg" id="modal-login-bg">
-  <div class="modal-login-card">
+<!-- MODAL LOGIN -->
+<div class="modal-base-bg modal-login" id="modal-login-bg">
+  <div class="modal-card">
     <h3>🔐 Acesso Admin</h3>
     <p>Digite a senha para habilitar as funções administrativas</p>
     <input type="password" id="admin-senha" placeholder="Senha" onkeydown="if(event.key==='Enter') confirmLogin()"/>
     <div class="login-err" id="login-err">Senha incorreta.</div>
-    <div class="modal-login-btns">
+    <div class="modal-btns">
       <button class="btn-modal-cancel" onclick="closeLoginModal()">Cancelar</button>
-      <button class="btn-modal-enter" onclick="confirmLogin()">Entrar</button>
+      <button class="btn-modal-ok" onclick="confirmLogin()">Entrar</button>
     </div>
   </div>
 </div>
 
 <!-- MODAL MOTIVO DEVOLUÇÃO -->
-<div class="modal-motivo-bg" id="modal-motivo-bg">
-  <div class="modal-motivo-card">
+<div class="modal-base-bg modal-motivo" id="modal-motivo-bg">
+  <div class="modal-card">
     <h3>🔴 Motivo da Devolução</h3>
     <p>Informe o motivo pelo qual esta solicitação está sendo devolvida:</p>
     <textarea id="motivo-text" placeholder="DESCREVA O MOTIVO DA DEVOLUÇÃO..."></textarea>
-    <div class="modal-motivo-btns">
-      <button class="btn-motivo-cancel" onclick="cancelMotivo()">Cancelar</button>
-      <button class="btn-motivo-save" onclick="saveMotivo()">Confirmar Devolução</button>
+    <div class="modal-btns">
+      <button class="btn-modal-cancel" onclick="cancelMotivo()">Cancelar</button>
+      <button class="btn-modal-devolver" onclick="saveMotivo()">Confirmar Devolução</button>
     </div>
   </div>
 </div>
-
 
 <!-- MODAL VER MOTIVO -->
-<div class="modal-ver-motivo-bg" id="modal-ver-motivo-bg">
-  <div class="modal-ver-motivo-card">
-    <div class="modal-ver-motivo-header">
-      <div class="modal-ver-motivo-icon">🔴</div>
-      <div>
-        <h3>Motivo da Devolução</h3>
-        <p id="motivo-pedido-info">Pedido #—</p>
-      </div>
+<div class="modal-base-bg modal-ver-motivo" id="modal-ver-motivo-bg">
+  <div class="modal-card">
+    <div class="modal-ver-header">
+      <div class="modal-ver-icon">🔴</div>
+      <div><h3>Motivo da Devolução</h3><p id="motivo-pedido-info">Pedido #—</p></div>
     </div>
     <div class="motivo-content" id="motivo-content-text"></div>
-    <button class="btn-fechar-motivo" onclick="document.getElementById('modal-ver-motivo-bg').classList.remove('show')">Fechar</button>
+    <button class="btn-fechar" onclick="document.getElementById('modal-ver-motivo-bg').classList.remove('show')">Fechar</button>
   </div>
 </div>
 
-
-<!-- MODAL COPIAR MENSAGEM WHATSAPP -->
-<div class="modal-ver-motivo-bg" id="modal-wpp-bg">
-  <div class="modal-ver-motivo-card" style="border-color:rgba(39,174,96,0.4);">
-    <div class="modal-ver-motivo-header">
-      <div class="modal-ver-motivo-icon" style="background:rgba(39,174,96,0.15);border-color:rgba(39,174,96,0.4);">📲</div>
-      <div>
-        <h3 style="color:#fff;">Notificar Solicitante</h3>
-        <p>Copie a mensagem e cole no grupo do WhatsApp</p>
-      </div>
+<!-- MODAL WHATSAPP -->
+<div class="modal-base-bg modal-wpp" id="modal-wpp-bg">
+  <div class="modal-card">
+    <div class="modal-wpp-header">
+      <div class="modal-wpp-icon">📲</div>
+      <div><h3>Notificar Solicitante</h3><p>Copie a mensagem e cole no grupo do WhatsApp</p></div>
     </div>
     <div class="msg-preview" id="wpp-msg-text"></div>
-    <button class="btn-copiar-msg" onclick="copiarMensagem()">📋 Copiar mensagem</button>
-    <button class="btn-fechar-motivo" style="margin-top:10px;background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.1);color:var(--muted);" onclick="document.getElementById('modal-wpp-bg').classList.remove('show')">Fechar</button>
+    <button class="btn-copiar" onclick="copiarMensagem()">📋 Copiar mensagem</button>
+    <button class="btn-fechar-wpp" onclick="document.getElementById('modal-wpp-bg').classList.remove('show')">Fechar</button>
   </div>
 </div>
 
-
-<!-- MODAL CONFIRMAÇÃO EXCLUSÃO -->
-<div class="modal-confirm-bg" id="modal-confirm-bg">
-  <div class="modal-confirm-card">
-    <div class="modal-confirm-icon">🗑️</div>
+<!-- MODAL CONFIRMAR EXCLUSÃO -->
+<div class="modal-base-bg modal-confirm" id="modal-confirm-bg">
+  <div class="modal-card">
+    <div class="confirm-icon">🗑️</div>
     <h3>Confirmar Exclusão</h3>
-    <p>Esta ação é <strong style="color:#e74c3c">irreversível</strong>. O pedido será excluído permanentemente do sistema.</p>
-    <div class="pedido-info" id="confirm-pedido-info"></div>
-    <div class="modal-confirm-btns">
-      <button class="btn-confirm-cancel" onclick="document.getElementById('modal-confirm-bg').classList.remove('show')">Cancelar</button>
-      <button class="btn-confirm-delete" onclick="executarExclusao()">Sim, excluir</button>
+    <p>Esta ação é <strong style="color:#e74c3c">irreversível</strong>. O pedido será excluído permanentemente.</p>
+    <div class="pedido-info" id="confirm-info"></div>
+    <div class="modal-btns">
+      <button class="btn-modal-cancel" onclick="document.getElementById('modal-confirm-bg').classList.remove('show')">Cancelar</button>
+      <button class="btn-modal-delete" onclick="executarExclusao()">Sim, excluir</button>
     </div>
   </div>
 </div>
@@ -391,44 +345,48 @@
   const SUPABASE_URL = 'https://ogmovdwcoxfoemutqugk.supabase.co';
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9nbW92ZHdjb3hmb2VtdXRxdWdrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAzMjMyNzYsImV4cCI6MjA5NTg5OTI3Nn0.LTYEXPla_doUdqU8orfBsGUAE_m9pHfKBFBtMblZt5Y';
   const SENHA = '@fGare4d&8s_';
+  const BASE_URL = 'https://fabiodev19-arch.github.io/formulario-gtm/';
 
   let allData = [];
   let isAdmin = false;
   let pendingStatusId = null;
-  let pendingStatusVal = null;
   let pendingSelectEl = null;
+  let pendingDeleteId = null;
 
-  // ---- TOAST ----
-  function showToast(msg, type='success') {
+  function showToast(msg, type) {
     const t = document.getElementById('toast');
-    t.textContent = msg; t.className = 'toast ' + type + ' show';
-    setTimeout(() => t.classList.remove('show'), 4000);
+    t.textContent = msg;
+    t.className = 'toast ' + (type||'success') + ' show';
+    setTimeout(function() { t.classList.remove('show'); }, 4000);
   }
 
-  // ---- ADMIN LOGIN ----
+  // ── ADMIN ──
   function openLoginModal() {
     document.getElementById('admin-senha').value = '';
     document.getElementById('login-err').classList.remove('show');
     document.getElementById('admin-senha').classList.remove('invalid');
     document.getElementById('modal-login-bg').classList.add('show');
-    setTimeout(() => document.getElementById('admin-senha').focus(), 100);
+    setTimeout(function() { document.getElementById('admin-senha').focus(); }, 100);
   }
   function closeLoginModal() { document.getElementById('modal-login-bg').classList.remove('show'); }
   function confirmLogin() {
-    const val = document.getElementById('admin-senha').value;
-    if (val === SENHA) {
+    if (document.getElementById('admin-senha').value === SENHA) {
       isAdmin = true;
       closeLoginModal();
       document.getElementById('btn-admin-login').style.display = 'none';
       document.getElementById('btn-admin-logout').style.display = 'block';
       document.getElementById('admin-badge').style.display = 'inline-flex';
       document.getElementById('btn-excel').classList.add('enabled');
-      renderTable();
-      showToast('✅ Modo admin ativado!', 'success');
+      document.getElementById('th-admin').style.display = 'table-cell';
+      renderAll();
+      showToast('Modo admin ativado!', 'success');
     } else {
       document.getElementById('admin-senha').classList.add('invalid');
       document.getElementById('login-err').classList.add('show');
-      setTimeout(() => { document.getElementById('admin-senha').classList.remove('invalid'); document.getElementById('login-err').classList.remove('show'); }, 2500);
+      setTimeout(function() {
+        document.getElementById('admin-senha').classList.remove('invalid');
+        document.getElementById('login-err').classList.remove('show');
+      }, 2500);
     }
   }
   function logoutAdmin() {
@@ -437,11 +395,12 @@
     document.getElementById('btn-admin-logout').style.display = 'none';
     document.getElementById('admin-badge').style.display = 'none';
     document.getElementById('btn-excel').classList.remove('enabled');
-    renderTable();
+    document.getElementById('th-admin').style.display = 'none';
+    renderAll();
     showToast('Modo admin desativado', 'warning');
   }
 
-  // ---- LOAD DATA ----
+  // ── DATA ──
   async function loadData() {
     try {
       const res = await fetch(SUPABASE_URL + '/rest/v1/solicitacoes?order=criado_em.desc', {
@@ -449,96 +408,118 @@
       });
       allData = await res.json();
       updateStats();
-      renderTable();
-    } catch(e) { showToast('❌ Erro ao carregar: ' + e.message, 'error'); console.error(e); }
+      renderAll();
+    } catch(e) { showToast('Erro ao carregar dados', 'error'); }
   }
 
   function updateStats() {
-    const devolvidos = allData.filter(d => d.status === 'Devolvido').length;
+    const devolvidos = allData.filter(function(d) { return d.status === 'Devolvido'; }).length;
     document.getElementById('stat-total').textContent = allData.length;
-    const subEl = document.getElementById('stat-devolvido-sub'); if (subEl) subEl.textContent = devolvidos > 0 ? '🔴 ' + devolvidos + ' devolvida' + (devolvidos > 1 ? 's' : '') : '';
-    document.getElementById('stat-pendente').textContent = allData.filter(d => d.status === 'Pendente').length;
-    document.getElementById('stat-emcompra').textContent = allData.filter(d => d.status === 'Em compra').length;
-    document.getElementById('stat-concluido').textContent = allData.filter(d => d.status === 'Concluído').length;
+    const subEl = document.getElementById('stat-devolvido-sub');
+    if (subEl) subEl.textContent = devolvidos > 0 ? '🔴 ' + devolvidos + ' devolvida' + (devolvidos > 1 ? 's' : '') : '';
+    document.getElementById('stat-pendente').textContent = allData.filter(function(d) { return d.status === 'Pendente'; }).length;
+    document.getElementById('stat-emcompra').textContent = allData.filter(function(d) { return d.status === 'Em compra'; }).length;
+    document.getElementById('stat-concluido').textContent = allData.filter(function(d) { return d.status === 'Concluído'; }).length;
   }
 
   function scClass(s) {
-    const m = {'Pendente':'Pendente','Em compra':'Em-compra','Concluído':'Concluido','Devolvido':'Devolvido'};
+    var m = { 'Pendente':'Pendente', 'Em compra':'Em-compra', 'Concluído':'Concluido', 'Devolvido':'Devolvido' };
     return m[s] || 'Pendente';
   }
 
-  function renderTable() {
-    const busca = document.getElementById('f-busca').value.toLowerCase();
-    const status = document.getElementById('f-status').value;
-    let filtered = allData.filter(d => {
-      const mb = !busca || (d.titulo||'').toLowerCase().includes(busca) || (d.solicitante||'').toLowerCase().includes(busca) || (d.regiao||'').toLowerCase().includes(busca) || (d.frente||'').toLowerCase().includes(busca);
+  function filtered() {
+    var busca = document.getElementById('f-busca').value.toLowerCase();
+    var status = document.getElementById('f-status').value;
+    return allData.filter(function(d) {
+      var mb = !busca || (d.titulo||'').toLowerCase().includes(busca) || (d.solicitante||'').toLowerCase().includes(busca) || (d.regiao||'').toLowerCase().includes(busca) || (d.frente||'').toLowerCase().includes(busca);
       return mb && (!status || d.status === status);
     });
-    const tbody = document.getElementById('table-body');
-    if (!filtered.length) {
-      tbody.innerHTML = '<tr><td colspan="12"><div class="empty"><div class="empty-icon">📭</div><p>Nenhum pedido encontrado</p></div></td></tr>';
+  }
+
+  function renderAll() { renderTable(); renderCards(); }
+
+  function renderTable() {
+    var data = filtered();
+    var tbody = document.getElementById('table-body');
+    if (!data.length) {
+      tbody.innerHTML = '<tr><td colspan="14"><div class="empty"><div class="empty-icon">📭</div><p>Nenhum pedido encontrado</p></div></td></tr>';
       return;
     }
-    renderCards();
-    tbody.innerHTML = filtered.map(d => {
-      const data = d.criado_em ? new Date(d.criado_em).toLocaleString('pt-BR') : '—';
-      const imgHtml = d.imagem_url ? '<img class="img-thumb" src="' + d.imagem_url + '" onclick="openModal(\'' + d.imagem_url + '\')" alt="img"/>' : '<span class="no-img">—</span>';
-      const sc = scClass(d.status || 'Pendente');
-      const motivoHtml = d.status === 'Devolvido' && d.motivo_devolucao
-        ? '<button class="btn-ver-motivo" onclick="verMotivo(this.dataset.motivo, this.dataset.titulo, this.dataset.num)" data-motivo="' + (d.motivo_devolucao||'').replace(/"/g,"&quot;") + '" data-titulo="' + (d.titulo||'').replace(/"/g,"&quot;") + '" data-num="' + (d.numero_pedido||'') + '">🔴 Ver motivo</button>'
+    tbody.innerHTML = data.map(function(d) {
+      var dt = d.criado_em ? new Date(d.criado_em).toLocaleString('pt-BR') : '—';
+      var sc = scClass(d.status || 'Pendente');
+      var bloqueado = d.bloqueado === true;
+      var imgHtml = d.imagem_url
+        ? '<img class="img-thumb" src="' + d.imagem_url + '" onclick="openImgModal(\'' + d.imagem_url + '\')" alt="img"/>'
+        : '<span class="no-img">—</span>';
+      var statusHtml = isAdmin
+        ? '<span class="status-badge s-' + sc + '"><select class="status-select" onchange="handleStatusChange(\'' + d.id + '\', this.value, this)"><option ' + (d.status==='Pendente'?'selected':'') + '>Pendente</option><option ' + (d.status==='Em compra'?'selected':'') + '>Em compra</option><option ' + (d.status==='Concluído'?'selected':'') + '>Concluído</option><option ' + (d.status==='Devolvido'?'selected':'') + '>Devolvido</option></select></span>'
+        : '<span class="status-badge s-' + sc + '">' + (d.status||'Pendente') + '</span>';
+      var motivoBtn = d.status === 'Devolvido' && d.motivo_devolucao
+        ? ' <button class="btn-ver-motivo" data-motivo="' + (d.motivo_devolucao||'').replace(/"/g,'&quot;') + '" data-titulo="' + (d.titulo||'').replace(/"/g,'&quot;') + '" data-num="' + (d.numero_pedido||'') + '" onclick="verMotivo(this)">🔴 Ver motivo</button>'
         : '';
-      const statusHtml = isAdmin
-        ? '<span class="status-badge s-' + sc + '"><select class="status-select" onchange="handleStatusChange(\'' + d.id + '\', this.value, this)"><option ' + (d.status==='Pendente'?'selected':'') + '>Pendente</option><option ' + (d.status==='Em compra'?'selected':'') + '>Em compra</option><option ' + (d.status==='Concluído'?'selected':'') + '>Concluído</option><option ' + (d.status==='Devolvido'?'selected':'') + '>Devolvido</option></select></span>' + motivoHtml
-        : '<span class="status-badge s-' + sc + '">' + (d.status||'Pendente') + '</span>' + motivoHtml;
-      const bloqueado = d.bloqueado === true;
-      const editBtn = bloqueado
-        ? '<button class="btn-editar-admin" disabled style="opacity:0.3;cursor:not-allowed;">🔒 Bloqueado</button>'
-        : '<button class="btn-editar-admin" style="display:inline-flex;" onclick="editarPedido(\'' + d.id + '\')">✏️ Editar</button>';
-      const adminAcoes = isAdmin
-        ? '<div class="acoes-wrap">'
+      var editBtn = bloqueado
+        ? '<button class="btn-acao btn-editar bloqueado" disabled>🔒 Bloqueado</button>'
+        : '<button class="btn-acao btn-editar" onclick="editarPedido(\'' + d.id + '\')">✏️ Editar</button>';
+      var adminCol = isAdmin
+        ? '<td><div class="acoes-wrap">'
           + (bloqueado
-            ? '<button class="btn-desbloquear" onclick="toggleBloqueio(\'' + d.id + '\', false)">🔓 Desbloquear</button>'
-            : '<button class="btn-bloquear" onclick="toggleBloqueio(\'' + d.id + '\', true)">🔒 Bloquear edição</button>')
-          + '<button class="btn-excluir" onclick="confirmarExclusao(\'' + d.id + '\', \'' + (d.numero_pedido||'') + '\', this.dataset.titulo)" data-titulo="' + (d.titulo||'').replace(/"/g,'&quot;') + '">🗑️ Excluir</button>'
-          + '</div>'
-        : '';
-      return '<tr><td class="num">#' + (d.numero_pedido||'—') + '</td><td class="date">' + data + '</td><td class="titulo"><span title="' + (d.titulo||'') + '">' + (d.titulo||'—') + '</span></td><td>' + (d.quantidade||'—') + '</td><td>' + (d.solicitante||'—') + '</td><td>' + (d.regiao||'—') + '</td><td>' + (d.frente||'—') + '</td><td>' + (d.aplicacao||'—') + '</td><td>' + (d.destinacao||'—') + '</td><td>' + (d.detalhes||'—') + '</td><td>' + imgHtml + '</td><td>' + statusHtml + '</td><td>' + editBtn + '</td><td>' + adminAcoes + '</td></tr>';
+            ? '<button class="btn-acao btn-desbloquear" onclick="toggleBloqueio(\'' + d.id + '\', false)">🔓 Desbloquear</button>'
+            : '<button class="btn-acao btn-bloquear" onclick="toggleBloqueio(\'' + d.id + '\', true)">🔒 Bloquear</button>')
+          + '<button class="btn-acao btn-excluir" data-num="' + (d.numero_pedido||'') + '" data-titulo="' + (d.titulo||'').replace(/"/g,'&quot;') + '" onclick="confirmarExclusao(\'' + d.id + '\', this)">🗑️ Excluir</button>'
+          + '</div></td>'
+        : '<td></td>';
+      return '<tr>'
+        + '<td class="num">#' + (d.numero_pedido||'—') + '</td>'
+        + '<td class="date">' + dt + '</td>'
+        + '<td class="titulo">' + (d.titulo||'—') + '</td>'
+        + '<td>' + (d.quantidade||'—') + '</td>'
+        + '<td>' + (d.solicitante||'—') + '</td>'
+        + '<td>' + (d.regiao||'—') + '</td>'
+        + '<td>' + (d.frente||'—') + '</td>'
+        + '<td>' + (d.aplicacao||'—') + '</td>'
+        + '<td>' + (d.destinacao||'—') + '</td>'
+        + '<td>' + (d.detalhes||'—') + '</td>'
+        + '<td>' + imgHtml + '</td>'
+        + '<td>' + statusHtml + motivoBtn + '</td>'
+        + '<td>' + editBtn + '</td>'
+        + adminCol
+        + '</tr>';
     }).join('');
   }
 
-
   function renderCards() {
-    const busca = document.getElementById('f-busca').value.toLowerCase();
-    const status = document.getElementById('f-status').value;
-    let filtered = allData.filter(d => {
-      const mb = !busca || (d.titulo||'').toLowerCase().includes(busca) || (d.solicitante||'').toLowerCase().includes(busca) || (d.regiao||'').toLowerCase().includes(busca) || (d.frente||'').toLowerCase().includes(busca);
-      return mb && (!status || d.status === status);
-    });
-
-    const container = document.getElementById('cards-view');
+    var data = filtered();
+    var container = document.getElementById('cards-view');
     if (!container) return;
-
-    if (!filtered.length) {
+    if (!data.length) {
       container.innerHTML = '<div class="empty"><div class="empty-icon">📭</div><p>Nenhum pedido encontrado</p></div>';
       return;
     }
-
-    container.innerHTML = filtered.map(d => {
-      const data = d.criado_em ? new Date(d.criado_em).toLocaleString('pt-BR') : '—';
-      const sc = scClass(d.status || 'Pendente');
-      const imgHtml = d.imagem_url
-        ? '<img class="pedido-card-img" src="' + d.imagem_url + '" onclick="openModal(\'' + d.imagem_url + '\')" alt="img"/>'
+    container.innerHTML = data.map(function(d) {
+      var dt = d.criado_em ? new Date(d.criado_em).toLocaleString('pt-BR') : '—';
+      var sc = scClass(d.status || 'Pendente');
+      var bloqueado = d.bloqueado === true;
+      var imgHtml = d.imagem_url
+        ? '<img class="pedido-card-img" src="' + d.imagem_url + '" onclick="openImgModal(\'' + d.imagem_url + '\')" alt="img"/>'
         : '';
-      const motivoHtml = d.status === 'Devolvido' && d.motivo_devolucao
-        ? '<button class="pedido-card-motivo-btn" onclick="verMotivo(this.dataset.motivo, this.dataset.titulo, this.dataset.num)" data-motivo="' + (d.motivo_devolucao||'').replace(/"/g,'&quot;') + '" data-titulo="' + (d.titulo||'').replace(/"/g,'&quot;') + '" data-num="' + (d.numero_pedido||'') + '">🔴 Ver motivo</button>'
-        : '';
-      const statusEl = isAdmin
+      var statusEl = isAdmin
         ? '<select class="card-status-select s-' + sc + '" onchange="handleStatusChange(\'' + d.id + '\', this.value, this)"><option ' + (d.status==='Pendente'?'selected':'') + '>Pendente</option><option ' + (d.status==='Em compra'?'selected':'') + '>Em compra</option><option ' + (d.status==='Concluído'?'selected':'') + '>Concluído</option><option ' + (d.status==='Devolvido'?'selected':'') + '>Devolvido</option></select>'
         : '<select class="card-status-select s-' + sc + '" disabled><option selected>' + (d.status||'Pendente') + '</option></select>';
-
-        const editBtnCard = isAdmin ? '<button class="btn-editar-admin" style="display:inline-flex;margin-top:8px;width:100%;justify-content:center;" onclick="editarPedido(\'' + d.id + '\')">✏️ Editar pedido</button>' : '';
+      var motivoBtn = d.status === 'Devolvido' && d.motivo_devolucao
+        ? '<button class="btn-ver-motivo" style="width:100%;text-align:center;" data-motivo="' + (d.motivo_devolucao||'').replace(/"/g,'&quot;') + '" data-titulo="' + (d.titulo||'').replace(/"/g,'&quot;') + '" data-num="' + (d.numero_pedido||'') + '" onclick="verMotivo(this)">🔴 Ver motivo da devolução</button>'
+        : '';
+      var editBtn = bloqueado
+        ? '<button class="btn-acao btn-editar bloqueado" style="flex:1;text-align:center;" disabled>🔒 Bloqueado</button>'
+        : '<button class="btn-acao btn-editar" style="flex:1;text-align:center;" onclick="editarPedido(\'' + d.id + '\')">✏️ Editar</button>';
+      var adminBtns = isAdmin
+        ? (bloqueado
+            ? '<button class="btn-acao btn-desbloquear" style="flex:1;text-align:center;" onclick="toggleBloqueio(\'' + d.id + '\', false)">🔓 Desbloquear</button>'
+            : '<button class="btn-acao btn-bloquear" style="flex:1;text-align:center;" onclick="toggleBloqueio(\'' + d.id + '\', true)">🔒 Bloquear</button>')
+          + '<button class="btn-acao btn-excluir" style="flex:1;text-align:center;" data-num="' + (d.numero_pedido||'') + '" data-titulo="' + (d.titulo||'').replace(/"/g,'&quot;') + '" onclick="confirmarExclusao(\'' + d.id + '\', this)">🗑️</button>'
+        : '';
       return '<div class="pedido-card">'
-        + '<div class="pedido-card-header"><span class="pedido-card-num">#' + (d.numero_pedido||'—') + '</span><span class="pedido-card-date">' + data + '</span></div>'
+        + '<div class="pedido-card-header"><span class="pedido-card-num">#' + (d.numero_pedido||'—') + '</span><span class="pedido-card-date">' + dt + '</span></div>'
         + '<div class="pedido-card-titulo">' + (d.titulo||'—') + '</div>'
         + '<div class="pedido-card-grid">'
         + '<div class="pedido-card-field"><span class="pedido-card-label">Solicitante</span><span class="pedido-card-value">' + (d.solicitante||'—') + '</span></div>'
@@ -549,24 +530,24 @@
         + '<div class="pedido-card-field"><span class="pedido-card-label">Destinação</span><span class="pedido-card-value">' + (d.destinacao||'—') + '</span></div>'
         + (d.detalhes ? '<div class="pedido-card-detalhes"><strong style="color:var(--blue-pale)">Detalhes:</strong> ' + d.detalhes + '</div>' : '')
         + '</div>'
+        + (imgHtml ? '<div style="margin-bottom:8px;">' + imgHtml + '</div>' : '')
         + '<div class="pedido-card-footer">'
-        + imgHtml
-        + '<div class="pedido-card-status-wrap">' + statusEl + motivoHtml + '</div>'
-        + editBtnCard
+        + statusEl
+        + motivoBtn
+        + '<div class="card-acoes">' + editBtn + adminBtns + '</div>'
         + '</div>'
         + '</div>';
     }).join('');
   }
 
-  // ---- STATUS ----
+  // ── STATUS ──
   function handleStatusChange(id, novoStatus, el) {
     if (novoStatus === 'Devolvido') {
       pendingStatusId = id;
-      pendingStatusVal = novoStatus;
       pendingSelectEl = el;
       document.getElementById('motivo-text').value = '';
       document.getElementById('modal-motivo-bg').classList.add('show');
-      setTimeout(() => document.getElementById('motivo-text').focus(), 100);
+      setTimeout(function() { document.getElementById('motivo-text').focus(); }, 100);
     } else {
       updateStatus(id, novoStatus, null);
     }
@@ -575,163 +556,135 @@
   function cancelMotivo() {
     document.getElementById('modal-motivo-bg').classList.remove('show');
     if (pendingSelectEl) {
-      const item = allData.find(d => d.id === pendingStatusId);
+      var item = allData.find(function(d) { return d.id === pendingStatusId; });
       if (item) pendingSelectEl.value = item.status;
     }
-    pendingStatusId = pendingStatusVal = pendingSelectEl = null;
+    pendingStatusId = null; pendingSelectEl = null;
   }
 
   function saveMotivo() {
-    const motivo = document.getElementById('motivo-text').value.trim().toUpperCase();
-    if (!motivo) { showToast('⚠️ Informe o motivo da devolução!', 'warning'); return; }
+    var motivo = document.getElementById('motivo-text').value.trim().toUpperCase();
+    if (!motivo) { showToast('Informe o motivo da devolução!', 'warning'); return; }
     document.getElementById('modal-motivo-bg').classList.remove('show');
-
-    // Busca dados do pedido para montar mensagem
-    const item = allData.find(d => d.id === pendingStatusId);
+    var item = allData.find(function(d) { return d.id === pendingStatusId; });
     updateStatus(pendingStatusId, 'Devolvido', motivo);
 
-    // Monta mensagem para WhatsApp
+    // Monta mensagem WhatsApp com link direto
     if (item) {
-      const editLink = 'https://fabiodev19-arch.github.io/formulario-gtm/index.html?edit=' + item.id;
-      const msg = '\u26a0\ufe0f *Aten\u00e7\u00e3o ' + (item.solicitante||'Solicitante') + '*\n\n'
+      var editLink = BASE_URL + 'index.html?edit=' + item.id;
+      var msg = '\u26a0\ufe0f *Aten\u00e7\u00e3o ' + (item.solicitante||'Solicitante') + '*\n\n'
         + 'Sua solicita\u00e7\u00e3o de compra *#' + (item.numero_pedido||'\u2014') + '* foi devolvida e precisa ser corrigida.\n\n'
         + '\ud83d\udccb *Pedido:* ' + (item.titulo||'\u2014') + '\n'
         + '\ud83d\udd34 *Motivo:* ' + motivo + '\n\n'
         + '\u26a0\ufe0f *Aten\u00e7\u00e3o!* Clique no link abaixo para ser redirecionado ao seu pedido e fazer as altera\u00e7\u00f5es necess\u00e1rias:\n'
         + '\ud83d\udd17 ' + editLink;
-
       document.getElementById('wpp-msg-text').textContent = msg;
-      document.getElementById('modal-wpp-bg').classList.add('show');
+      setTimeout(function() { document.getElementById('modal-wpp-bg').classList.add('show'); }, 300);
     }
-
-    pendingStatusId = pendingStatusVal = pendingSelectEl = null;
+    pendingStatusId = null; pendingSelectEl = null;
   }
 
   async function updateStatus(id, novoStatus, motivo) {
     try {
-      const body = { status: novoStatus };
+      var body = { status: novoStatus };
       if (motivo) body.motivo_devolucao = motivo;
-      const res = await fetch(SUPABASE_URL + '/rest/v1/solicitacoes?id=eq.' + id, {
+      var res = await fetch(SUPABASE_URL + '/rest/v1/solicitacoes?id=eq.' + id, {
         method: 'PATCH',
         headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
         body: JSON.stringify(body)
       });
       if (res.ok) {
-        const item = allData.find(d => d.id === id);
+        var item = allData.find(function(d) { return d.id === id; });
         if (item) { item.status = novoStatus; if (motivo) item.motivo_devolucao = motivo; }
-        updateStats(); renderTable(); renderCards();
-        showToast('✅ Status atualizado: ' + novoStatus);
-      } else { showToast('❌ Erro ao atualizar status', 'error'); }
-    } catch(e) { showToast('❌ Erro ao atualizar status', 'error'); }
+        updateStats(); renderAll();
+        showToast('Status atualizado: ' + novoStatus, 'success');
+      } else { showToast('Erro ao atualizar status', 'error'); }
+    } catch(e) { showToast('Erro ao atualizar status', 'error'); }
   }
 
-  // ---- MODAL IMAGEM ----
-  function openModal(url) { document.getElementById('modal-img').src = url; document.getElementById('modal-bg').classList.add('show'); }
-  function closeModal() { document.getElementById('modal-bg').classList.remove('show'); }
-
-  // ---- EXPORT EXCEL (só admin) ----
-  function exportExcel() {
-    if (!isAdmin) { showToast('⚠️ Acesso restrito ao admin!', 'warning'); return; }
-    const busca = document.getElementById('f-busca').value.toLowerCase();
-    const status = document.getElementById('f-status').value;
-    let filtered = allData.filter(d => {
-      const mb = !busca || (d.titulo||'').toLowerCase().includes(busca) || (d.solicitante||'').toLowerCase().includes(busca) || (d.regiao||'').toLowerCase().includes(busca);
-      return mb && (!status || d.status === status);
-    });
-    const wsData = [
-      ['#','Data Envio','Título do Pedido','Quantidade','Solicitante','Região','Frente de Serviço','Aplicação','Destinação','Detalhes','Imagem (Link)','Status','Motivo Devolução'],
-      ...filtered.map(d => [
-        d.numero_pedido, d.criado_em ? new Date(d.criado_em).toLocaleString('pt-BR') : '',
-        d.titulo, d.quantidade, d.solicitante, d.regiao, d.frente,
-        d.aplicacao, d.destinacao, d.detalhes, d.imagem_url||'', d.status, d.motivo_devolucao||''
-      ])
-    ];
-    const ws = XLSX.utils.aoa_to_sheet(wsData);
-    ws['!cols'] = [{wch:6},{wch:20},{wch:35},{wch:12},{wch:25},{wch:15},{wch:25},{wch:20},{wch:25},{wch:35},{wch:40},{wch:15},{wch:40}];
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Solicitações');
-    XLSX.writeFile(wb, 'Solicitacoes_GTM_' + new Date().toISOString().split('T')[0] + '.xlsx');
-    showToast('✅ Excel exportado!');
-  }
-
-  // Tecla Enter no modal de login
-  document.getElementById('admin-senha').addEventListener('keydown', e => { if(e.key==='Enter') confirmLogin(); });
-
-
-
-  function copiarMensagem() {
-    const msg = document.getElementById('wpp-msg-text').textContent;
-    navigator.clipboard.writeText(msg).then(() => {
-      showToast('✅ Mensagem copiada! Cole no grupo do WhatsApp.', 'success');
-      document.getElementById('modal-wpp-bg').classList.remove('show');
-    }).catch(() => {
-      // Fallback para dispositivos sem clipboard API
-      const ta = document.createElement('textarea');
-      ta.value = msg;
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand('copy');
-      document.body.removeChild(ta);
-      showToast('✅ Mensagem copiada! Cole no grupo do WhatsApp.', 'success');
-      document.getElementById('modal-wpp-bg').classList.remove('show');
-    });
-  }
-
-  
-
-  let pendingDeleteId = null;
-
+  // ── TOGGLE BLOQUEIO ──
   async function toggleBloqueio(id, bloquear) {
     try {
-      const res = await fetch(SUPABASE_URL + '/rest/v1/solicitacoes?id=eq.' + id, {
+      var res = await fetch(SUPABASE_URL + '/rest/v1/solicitacoes?id=eq.' + id, {
         method: 'PATCH',
         headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
         body: JSON.stringify({ bloqueado: bloquear })
       });
       if (res.ok) {
-        const item = allData.find(d => d.id === id);
+        var item = allData.find(function(d) { return d.id === id; });
         if (item) item.bloqueado = bloquear;
-        renderTable();
-        showToast(bloquear ? '🔒 Edição bloqueada!' : '🔓 Edição desbloqueada!', 'success');
+        renderAll();
+        showToast(bloquear ? 'Edição bloqueada!' : 'Edição desbloqueada!', 'success');
       }
-    } catch(e) { showToast('❌ Erro ao atualizar', 'error'); }
+    } catch(e) { showToast('Erro ao atualizar', 'error'); }
   }
 
-  function confirmarExclusao(id, num, tituloOrEl) { const titulo = typeof tituloOrEl === 'string' ? tituloOrEl : tituloOrEl.dataset.titulo;
+  // ── EXCLUSÃO ──
+  function confirmarExclusao(id, el) {
     pendingDeleteId = id;
-    document.getElementById('confirm-pedido-info').textContent = '#' + num + ' — ' + titulo;
+    document.getElementById('confirm-info').textContent = '#' + el.dataset.num + ' — ' + el.dataset.titulo;
     document.getElementById('modal-confirm-bg').classList.add('show');
   }
-
   async function executarExclusao() {
     if (!pendingDeleteId) return;
     document.getElementById('modal-confirm-bg').classList.remove('show');
     try {
-      const res = await fetch(SUPABASE_URL + '/rest/v1/solicitacoes?id=eq.' + pendingDeleteId, {
+      var res = await fetch(SUPABASE_URL + '/rest/v1/solicitacoes?id=eq.' + pendingDeleteId, {
         method: 'DELETE',
         headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
       });
       if (res.ok) {
-        allData = allData.filter(d => d.id !== pendingDeleteId);
-        updateStats();
-        renderTable();
-        showToast('🗑️ Pedido excluído com sucesso!', 'success');
-      } else { showToast('❌ Erro ao excluir', 'error'); }
-    } catch(e) { showToast('❌ Erro ao excluir', 'error'); }
+        allData = allData.filter(function(d) { return d.id !== pendingDeleteId; });
+        updateStats(); renderAll();
+        showToast('Pedido excluído com sucesso!', 'success');
+      } else { showToast('Erro ao excluir', 'error'); }
+    } catch(e) { showToast('Erro ao excluir', 'error'); }
     pendingDeleteId = null;
   }
 
-    function editarPedido(id) {
-    window.location.href = 'index.html?edit=' + id;
-  }
+  // ── EDITAR ──
+  function editarPedido(id) { window.location.href = 'index.html?edit=' + id; }
 
-    function verMotivo(motivo, titulo, num) {
-    document.getElementById('motivo-pedido-info').textContent = 'Pedido #' + num + ' — ' + titulo;
-    document.getElementById('motivo-content-text').textContent = motivo;
+  // ── MODALS ──
+  function openImgModal(url) { document.getElementById('modal-img').src = url; document.getElementById('modal-img-bg').classList.add('show'); }
+  function closeImgModal() { document.getElementById('modal-img-bg').classList.remove('show'); }
+  function verMotivo(el) {
+    document.getElementById('motivo-pedido-info').textContent = 'Pedido #' + el.dataset.num + ' — ' + el.dataset.titulo;
+    document.getElementById('motivo-content-text').textContent = el.dataset.motivo;
     document.getElementById('modal-ver-motivo-bg').classList.add('show');
   }
+  function copiarMensagem() {
+    var msg = document.getElementById('wpp-msg-text').textContent;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(msg).then(function() {
+        showToast('Mensagem copiada! Cole no grupo do WhatsApp.', 'success');
+        document.getElementById('modal-wpp-bg').classList.remove('show');
+      });
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = msg; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+      showToast('Mensagem copiada! Cole no grupo do WhatsApp.', 'success');
+      document.getElementById('modal-wpp-bg').classList.remove('show');
+    }
+  }
 
-    loadData();
+  // ── EXCEL ──
+  function exportExcel() {
+    if (!isAdmin) { showToast('Acesso restrito ao admin!', 'warning'); return; }
+    var data = filtered();
+    var wsData = [['#','Data','Título','Qtd','Solicitante','Região','Frente','Aplicação','Destinação','Detalhes','Imagem','Status','Motivo Devolução']];
+    data.forEach(function(d) {
+      wsData.push([d.numero_pedido, d.criado_em ? new Date(d.criado_em).toLocaleString('pt-BR') : '', d.titulo, d.quantidade, d.solicitante, d.regiao, d.frente, d.aplicacao, d.destinacao, d.detalhes, d.imagem_url||'', d.status, d.motivo_devolucao||'']);
+    });
+    var ws = XLSX.utils.aoa_to_sheet(wsData);
+    var wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Solicitações');
+    XLSX.writeFile(wb, 'Solicitacoes_GTM_' + new Date().toISOString().split('T')[0] + '.xlsx');
+    showToast('Excel exportado!', 'success');
+  }
+
+  loadData();
 </script>
 </body>
 </html>

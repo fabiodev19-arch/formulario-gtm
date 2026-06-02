@@ -25,12 +25,16 @@
   .header-text p { font-size:13px; color:var(--blue-pale); margin-top:4px; }
   .chips { display:flex; gap:8px; margin-top:8px; }
   .chip { font-size:11px; color:var(--blue-pale); border:1px solid var(--blue-light); border-radius:20px; padding:2px 10px; }
-  .btn-admin { background:rgba(46,155,190,0.1); border:1.5px solid rgba(46,155,190,0.2); color:rgba(168,216,234,0.5); font-family:'Barlow',sans-serif; font-size:11px; padding:6px 14px; border-radius:8px; cursor:pointer; transition:all 0.2s; text-decoration:none; white-space:nowrap; position:relative; z-index:1; }
-  .btn-admin:hover { background:rgba(46,155,190,0.2); color:var(--blue-pale); border-color:var(--blue-light); }
+  .btn-painel { background:rgba(46,155,190,0.1); border:1.5px solid rgba(46,155,190,0.2); color:rgba(168,216,234,0.5); font-family:'Barlow',sans-serif; font-size:11px; padding:6px 14px; border-radius:8px; cursor:pointer; transition:all 0.2s; text-decoration:none; white-space:nowrap; position:relative; z-index:1; }
+  .btn-painel:hover { background:rgba(46,155,190,0.2); color:var(--blue-pale); border-color:var(--blue-light); }
   .container { max-width:760px; margin:36px auto; padding:0 20px; }
   .info-block { background:rgba(46,155,190,0.07); border:1px solid rgba(46,155,190,0.25); border-radius:8px; padding:14px 18px; font-size:13px; color:var(--muted); margin-bottom:28px; line-height:1.7; }
   .info-block strong { color:var(--blue-pale); }
   .info-block .atencao { color:#e8c26a; margin-top:6px; display:block; }
+  .editing-banner { background:rgba(231,76,60,0.1); border:1.5px solid rgba(231,76,60,0.3); border-radius:8px; padding:12px 16px; margin-bottom:20px; display:none; font-size:13px; color:#e74c3c; align-items:center; justify-content:space-between; gap:10px; }
+  .editing-banner.show { display:flex; }
+  .editing-banner strong { color:#fff; }
+  .btn-cancelar-edicao { background:none; border:1px solid rgba(231,76,60,0.4); color:#e74c3c; font-family:'Barlow',sans-serif; font-size:12px; padding:5px 12px; border-radius:6px; cursor:pointer; white-space:nowrap; }
   .section-label { font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--blue-light); margin-bottom:16px; padding-bottom:8px; border-bottom:1px solid var(--border); }
   .form-grid { display:grid; gap:16px; margin-bottom:32px; }
   .col-2 { grid-template-columns:1fr 1fr; }
@@ -82,32 +86,7 @@
   .connected-badge { display:flex; align-items:center; gap:8px; background:rgba(46,204,113,0.1); border:1px solid rgba(46,204,113,0.3); border-radius:8px; padding:10px 16px; margin-bottom:24px; font-size:13px; color:#2ecc71; }
   .connected-badge::before { content:'●'; font-size:10px; animation:pulse 1.5s infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-  /* Seção pedido devolvido */
-  .devol-section { background:rgba(231,76,60,0.06); border:1.5px solid rgba(231,76,60,0.25); border-radius:10px; padding:20px; margin-bottom:28px; }
-  .devol-title { font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#e74c3c; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
-  .devol-search { display:flex; gap:10px; }
-  .devol-search input { flex:1; background:var(--card); border:1.5px solid rgba(231,76,60,0.3); border-radius:8px; color:var(--text); font-family:'Barlow',sans-serif; font-size:14px; padding:10px 14px; outline:none; transition:border-color 0.2s; text-transform:uppercase; }
-  .devol-search input::placeholder { text-transform:none; }
-  .devol-search input:focus { border-color:#e74c3c; box-shadow:0 0 0 3px rgba(231,76,60,0.1); }
-  .btn-buscar { background:rgba(231,76,60,0.15); border:1.5px solid rgba(231,76,60,0.4); color:#e74c3c; font-family:'Barlow',sans-serif; font-size:13px; font-weight:700; padding:10px 20px; border-radius:8px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
-  .btn-buscar:hover { background:rgba(231,76,60,0.25); }
-  .devol-results { margin-top:14px; display:none; }
-  .devol-results.show { display:block; }
-  .devol-item { background:var(--card); border:1px solid rgba(231,76,60,0.2); border-radius:8px; padding:14px 16px; margin-bottom:10px; display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
-  .devol-item-info { flex:1; }
-  .devol-item-num { font-family:'Barlow Condensed',sans-serif; font-size:16px; font-weight:700; color:#e74c3c; }
-  .devol-item-titulo { font-size:13px; color:var(--text); font-weight:600; margin-top:2px; }
-  .devol-item-motivo { font-size:12px; color:var(--muted); margin-top:6px; background:rgba(231,76,60,0.08); border-radius:6px; padding:6px 10px; line-height:1.5; }
-  .devol-item-motivo strong { color:#e74c3c; display:block; margin-bottom:2px; }
-  .btn-editar { background:linear-gradient(135deg,#8b0000,#e74c3c); border:none; color:#fff; font-family:'Barlow',sans-serif; font-size:12px; font-weight:700; padding:8px 16px; border-radius:8px; cursor:pointer; transition:all 0.2s; white-space:nowrap; flex-shrink:0; }
-  .btn-editar:hover { opacity:0.9; transform:translateY(-1px); }
-  .devol-empty { font-size:13px; color:var(--muted); text-align:center; padding:16px; }
-  .editing-banner { background:rgba(231,76,60,0.1); border:1.5px solid rgba(231,76,60,0.3); border-radius:8px; padding:12px 16px; margin-bottom:20px; display:none; font-size:13px; color:#e74c3c; align-items:center; justify-content:space-between; gap:10px; }
-  .editing-banner.show { display:flex; }
-  .editing-banner strong { color:#fff; }
-  .btn-cancelar-edicao { background:none; border:1px solid rgba(231,76,60,0.4); color:#e74c3c; font-family:'Barlow',sans-serif; font-size:12px; padding:5px 12px; border-radius:6px; cursor:pointer; white-space:nowrap; }
-
-  @media (max-width:600px) { .col-2 { grid-template-columns:1fr; } .header { padding:16px; flex-wrap:wrap; gap:12px; } .header-left { gap:14px; width:100%; } .btn-admin { font-size:12px; padding:8px 14px; align-self:flex-end; margin-left:auto; } }
+  @media (max-width:600px) { .col-2 { grid-template-columns:1fr; } .header { padding:16px; flex-wrap:wrap; gap:12px; } .header-left { gap:14px; width:100%; } .btn-painel { font-size:12px; padding:8px 14px; align-self:flex-end; margin-left:auto; } }
 </style>
 </head>
 <body>
@@ -121,7 +100,7 @@
       <div class="chips"><span class="chip">Setor Administrativo</span><span class="chip">GTM Serviços</span></div>
     </div>
   </div>
-  <a class="btn-admin" href="pedidos.html">📋 Ver Pedidos</a>
+  <a class="btn-painel" href="pedidos.html">📋 Ver Pedidos</a>
 </div>
 <div class="container">
   <div class="info-block">
@@ -129,24 +108,11 @@
     🗓️ <strong>Prazos:</strong> Pedidos feitos até <strong>segunda-feira</strong> serão entregues até o final da <strong>quarta-feira</strong>. Pedidos feitos até <strong>quarta-feira</strong> serão entregues até o final da <strong>sexta-feira</strong>.
     <span class="atencao">⚠️ <strong>Atenção:</strong> Solicitações incompletas poderão ser devolvidas para revisão.</span>
   </div>
-
-  <!-- BANNER MODO EDIÇÃO -->
+  <div class="connected-badge">Conectado ao banco de dados — GTM Prestadora de Serviços</div>
   <div class="editing-banner" id="editing-banner">
     <span>✏️ Editando pedido <strong id="editing-num"></strong> — corrija os campos e reenvie</span>
     <button class="btn-cancelar-edicao" onclick="cancelarEdicao()">Cancelar</button>
   </div>
-
-  <!-- SEÇÃO PEDIDO DEVOLVIDO -->
-  <div class="devol-section">
-    <div class="devol-title">🔴 Corrigir pedido devolvido</div>
-    <div class="devol-search">
-      <input type="text" id="devol-nome" placeholder="Digite seu nome para buscar pedidos devolvidos..."/>
-      <button class="btn-buscar" onclick="buscarDevolvidos()">Buscar</button>
-    </div>
-    <div class="devol-results" id="devol-results"></div>
-  </div>
-
-  <div class="connected-badge">Conectado ao banco de dados — GTM Prestadora de Serviços</div>
   <div class="section-label">01 — Dados do Pedido</div>
   <div class="form-grid col-2">
     <div class="field">
@@ -231,10 +197,10 @@
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9nbW92ZHdjb3hmb2VtdXRxdWdrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAzMjMyNzYsImV4cCI6MjA5NTg5OTI3Nn0.LTYEXPla_doUdqU8orfBsGUAE_m9pHfKBFBtMblZt5Y';
   const BUCKET = 'imagens-solicitacoes';
   let imageFile = null;
+  let editingId = null;
 
-  // Converte para maiúsculo ao digitar
-  const upperFields = ['titulo','quantidade','solicitante','regiao','frente','aplicacao','detalhes'];
-  upperFields.forEach(id => {
+  // Caps lock em todos os campos de texto
+  ['titulo','quantidade','solicitante','regiao','frente','aplicacao','detalhes'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.addEventListener('input', function() {
       const pos = this.selectionStart;
@@ -243,7 +209,7 @@
     });
   });
 
-  function val(id) { return document.getElementById(id).value.trim().toUpperCase(); }
+  function val(id) { return (document.getElementById(id).value || '').trim().toUpperCase(); }
 
   function handleImage(input) {
     const file = input.files[0];
@@ -255,34 +221,42 @@
     reader.readAsDataURL(file);
   }
 
-  function showToast(msg, type='success') {
+  function showToast(msg, type) {
     const t = document.getElementById('toast');
-    t.textContent = msg; t.className = 'toast ' + type + ' show';
-    setTimeout(() => t.classList.remove('show'), 5000);
+    t.textContent = msg;
+    t.className = 'toast ' + (type||'success') + ' show';
+    setTimeout(function() { t.classList.remove('show'); }, 5000);
   }
 
   const requiredFields = ['titulo','quantidade','solicitante','regiao','frente','aplicacao'];
 
   function validate() {
     let ok = true;
-    requiredFields.forEach(id => {
+    requiredFields.forEach(function(id) {
       const el = document.getElementById(id), err = document.getElementById('err-' + id);
       if (!el.value.trim()) { el.classList.add('invalid'); err.classList.add('show'); ok = false; }
       else { el.classList.remove('invalid'); err.classList.remove('show'); }
     });
     const ui = document.getElementById('uso_imediato').checked, rv = document.getElementById('reserva').checked;
-    if (!ui && !rv) { document.getElementById('check-group').classList.add('invalid'); document.getElementById('err-destinacao').classList.add('show'); ok = false; }
-    else { document.getElementById('check-group').classList.remove('invalid'); document.getElementById('err-destinacao').classList.remove('show'); }
+    if (!ui && !rv) {
+      document.getElementById('check-group').classList.add('invalid');
+      document.getElementById('err-destinacao').classList.add('show');
+      ok = false;
+    } else {
+      document.getElementById('check-group').classList.remove('invalid');
+      document.getElementById('err-destinacao').classList.remove('show');
+    }
     return ok;
   }
 
-  requiredFields.forEach(id => {
+  requiredFields.forEach(function(id) {
     document.getElementById(id).addEventListener('input', function() {
       if (this.value.trim()) { this.classList.remove('invalid'); document.getElementById('err-' + id).classList.remove('show'); }
     });
   });
-  ['uso_imediato','reserva'].forEach(id => {
-    document.getElementById(id).addEventListener('change', () => {
+
+  ['uso_imediato','reserva'].forEach(function(id) {
+    document.getElementById(id).addEventListener('change', function() {
       if (document.getElementById('uso_imediato').checked || document.getElementById('reserva').checked) {
         document.getElementById('check-group').classList.remove('invalid');
         document.getElementById('err-destinacao').classList.remove('show');
@@ -291,7 +265,11 @@
   });
 
   function clearForm() {
-    requiredFields.forEach(id => { const el = document.getElementById(id); el.value = ''; el.classList.remove('invalid'); document.getElementById('err-' + id).classList.remove('show'); });
+    requiredFields.forEach(function(id) {
+      const el = document.getElementById(id);
+      el.value = ''; el.classList.remove('invalid');
+      document.getElementById('err-' + id).classList.remove('show');
+    });
     document.getElementById('uso_imediato').checked = false;
     document.getElementById('reserva').checked = false;
     document.getElementById('check-group').classList.remove('invalid');
@@ -303,6 +281,13 @@
     document.getElementById('progress-bar').classList.remove('show');
     document.getElementById('progress-fill').style.width = '0%';
     imageFile = null;
+  }
+
+  function cancelarEdicao() {
+    editingId = null;
+    document.getElementById('editing-banner').classList.remove('show');
+    clearForm();
+    window.history.replaceState({}, '', 'index.html');
   }
 
   async function uploadImage(file, titulo) {
@@ -320,113 +305,32 @@
     return SUPABASE_URL + '/storage/v1/object/public/' + BUCKET + '/' + fileName;
   }
 
-
-  let editingId = null;
-
-  // Converte para maiúsculo ao digitar no campo de busca
-  document.getElementById('devol-nome').addEventListener('input', function() {
-    const pos = this.selectionStart;
-    this.value = this.value.toUpperCase();
-    this.setSelectionRange(pos, pos);
-  });
-
-  async function buscarDevolvidos() {
-    const nome = document.getElementById('devol-nome').value.trim().toUpperCase();
-    if (!nome) { showToast('⚠️ Digite seu nome para buscar!', 'error'); return; }
-
-    const resultsDiv = document.getElementById('devol-results');
-    resultsDiv.innerHTML = '<div class="devol-empty">⏳ Buscando...</div>';
-    resultsDiv.classList.add('show');
-
-    try {
-      const res = await fetch(
-        SUPABASE_URL + '/rest/v1/solicitacoes?solicitante=ilike.' + encodeURIComponent(nome) + '&status=eq.Devolvido&order=criado_em.desc',
-        { headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY } }
-      );
-      const data = await res.json();
-
-      if (!data.length) {
-        resultsDiv.innerHTML = '<div class="devol-empty">✅ Nenhum pedido devolvido encontrado para este nome.</div>';
-        return;
-      }
-
-      resultsDiv.innerHTML = data.map(d => `
-        <div class="devol-item">
-          <div class="devol-item-info">
-            <div class="devol-item-num">#${d.numero_pedido}</div>
-            <div class="devol-item-titulo">${d.titulo||'—'}</div>
-            <div class="devol-item-motivo">
-              <strong>Motivo da devolução:</strong>
-              ${d.motivo_devolucao||'Não informado'}
-            </div>
-          </div>
-          <button class="btn-editar" onclick="carregarEdicao(${JSON.stringify(d)})">✏️ Editar</button>
-        </div>
-      `).join('');
-    } catch(e) {
-      resultsDiv.innerHTML = '<div class="devol-empty">❌ Erro ao buscar pedidos.</div>';
-    }
-  }
-
-  function carregarEdicao(d) {
-    editingId = d.id;
-
-    // Preenche os campos com os dados do pedido
-    document.getElementById('titulo').value = d.titulo || '';
-    document.getElementById('quantidade').value = d.quantidade || '';
-    document.getElementById('solicitante').value = d.solicitante || '';
-    document.getElementById('regiao').value = d.regiao || '';
-    document.getElementById('frente').value = d.frente || '';
-    document.getElementById('aplicacao').value = d.aplicacao || '';
-    document.getElementById('detalhes').value = d.detalhes || '';
-
-    // Checkboxes
-    document.getElementById('uso_imediato').checked = (d.destinacao||'').includes('USO IMEDIATO');
-    document.getElementById('reserva').checked = (d.destinacao||'').includes('RESERVA');
-
-    // Mostra banner de edição
-    document.getElementById('editing-num').textContent = '#' + d.numero_pedido;
-    document.getElementById('editing-banner').classList.add('show');
-
-    // Scroll para o formulário
-    document.querySelector('.section-label').scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-    // Fecha resultados
-    document.getElementById('devol-results').classList.remove('show');
-    document.getElementById('devol-nome').value = '';
-
-    showToast('✏️ Pedido #' + d.numero_pedido + ' carregado para edição!', 'warning');
-  }
-
-  function cancelarEdicao() {
-    editingId = null;
-    document.getElementById('editing-banner').classList.remove('show');
-    clearForm();
-  }
-
   async function submitForm() {
-    if (!validate()) { showToast('⚠️ Preencha todos os campos obrigatórios!', 'error'); return; }
+    if (!validate()) { showToast('Preencha todos os campos obrigatorios!', 'error'); return; }
     const btn = document.getElementById('btn-send');
     btn.classList.add('loading'); btn.disabled = true;
-    showToast('⏳ Enviando solicitação...', 'warning');
+    showToast('Enviando solicitacao...', 'warning');
     const ui = document.getElementById('uso_imediato').checked, rv = document.getElementById('reserva').checked;
-    const destinacao = [ui?'USO IMEDIATO':'', rv?'RESERVA EM CAMPO / FRENTE DE SERVIÇO':''].filter(Boolean).join(', ');
+    const destinacao = [ui ? 'USO IMEDIATO' : '', rv ? 'RESERVA EM CAMPO / FRENTE DE SERVICO' : ''].filter(Boolean).join(', ');
     const titulo = val('titulo');
     try {
       let imagemUrl = null;
-      if (imageFile) { showToast('⏳ Enviando imagem...','warning'); imagemUrl = await uploadImage(imageFile, titulo); }
+      if (imageFile) { showToast('Enviando imagem...', 'warning'); imagemUrl = await uploadImage(imageFile, titulo); }
       const payload = {
-        titulo, quantidade: val('quantidade'),
+        titulo: titulo,
+        quantidade: val('quantidade'),
         solicitante: val('solicitante'),
         regiao: val('regiao'),
         frente: val('frente'),
         aplicacao: val('aplicacao'),
-        destinacao, detalhes: val('detalhes'),
-        imagem_url: imagemUrl, criado_em: new Date().toISOString(), status: 'Pendente'
+        destinacao: destinacao,
+        detalhes: val('detalhes'),
+        imagem_url: imagemUrl,
+        criado_em: new Date().toISOString(),
+        status: 'Pendente'
       };
       let res, num;
       if (editingId) {
-        // Atualiza pedido existente — volta para Pendente
         payload.status = 'Pendente';
         payload.motivo_devolucao = null;
         res = await fetch(SUPABASE_URL + '/rest/v1/solicitacoes?id=eq.' + editingId, {
@@ -434,51 +338,54 @@
           headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Prefer': 'return=representation' },
           body: JSON.stringify(payload)
         });
-        if (!res.ok) { const err = await res.json(); throw new Error(err.message||'Erro ao atualizar'); }
+        if (!res.ok) { const err = await res.json(); throw new Error(err.message || 'Erro ao atualizar'); }
         const saved = await res.json();
         num = saved[0].numero_pedido;
-        showToast('✅ Pedido #' + num + ' atualizado e reenviado!', 'success');
+        showToast('Pedido #' + num + ' atualizado e reenviado com sucesso!', 'success');
         editingId = null;
         document.getElementById('editing-banner').classList.remove('show');
+        window.history.replaceState({}, '', 'index.html');
       } else {
-        // Novo pedido
         res = await fetch(SUPABASE_URL + '/rest/v1/solicitacoes', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Prefer': 'return=representation' },
           body: JSON.stringify(payload)
         });
-        if (!res.ok) { const err = await res.json(); throw new Error(err.message||'Erro ao salvar'); }
+        if (!res.ok) { const err = await res.json(); throw new Error(err.message || 'Erro ao salvar'); }
         const saved = await res.json();
         num = saved[0].numero_pedido;
-        showToast('✅ Pedido #' + num + ' enviado com sucesso!', 'success');
+        showToast('Pedido #' + num + ' enviado com sucesso!', 'success');
       }
       clearForm();
     } catch(err) {
-      showToast('❌ Erro: ' + err.message, 'error');
+      showToast('Erro: ' + err.message, 'error');
     } finally {
       btn.classList.remove('loading'); btn.disabled = false;
     }
   }
 
-  // ---- ADMIN EDIT MODE (via URL param ?edit=ID) ----
-  async function checkAdminEdit() {
+  // Detecta ?edit=ID na URL para edição direta
+  async function checkEditMode() {
     const params = new URLSearchParams(window.location.search);
     const editId = params.get('edit');
     if (!editId) return;
-
-    showToast('⏳ Carregando pedido para edição...', 'warning');
-
+    showToast('Carregando pedido...', 'warning');
     try {
       const res = await fetch(SUPABASE_URL + '/rest/v1/solicitacoes?id=eq.' + editId, {
         headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
       });
       const data = await res.json();
-      if (!data.length) { showToast('❌ Pedido não encontrado!', 'error'); return; }
+      if (!data.length) { showToast('Pedido nao encontrado!', 'error'); return; }
       const d = data[0];
 
-      editingId = editId;
+      // Verifica se está bloqueado
+      if (d.bloqueado === true) {
+        showToast('Este pedido esta bloqueado para edicao!', 'error');
+        window.history.replaceState({}, '', 'index.html');
+        return;
+      }
 
-      // Fill fields
+      editingId = editId;
       document.getElementById('titulo').value = d.titulo || '';
       document.getElementById('quantidade').value = d.quantidade || '';
       document.getElementById('solicitante').value = d.solicitante || '';
@@ -486,32 +393,19 @@
       document.getElementById('frente').value = d.frente || '';
       document.getElementById('aplicacao').value = d.aplicacao || '';
       document.getElementById('detalhes').value = d.detalhes || '';
-      document.getElementById('uso_imediato').checked = (d.destinacao||'').includes('USO IMEDIATO') || (d.destinacao||'').includes('Uso imediato');
-      document.getElementById('reserva').checked = (d.destinacao||'').includes('RESERVA') || (d.destinacao||'').includes('Reserva');
-
-      // Show editing banner
+      document.getElementById('uso_imediato').checked = (d.destinacao || '').toUpperCase().includes('USO IMEDIATO');
+      document.getElementById('reserva').checked = (d.destinacao || '').toUpperCase().includes('RESERVA');
       document.getElementById('editing-num').textContent = '#' + d.numero_pedido;
       document.getElementById('editing-banner').classList.add('show');
-
-      // Hide devolution section — not needed for admin edit
-      const devolSection = document.querySelector('.devol-section');
-      if (devolSection) devolSection.style.display = 'none';
-
-      // Scroll to form
       document.querySelector('.section-label').scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-      showToast('✏️ Pedido #' + d.numero_pedido + ' carregado para edição!', 'warning');
-
-      // Clean URL param without reload
+      showToast('Pedido #' + d.numero_pedido + ' carregado para edicao!', 'warning');
       window.history.replaceState({}, '', 'index.html');
     } catch(e) {
-      showToast('❌ Erro ao carregar pedido: ' + e.message, 'error');
+      showToast('Erro ao carregar pedido', 'error');
     }
   }
 
-  // Run on load
-  checkAdminEdit();
-
+  checkEditMode();
 </script>
 </body>
 </html>
