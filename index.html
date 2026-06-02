@@ -86,6 +86,8 @@
   .connected-badge { display:flex; align-items:center; gap:8px; background:rgba(46,204,113,0.1); border:1px solid rgba(46,204,113,0.3); border-radius:8px; padding:10px 16px; margin-bottom:24px; font-size:13px; color:#2ecc71; }
   .connected-badge::before { content:'●'; font-size:10px; animation:pulse 1.5s infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  .version-badge { font-size:10px; color:rgba(168,216,234,0.35); position:absolute; bottom:8px; right:14px; z-index:1; letter-spacing:1px; font-family:'Barlow Condensed',sans-serif; }
+
   @media (max-width:600px) { .col-2 { grid-template-columns:1fr; } .header { padding:16px; flex-wrap:wrap; gap:12px; } .header-left { gap:14px; width:100%; } .btn-painel { font-size:12px; padding:8px 14px; align-self:flex-end; margin-left:auto; } }
 </style>
 </head>
@@ -101,11 +103,12 @@
     </div>
   </div>
   <a class="btn-painel" href="pedidos.html">📋 Ver Pedidos</a>
+  <span class="version-badge">v1.25</span>
 </div>
 <div class="container">
   <div class="info-block">
     Utilize este formulário para registrar formalmente sua solicitação de compra de materiais, equipamentos ou serviços. Preencha todos os campos obrigatórios com atenção para garantir a agilidade no processo de aprovação.<br/>
-    🗓️ <strong>Prazos:</strong> Pedidos feitos <strong>segunda-feira</strong> serão entregues até o final da <strong>quarta-feira</strong>. Pedidos feitos <strong>quarta-feira</strong> serão entregues até o final da <strong>sexta-feira</strong>.
+    🗓️ <strong>Prazos:</strong> Pedidos feitos até <strong>segunda-feira</strong> serão entregues até o final da <strong>quarta-feira</strong>. Pedidos feitos até <strong>quarta-feira</strong> serão entregues até o final da <strong>sexta-feira</strong>.
     <span class="atencao">⚠️ <strong>Atenção:</strong> Solicitações incompletas poderão ser devolvidas para revisão.</span>
   </div>
   <div class="connected-badge">Conectado ao banco de dados — GTM Prestadora de Serviços</div>
@@ -137,7 +140,7 @@
     </div>
     <div class="field">
       <label>Região <span class="req">*</span></label>
-      <div class="hint">Ex: Ribas, Inocência...</div>
+      <div class="hint">Ex: Rbas, Inocência...</div>
       <input type="text" id="regiao" placeholder="Informe a região"/>
       <span class="field-error" id="err-regiao">Campo obrigatório</span>
     </div>
