@@ -160,7 +160,62 @@
   .toast.success { background:var(--success); }
   .toast.error { background:var(--error); }
   .toast.warning { background:#e8a020; }
-  @media (max-width:700px) { .stats { grid-template-columns:1fr 1fr; } .header { flex-direction:column; gap:14px; } }
+  
+  /* ===== MOBILE CARDS ===== */
+  .cards-view { display:none; }
+
+  @media (max-width: 768px) {
+    .content { padding:0 14px; margin:16px 0; }
+
+    /* Hide table, show cards */
+    .table-wrap { display:none; }
+    .cards-view { display:block; }
+
+    /* Stats 2x2 grid */
+    .stats { grid-template-columns:1fr 1fr; gap:10px; }
+    .stat-card { padding:12px 14px; }
+    .stat-value { font-size:26px; }
+
+    /* Filters stack */
+    .filters { flex-direction:column; gap:8px; }
+    .filter-input { min-width:unset; width:100%; }
+    .filter-select { width:100%; }
+    .btn-refresh, .btn-excel { width:100%; justify-content:center; }
+
+    /* Header mobile */
+    .header { padding:14px 16px; flex-wrap:wrap; gap:10px; }
+    .header-left { gap:12px; }
+    .header-title h1 { font-size:18px; }
+    .header-title p { font-size:11px; }
+    .header-nav { width:100%; justify-content:flex-end; gap:8px; }
+    .btn-nav { font-size:12px; padding:7px 14px; }
+    .btn-admin-login, .btn-admin-logout { font-size:11px; padding:6px 12px; }
+  }
+
+  /* Card individual */
+  .pedido-card { background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:16px; margin-bottom:12px; transition:border-color 0.2s; }
+  .pedido-card:hover { border-color:var(--blue-light); }
+  .pedido-card-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+  .pedido-card-num { font-family:'Barlow Condensed',sans-serif; font-size:18px; font-weight:700; color:var(--blue-light); }
+  .pedido-card-date { font-size:11px; color:var(--muted); }
+  .pedido-card-titulo { font-size:15px; font-weight:700; color:#fff; margin-bottom:10px; line-height:1.3; }
+  .pedido-card-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:12px; }
+  .pedido-card-field { display:flex; flex-direction:column; gap:2px; }
+  .pedido-card-label { font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--muted); }
+  .pedido-card-value { font-size:13px; color:var(--text); }
+  .pedido-card-footer { display:flex; align-items:center; justify-content:space-between; gap:10px; padding-top:10px; border-top:1px solid var(--border); flex-wrap:wrap; }
+  .pedido-card-img { width:48px; height:48px; object-fit:cover; border-radius:8px; border:1px solid var(--border); cursor:pointer; flex-shrink:0; }
+  .pedido-card-status-wrap { display:flex; flex-direction:column; gap:6px; flex:1; }
+  .pedido-card-motivo-btn { font-size:11px; color:#e74c3c; background:rgba(231,76,60,0.1); border:1px solid rgba(231,76,60,0.3); border-radius:6px; padding:4px 10px; cursor:pointer; font-family:'Barlow',sans-serif; font-weight:600; align-self:flex-start; }
+  .card-status-select { background:var(--card); border:1.5px solid var(--border); border-radius:8px; color:var(--text); font-family:'Barlow',sans-serif; font-size:13px; font-weight:600; padding:8px 12px; outline:none; cursor:pointer; width:100%; }
+  .card-status-select:disabled { opacity:1; -webkit-appearance:none; appearance:none; pointer-events:none; }
+  .card-status-select option { background:#112233; }
+  .card-status-select.s-Pendente { border-color:rgba(243,156,18,0.5); color:#f39c12; }
+  .card-status-select.s-Em-compra { border-color:rgba(52,152,219,0.5); color:#3498db; }
+  .card-status-select.s-Concluido { border-color:rgba(46,204,113,0.5); color:#2ecc71; }
+  .card-status-select.s-Devolvido { border-color:rgba(231,76,60,0.5); color:#e74c3c; }
+  .pedido-card-detalhes { font-size:12px; color:var(--muted); grid-column:1/-1; background:rgba(255,255,255,0.03); border-radius:6px; padding:6px 10px; line-height:1.5; }
+
 </style>
 </head>
 <body>
@@ -214,6 +269,10 @@
       </table>
     </div>
   </div>
+
+  <!-- MOBILE CARDS VIEW -->
+  <div class="cards-view" id="cards-view"></div>
+
 </div>
 
 <!-- MODAL IMAGEM -->
@@ -377,6 +436,7 @@
       tbody.innerHTML = '<tr><td colspan="12"><div class="empty"><div class="empty-icon">📭</div><p>Nenhum pedido encontrado</p></div></td></tr>';
       return;
     }
+    renderCards();
     tbody.innerHTML = filtered.map(d => {
       const data = d.criado_em ? new Date(d.criado_em).toLocaleString('pt-BR') : '—';
       const imgHtml = d.imagem_url ? '<img class="img-thumb" src="' + d.imagem_url + '" onclick="openModal(\'' + d.imagem_url + '\')" alt="img"/>' : '<span class="no-img">—</span>';
@@ -388,6 +448,56 @@
         ? '<span class="status-badge s-' + sc + '"><select class="status-select" onchange="handleStatusChange(\'' + d.id + '\', this.value, this)"><option ' + (d.status==='Pendente'?'selected':'') + '>Pendente</option><option ' + (d.status==='Em compra'?'selected':'') + '>Em compra</option><option ' + (d.status==='Concluído'?'selected':'') + '>Concluído</option><option ' + (d.status==='Devolvido'?'selected':'') + '>Devolvido</option></select></span>' + motivoHtml
         : '<span class="status-badge s-' + sc + '">' + (d.status||'Pendente') + '</span>' + motivoHtml;
       return '<tr><td class="num">#' + (d.numero_pedido||'—') + '</td><td class="date">' + data + '</td><td class="titulo"><span title="' + (d.titulo||'') + '">' + (d.titulo||'—') + '</span></td><td>' + (d.quantidade||'—') + '</td><td>' + (d.solicitante||'—') + '</td><td>' + (d.regiao||'—') + '</td><td>' + (d.frente||'—') + '</td><td>' + (d.aplicacao||'—') + '</td><td>' + (d.destinacao||'—') + '</td><td>' + (d.detalhes||'—') + '</td><td>' + imgHtml + '</td><td>' + statusHtml + '</td></tr>';
+    }).join('');
+  }
+
+
+  function renderCards() {
+    const busca = document.getElementById('f-busca').value.toLowerCase();
+    const status = document.getElementById('f-status').value;
+    let filtered = allData.filter(d => {
+      const mb = !busca || (d.titulo||'').toLowerCase().includes(busca) || (d.solicitante||'').toLowerCase().includes(busca) || (d.regiao||'').toLowerCase().includes(busca) || (d.frente||'').toLowerCase().includes(busca);
+      return mb && (!status || d.status === status);
+    });
+
+    const container = document.getElementById('cards-view');
+    if (!container) return;
+
+    if (!filtered.length) {
+      container.innerHTML = '<div class="empty"><div class="empty-icon">📭</div><p>Nenhum pedido encontrado</p></div>';
+      return;
+    }
+
+    container.innerHTML = filtered.map(d => {
+      const data = d.criado_em ? new Date(d.criado_em).toLocaleString('pt-BR') : '—';
+      const sc = scClass(d.status || 'Pendente');
+      const imgHtml = d.imagem_url
+        ? '<img class="pedido-card-img" src="' + d.imagem_url + '" onclick="openModal(\'' + d.imagem_url + '\')" alt="img"/>'
+        : '';
+      const motivoHtml = d.status === 'Devolvido' && d.motivo_devolucao
+        ? '<button class="pedido-card-motivo-btn" onclick="verMotivo(this.dataset.motivo, this.dataset.titulo, this.dataset.num)" data-motivo="' + (d.motivo_devolucao||'').replace(/"/g,'&quot;') + '" data-titulo="' + (d.titulo||'').replace(/"/g,'&quot;') + '" data-num="' + (d.numero_pedido||'') + '">🔴 Ver motivo</button>'
+        : '';
+      const statusEl = isAdmin
+        ? '<select class="card-status-select s-' + sc + '" onchange="handleStatusChange(\'' + d.id + '\', this.value, this)"><option ' + (d.status==='Pendente'?'selected':'') + '>Pendente</option><option ' + (d.status==='Em compra'?'selected':'') + '>Em compra</option><option ' + (d.status==='Concluído'?'selected':'') + '>Concluído</option><option ' + (d.status==='Devolvido'?'selected':'') + '>Devolvido</option></select>'
+        : '<select class="card-status-select s-' + sc + '" disabled><option selected>' + (d.status||'Pendente') + '</option></select>';
+
+      return '<div class="pedido-card">'
+        + '<div class="pedido-card-header"><span class="pedido-card-num">#' + (d.numero_pedido||'—') + '</span><span class="pedido-card-date">' + data + '</span></div>'
+        + '<div class="pedido-card-titulo">' + (d.titulo||'—') + '</div>'
+        + '<div class="pedido-card-grid">'
+        + '<div class="pedido-card-field"><span class="pedido-card-label">Solicitante</span><span class="pedido-card-value">' + (d.solicitante||'—') + '</span></div>'
+        + '<div class="pedido-card-field"><span class="pedido-card-label">Quantidade</span><span class="pedido-card-value">' + (d.quantidade||'—') + '</span></div>'
+        + '<div class="pedido-card-field"><span class="pedido-card-label">Região</span><span class="pedido-card-value">' + (d.regiao||'—') + '</span></div>'
+        + '<div class="pedido-card-field"><span class="pedido-card-label">Frente</span><span class="pedido-card-value">' + (d.frente||'—') + '</span></div>'
+        + '<div class="pedido-card-field"><span class="pedido-card-label">Aplicação</span><span class="pedido-card-value">' + (d.aplicacao||'—') + '</span></div>'
+        + '<div class="pedido-card-field"><span class="pedido-card-label">Destinação</span><span class="pedido-card-value">' + (d.destinacao||'—') + '</span></div>'
+        + (d.detalhes ? '<div class="pedido-card-detalhes"><strong style="color:var(--blue-pale)">Detalhes:</strong> ' + d.detalhes + '</div>' : '')
+        + '</div>'
+        + '<div class="pedido-card-footer">'
+        + imgHtml
+        + '<div class="pedido-card-status-wrap">' + statusEl + motivoHtml + '</div>'
+        + '</div>'
+        + '</div>';
     }).join('');
   }
 
@@ -451,7 +561,7 @@
       if (res.ok) {
         const item = allData.find(d => d.id === id);
         if (item) { item.status = novoStatus; if (motivo) item.motivo_devolucao = motivo; }
-        updateStats(); renderTable();
+        updateStats(); renderTable(); renderCards();
         showToast('✅ Status atualizado: ' + novoStatus);
       } else { showToast('❌ Erro ao atualizar status', 'error'); }
     } catch(e) { showToast('❌ Erro ao atualizar status', 'error'); }
