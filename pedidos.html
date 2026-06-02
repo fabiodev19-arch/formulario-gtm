@@ -413,15 +413,13 @@
 
     // Monta mensagem para WhatsApp
     if (item) {
-      const msg = '⚠️ *Atenção ' + (item.solicitante||'Solicitante') + '*
+      const msg = '\u26a0\ufe0f *Aten\u00e7\u00e3o ' + (item.solicitante||'Solicitante') + '*\n\n'
+        + 'Sua solicita\u00e7\u00e3o de compra *#' + (item.numero_pedido||'\u2014') + '* foi devolvida e precisa ser corrigida.\n\n'
+        + '\ud83d\udccb *Pedido:* ' + (item.titulo||'\u2014') + '\n'
+        + '\ud83d\udd34 *Motivo:* ' + motivo + '\n\n'
+        + 'Acesse o formul\u00e1rio para corrigir e reenviar:\n'
+        + '\ud83d\udd17 https://fabiodev19-arch.github.io/formulario-gtm/';
 
-Sua solicitação de compra *#' + (item.numero_pedido||'—') + '* foi devolvida e precisa ser corrigida.
-
-📋 *Pedido:* ' + (item.titulo||'—') + '
-🔴 *Motivo:* ' + motivo + '
-
-Acesse o formulário para corrigir e reenviar:
-🔗 https://fabiodev19-arch.github.io/formulario-gtm/';
       document.getElementById('wpp-msg-text').textContent = msg;
       document.getElementById('modal-wpp-bg').classList.add('show');
     }
