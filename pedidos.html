@@ -98,6 +98,10 @@
   .motivo-content { background:rgba(231,76,60,0.06); border:1px solid rgba(231,76,60,0.2); border-radius:10px; padding:16px 18px; font-size:14px; color:#f0a0a0; line-height:1.7; word-break:break-word; margin-bottom:20px; }
   .btn-fechar-motivo { width:100%; background:rgba(231,76,60,0.15); border:1.5px solid rgba(231,76,60,0.3); color:#e74c3c; font-family:'Barlow',sans-serif; font-size:14px; font-weight:700; padding:11px; border-radius:8px; cursor:pointer; transition:all 0.2s; }
   .btn-fechar-motivo:hover { background:rgba(231,76,60,0.25); }
+  .btn-copiar-msg { width:100%; background:linear-gradient(135deg,#1a6a2a,#27ae60); border:none; color:#fff; font-family:'Barlow',sans-serif; font-size:14px; font-weight:700; padding:12px; border-radius:8px; cursor:pointer; transition:all 0.2s; margin-top:10px; display:flex; align-items:center; justify-content:center; gap:8px; }
+  .btn-copiar-msg:hover { opacity:0.9; transform:translateY(-1px); }
+  .msg-preview { background:rgba(39,174,96,0.08); border:1px solid rgba(39,174,96,0.2); border-radius:8px; padding:12px 14px; font-size:12px; color:#a8d8b0; line-height:1.7; margin-top:10px; white-space:pre-wrap; word-break:break-word; }
+
 
   /* Imagem */
   .img-thumb { width:44px; height:44px; object-fit:cover; border-radius:6px; border:1px solid var(--border); cursor:pointer; transition:transform 0.2s; }
@@ -249,6 +253,23 @@
   </div>
 </div>
 
+
+<!-- MODAL COPIAR MENSAGEM WHATSAPP -->
+<div class="modal-ver-motivo-bg" id="modal-wpp-bg">
+  <div class="modal-ver-motivo-card" style="border-color:rgba(39,174,96,0.4);">
+    <div class="modal-ver-motivo-header">
+      <div class="modal-ver-motivo-icon" style="background:rgba(39,174,96,0.15);border-color:rgba(39,174,96,0.4);">📲</div>
+      <div>
+        <h3 style="color:#fff;">Notificar Solicitante</h3>
+        <p>Copie a mensagem e cole no grupo do WhatsApp</p>
+      </div>
+    </div>
+    <div class="msg-preview" id="wpp-msg-text"></div>
+    <button class="btn-copiar-msg" onclick="copiarMensagem()">📋 Copiar mensagem</button>
+    <button class="btn-fechar-motivo" style="margin-top:10px;background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.1);color:var(--muted);" onclick="document.getElementById('modal-wpp-bg').classList.remove('show')">Fechar</button>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -385,7 +406,26 @@
     const motivo = document.getElementById('motivo-text').value.trim().toUpperCase();
     if (!motivo) { showToast('⚠️ Informe o motivo da devolução!', 'warning'); return; }
     document.getElementById('modal-motivo-bg').classList.remove('show');
+
+    // Busca dados do pedido para montar mensagem
+    const item = allData.find(d => d.id === pendingStatusId);
     updateStatus(pendingStatusId, 'Devolvido', motivo);
+
+    // Monta mensagem para WhatsApp
+    if (item) {
+      const msg = '⚠️ *Atenção ' + (item.solicitante||'Solicitante') + '*
+
+Sua solicitação de compra *#' + (item.numero_pedido||'—') + '* foi devolvida e precisa ser corrigida.
+
+📋 *Pedido:* ' + (item.titulo||'—') + '
+🔴 *Motivo:* ' + motivo + '
+
+Acesse o formulário para corrigir e reenviar:
+🔗 https://fabiodev19-arch.github.io/formulario-gtm/';
+      document.getElementById('wpp-msg-text').textContent = msg;
+      document.getElementById('modal-wpp-bg').classList.add('show');
+    }
+
     pendingStatusId = pendingStatusVal = pendingSelectEl = null;
   }
 
@@ -440,7 +480,26 @@
   document.getElementById('admin-senha').addEventListener('keydown', e => { if(e.key==='Enter') confirmLogin(); });
 
 
-  function verMotivo(motivo, titulo, num) {
+
+  function copiarMensagem() {
+    const msg = document.getElementById('wpp-msg-text').textContent;
+    navigator.clipboard.writeText(msg).then(() => {
+      showToast('✅ Mensagem copiada! Cole no grupo do WhatsApp.', 'success');
+      document.getElementById('modal-wpp-bg').classList.remove('show');
+    }).catch(() => {
+      // Fallback para dispositivos sem clipboard API
+      const ta = document.createElement('textarea');
+      ta.value = msg;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showToast('✅ Mensagem copiada! Cole no grupo do WhatsApp.', 'success');
+      document.getElementById('modal-wpp-bg').classList.remove('show');
+    });
+  }
+
+    function verMotivo(motivo, titulo, num) {
     document.getElementById('motivo-pedido-info').textContent = 'Pedido #' + num + ' — ' + titulo;
     document.getElementById('motivo-content-text').textContent = motivo;
     document.getElementById('modal-ver-motivo-bg').classList.add('show');
