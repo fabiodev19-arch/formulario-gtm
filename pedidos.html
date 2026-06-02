@@ -110,6 +110,34 @@
   .motivo-content { background:rgba(231,76,60,0.06); border:1px solid rgba(231,76,60,0.2); border-radius:10px; padding:16px 18px; font-size:14px; color:#f0a0a0; line-height:1.7; word-break:break-word; margin-bottom:20px; }
   .btn-fechar-motivo { width:100%; background:rgba(231,76,60,0.15); border:1.5px solid rgba(231,76,60,0.3); color:#e74c3c; font-family:'Barlow',sans-serif; font-size:14px; font-weight:700; padding:11px; border-radius:8px; cursor:pointer; transition:all 0.2s; }
   .btn-fechar-motivo:hover { background:rgba(231,76,60,0.25); }
+  .btn-bloquear { background:rgba(243,156,18,0.1); border:1.5px solid rgba(243,156,18,0.3); color:#f39c12; font-family:'Barlow',sans-serif; font-size:11px; font-weight:600; padding:5px 10px; border-radius:6px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
+  .btn-bloquear:hover { background:rgba(243,156,18,0.2); }
+  .btn-desbloquear { background:rgba(46,204,113,0.1); border:1.5px solid rgba(46,204,113,0.3); color:#2ecc71; font-family:'Barlow',sans-serif; font-size:11px; font-weight:600; padding:5px 10px; border-radius:6px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
+  .btn-desbloquear:hover { background:rgba(46,204,113,0.2); }
+  .btn-excluir { background:rgba(231,76,60,0.1); border:1.5px solid rgba(231,76,60,0.3); color:#e74c3c; font-family:'Barlow',sans-serif; font-size:11px; font-weight:600; padding:5px 10px; border-radius:6px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
+  .btn-excluir:hover { background:rgba(231,76,60,0.2); }
+  .acoes-wrap { display:flex; flex-direction:column; gap:5px; }
+
+  /* Modal confirmação exclusão */
+  .modal-confirm-bg { position:fixed; inset:0; background:rgba(0,0,0,0.8); display:none; align-items:center; justify-content:center; z-index:999; padding:20px; }
+  .modal-confirm-bg.show { display:flex; }
+  .modal-confirm-card { background:var(--card); border:1.5px solid rgba(231,76,60,0.4); border-radius:16px; padding:32px; width:100%; max-width:420px; text-align:center; }
+  .modal-confirm-icon { font-size:48px; margin-bottom:16px; }
+  .modal-confirm-card h3 { font-family:'Barlow Condensed',sans-serif; font-size:22px; color:#fff; margin-bottom:8px; }
+  .modal-confirm-card p { font-size:13px; color:var(--muted); margin-bottom:8px; line-height:1.6; }
+  .modal-confirm-card .pedido-info { background:rgba(231,76,60,0.08); border:1px solid rgba(231,76,60,0.2); border-radius:8px; padding:10px 14px; font-size:13px; color:#f0a0a0; margin-bottom:24px; }
+  .modal-confirm-btns { display:flex; gap:12px; }
+  .btn-confirm-cancel { flex:1; background:none; border:1.5px solid var(--border); color:var(--muted); font-family:'Barlow',sans-serif; font-size:14px; font-weight:600; padding:12px; border-radius:8px; cursor:pointer; }
+  .btn-confirm-cancel:hover { border-color:var(--muted); color:var(--text); }
+  .btn-confirm-delete { flex:1; background:linear-gradient(135deg,#8b0000,#e74c3c); border:none; color:#fff; font-family:'Barlow',sans-serif; font-size:14px; font-weight:700; padding:12px; border-radius:8px; cursor:pointer; transition:all 0.2s; }
+  .btn-confirm-delete:hover { opacity:0.9; }
+
+  .btn-editar-admin { background:rgba(46,155,190,0.15); border:1.5px solid rgba(46,155,190,0.3); color:var(--blue-pale); font-family:'Barlow',sans-serif; font-size:11px; font-weight:600; padding:5px 12px; border-radius:6px; cursor:pointer; transition:all 0.2s; white-space:nowrap; display:none; }
+  .btn-editar-admin:hover { background:rgba(46,155,190,0.3); color:#fff; }
+  .admin-only { display:none; }
+  .is-admin .admin-only { display:inline-flex; }
+  .is-admin .btn-editar-admin { display:inline-flex; }
+
   .btn-copiar-msg { width:100%; background:linear-gradient(135deg,#1a6a2a,#27ae60); border:none; color:#fff; font-family:'Barlow',sans-serif; font-size:14px; font-weight:700; padding:12px; border-radius:8px; cursor:pointer; transition:all 0.2s; margin-top:10px; display:flex; align-items:center; justify-content:center; gap:8px; }
   .btn-copiar-msg:hover { opacity:0.9; transform:translateY(-1px); }
   .msg-preview { background:rgba(39,174,96,0.08); border:1px solid rgba(39,174,96,0.2); border-radius:8px; padding:12px 14px; font-size:12px; color:#a8d8b0; line-height:1.7; margin-top:10px; white-space:pre-wrap; word-break:break-word; }
@@ -341,6 +369,21 @@
   </div>
 </div>
 
+
+<!-- MODAL CONFIRMAÇÃO EXCLUSÃO -->
+<div class="modal-confirm-bg" id="modal-confirm-bg">
+  <div class="modal-confirm-card">
+    <div class="modal-confirm-icon">🗑️</div>
+    <h3>Confirmar Exclusão</h3>
+    <p>Esta ação é <strong style="color:#e74c3c">irreversível</strong>. O pedido será excluído permanentemente do sistema.</p>
+    <div class="pedido-info" id="confirm-pedido-info"></div>
+    <div class="modal-confirm-btns">
+      <button class="btn-confirm-cancel" onclick="document.getElementById('modal-confirm-bg').classList.remove('show')">Cancelar</button>
+      <button class="btn-confirm-delete" onclick="executarExclusao()">Sim, excluir</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -447,7 +490,19 @@
       const statusHtml = isAdmin
         ? '<span class="status-badge s-' + sc + '"><select class="status-select" onchange="handleStatusChange(\'' + d.id + '\', this.value, this)"><option ' + (d.status==='Pendente'?'selected':'') + '>Pendente</option><option ' + (d.status==='Em compra'?'selected':'') + '>Em compra</option><option ' + (d.status==='Concluído'?'selected':'') + '>Concluído</option><option ' + (d.status==='Devolvido'?'selected':'') + '>Devolvido</option></select></span>' + motivoHtml
         : '<span class="status-badge s-' + sc + '">' + (d.status||'Pendente') + '</span>' + motivoHtml;
-      return '<tr><td class="num">#' + (d.numero_pedido||'—') + '</td><td class="date">' + data + '</td><td class="titulo"><span title="' + (d.titulo||'') + '">' + (d.titulo||'—') + '</span></td><td>' + (d.quantidade||'—') + '</td><td>' + (d.solicitante||'—') + '</td><td>' + (d.regiao||'—') + '</td><td>' + (d.frente||'—') + '</td><td>' + (d.aplicacao||'—') + '</td><td>' + (d.destinacao||'—') + '</td><td>' + (d.detalhes||'—') + '</td><td>' + imgHtml + '</td><td>' + statusHtml + '</td></tr>';
+      const bloqueado = d.bloqueado === true;
+      const editBtn = bloqueado
+        ? '<button class="btn-editar-admin" disabled style="opacity:0.3;cursor:not-allowed;">🔒 Bloqueado</button>'
+        : '<button class="btn-editar-admin" style="display:inline-flex;" onclick="editarPedido(\'' + d.id + '\')">✏️ Editar</button>';
+      const adminAcoes = isAdmin
+        ? '<div class="acoes-wrap">'
+          + (bloqueado
+            ? '<button class="btn-desbloquear" onclick="toggleBloqueio(\'' + d.id + '\', false)">🔓 Desbloquear</button>'
+            : '<button class="btn-bloquear" onclick="toggleBloqueio(\'' + d.id + '\', true)">🔒 Bloquear edição</button>')
+          + '<button class="btn-excluir" onclick="confirmarExclusao(\'' + d.id + '\', \'' + (d.numero_pedido||'') + '\', this.dataset.titulo)" data-titulo="' + (d.titulo||'').replace(/"/g,'&quot;') + '">🗑️ Excluir</button>'
+          + '</div>'
+        : '';
+      return '<tr><td class="num">#' + (d.numero_pedido||'—') + '</td><td class="date">' + data + '</td><td class="titulo"><span title="' + (d.titulo||'') + '">' + (d.titulo||'—') + '</span></td><td>' + (d.quantidade||'—') + '</td><td>' + (d.solicitante||'—') + '</td><td>' + (d.regiao||'—') + '</td><td>' + (d.frente||'—') + '</td><td>' + (d.aplicacao||'—') + '</td><td>' + (d.destinacao||'—') + '</td><td>' + (d.detalhes||'—') + '</td><td>' + imgHtml + '</td><td>' + statusHtml + '</td><td>' + editBtn + '</td><td>' + adminAcoes + '</td></tr>';
     }).join('');
   }
 
@@ -481,6 +536,7 @@
         ? '<select class="card-status-select s-' + sc + '" onchange="handleStatusChange(\'' + d.id + '\', this.value, this)"><option ' + (d.status==='Pendente'?'selected':'') + '>Pendente</option><option ' + (d.status==='Em compra'?'selected':'') + '>Em compra</option><option ' + (d.status==='Concluído'?'selected':'') + '>Concluído</option><option ' + (d.status==='Devolvido'?'selected':'') + '>Devolvido</option></select>'
         : '<select class="card-status-select s-' + sc + '" disabled><option selected>' + (d.status||'Pendente') + '</option></select>';
 
+        const editBtnCard = isAdmin ? '<button class="btn-editar-admin" style="display:inline-flex;margin-top:8px;width:100%;justify-content:center;" onclick="editarPedido(\'' + d.id + '\')">✏️ Editar pedido</button>' : '';
       return '<div class="pedido-card">'
         + '<div class="pedido-card-header"><span class="pedido-card-num">#' + (d.numero_pedido||'—') + '</span><span class="pedido-card-date">' + data + '</span></div>'
         + '<div class="pedido-card-titulo">' + (d.titulo||'—') + '</div>'
@@ -496,6 +552,7 @@
         + '<div class="pedido-card-footer">'
         + imgHtml
         + '<div class="pedido-card-status-wrap">' + statusEl + motivoHtml + '</div>'
+        + editBtnCard
         + '</div>'
         + '</div>';
     }).join('');
@@ -535,12 +592,13 @@
 
     // Monta mensagem para WhatsApp
     if (item) {
+      const editLink = 'https://fabiodev19-arch.github.io/formulario-gtm/index.html?edit=' + item.id;
       const msg = '\u26a0\ufe0f *Aten\u00e7\u00e3o ' + (item.solicitante||'Solicitante') + '*\n\n'
         + 'Sua solicita\u00e7\u00e3o de compra *#' + (item.numero_pedido||'\u2014') + '* foi devolvida e precisa ser corrigida.\n\n'
         + '\ud83d\udccb *Pedido:* ' + (item.titulo||'\u2014') + '\n'
         + '\ud83d\udd34 *Motivo:* ' + motivo + '\n\n'
-        + 'Acesse o formul\u00e1rio para corrigir e reenviar:\n'
-        + '\ud83d\udd17 https://fabiodev19-arch.github.io/formulario-gtm/';
+        + '\u26a0\ufe0f *Aten\u00e7\u00e3o!* Clique no link abaixo para ser redirecionado ao seu pedido e fazer as altera\u00e7\u00f5es necess\u00e1rias:\n'
+        + '\ud83d\udd17 ' + editLink;
 
       document.getElementById('wpp-msg-text').textContent = msg;
       document.getElementById('modal-wpp-bg').classList.add('show');
@@ -617,6 +675,54 @@
       showToast('✅ Mensagem copiada! Cole no grupo do WhatsApp.', 'success');
       document.getElementById('modal-wpp-bg').classList.remove('show');
     });
+  }
+
+  
+
+  let pendingDeleteId = null;
+
+  async function toggleBloqueio(id, bloquear) {
+    try {
+      const res = await fetch(SUPABASE_URL + '/rest/v1/solicitacoes?id=eq.' + id, {
+        method: 'PATCH',
+        headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+        body: JSON.stringify({ bloqueado: bloquear })
+      });
+      if (res.ok) {
+        const item = allData.find(d => d.id === id);
+        if (item) item.bloqueado = bloquear;
+        renderTable();
+        showToast(bloquear ? '🔒 Edição bloqueada!' : '🔓 Edição desbloqueada!', 'success');
+      }
+    } catch(e) { showToast('❌ Erro ao atualizar', 'error'); }
+  }
+
+  function confirmarExclusao(id, num, tituloOrEl) { const titulo = typeof tituloOrEl === 'string' ? tituloOrEl : tituloOrEl.dataset.titulo;
+    pendingDeleteId = id;
+    document.getElementById('confirm-pedido-info').textContent = '#' + num + ' — ' + titulo;
+    document.getElementById('modal-confirm-bg').classList.add('show');
+  }
+
+  async function executarExclusao() {
+    if (!pendingDeleteId) return;
+    document.getElementById('modal-confirm-bg').classList.remove('show');
+    try {
+      const res = await fetch(SUPABASE_URL + '/rest/v1/solicitacoes?id=eq.' + pendingDeleteId, {
+        method: 'DELETE',
+        headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
+      });
+      if (res.ok) {
+        allData = allData.filter(d => d.id !== pendingDeleteId);
+        updateStats();
+        renderTable();
+        showToast('🗑️ Pedido excluído com sucesso!', 'success');
+      } else { showToast('❌ Erro ao excluir', 'error'); }
+    } catch(e) { showToast('❌ Erro ao excluir', 'error'); }
+    pendingDeleteId = null;
+  }
+
+    function editarPedido(id) {
+    window.location.href = 'index.html?edit=' + id;
   }
 
     function verMotivo(motivo, titulo, num) {
